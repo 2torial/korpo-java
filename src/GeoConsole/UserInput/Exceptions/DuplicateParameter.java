@@ -9,6 +9,7 @@ public class DuplicateParameter extends IllegalArgumentException {
     }
     @Override
     public String getMessage() {
-        return String.format("[-%s] (position %d) cannot appear more than once", argument.value, argument.position);
+        String message = "[%s%s] (position: %d) cannot appear more than once";
+        return String.format(message, (argument.isParameter) ? "-" : "", argument.value, argument.position);
     }
 }

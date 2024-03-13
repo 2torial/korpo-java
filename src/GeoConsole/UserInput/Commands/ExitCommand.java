@@ -1,6 +1,5 @@
 package GeoConsole.UserInput.Commands;
 
-import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
 
 public class ExitCommand extends Command {
@@ -12,11 +11,6 @@ public class ExitCommand extends Command {
     @Override
     public String getHelp() {
         return "Exits console";
-    }
-
-    @Override
-    public void addArgument(Argument argument) throws IllegalArgumentException {
-        super.addArgument(argument);
     }
 
     @Override

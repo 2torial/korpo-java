@@ -1,6 +1,5 @@
 package GeoConsole.UserInput.Commands;
 
-import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.CommandFactory;
 
@@ -13,11 +12,6 @@ public class HelpCommand extends Command {
     @Override
     public String getHelp() {
         return "Displays available commands";
-    }
-
-    @Override
-    public void addArgument(Argument argument) throws IllegalArgumentException {
-        super.addArgument(argument);
     }
 
     @Override
