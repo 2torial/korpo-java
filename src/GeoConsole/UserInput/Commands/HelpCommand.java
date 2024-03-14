@@ -15,12 +15,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public void execute() {
-        if (showHelp) {
-            System.out.println(getExtendedHelp());
-            return;
-        }
-
+    protected void finalizeExecution() {
         var builder = new StringBuilder();
         CommandFactory.forEachInstance((key, command) ->
             builder.append(String.format("%s\t%s\n", key, command.getHelp())));

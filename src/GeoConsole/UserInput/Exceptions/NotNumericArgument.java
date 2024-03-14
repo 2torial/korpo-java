@@ -9,7 +9,7 @@ public class NotNumericArgument extends IllegalArgumentException {
     }
     @Override
     public String getMessage() {
-        String message = "[%s%s] (position: %d) is not numeric";
-        return String.format(message, (argument.isParameter) ? "-" : "", argument.value, argument.position);
+        String message = "[%s] (position: %d) is not numeric";
+        return String.format(message, argument.value, argument.position);
     }
 }

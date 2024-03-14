@@ -1,7 +1,6 @@
 package GeoConsole.UserInput.Commands;
 
 import GeoConsole.GeoConsole;
-import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
 
 public class VersionCommand extends Command {
@@ -16,16 +15,8 @@ public class VersionCommand extends Command {
     }
 
     @Override
-    public void addArgument(Argument argument) throws IllegalArgumentException {
-        super.addArgument(argument);
+    protected void finalizeExecution() {
+        System.out.println(GeoConsole.versionInfo);
     }
-    @Override
-    public void execute() {
-        if (showHelp) {
-            System.out.println(getExtendedHelp());
-            return;
-        }
 
-        System.out.println(GeoConsole.getVersion());
-    }
 }

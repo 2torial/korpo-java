@@ -9,7 +9,7 @@ public class NotIntegerArgument extends IllegalArgumentException {
     }
     @Override
     public String getMessage() {
-        String message = "[%s%s] (position: %d) is not an integer";
-        return String.format(message, (argument.isParameter) ? "-" : "", argument.value, argument.position);
+        String message = "[%s] (position: %d) is not an integer";
+        return String.format(message, argument, argument.position);
     }
 }
