@@ -8,7 +8,7 @@ public class GeoConsole{
     private final Scanner scanner = new Scanner(System.in);
 
     private boolean isExited = false;
-    public final static String versionInfo = "GeoConsole ver 0.0.4\nRelease date: 14.03.2024\n";
+    public final static String versionInfo = "GeoConsole ver 0.0.5\nRelease date: 14.03.2024\n";
 
     public void exit() {
         isExited = true;

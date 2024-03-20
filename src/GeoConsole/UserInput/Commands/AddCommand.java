@@ -1,9 +1,10 @@
 package GeoConsole.UserInput.Commands;
 
-import GeoConsole.UserInput.Arguments.Parameter;
-import GeoConsole.UserInput.Arguments.ValueArgument;
+import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
-import GeoConsole.UserInput.Exceptions.NotNumericArgument;
+import GeoConsole.UserInput.Context;
+
+import java.util.List;
 
 public class AddCommand extends Command {
     @Override
@@ -17,51 +18,56 @@ public class AddCommand extends Command {
     }
 
     @Override
+    public int getNumberOfArguments() {
+        return -1;
+    }
+
+    @Override
     public String getExtendedHelp() {
         return """
             Adds numbers
-            Pattern: add ...num [-round|r _n]?
+            Pattern: add ...num [-round num]
             Arguments:
               num\t\tNumber
-              -round\tRounds result to _n-th digit""";
+              -round\tRounds result to n-th digit""";
     }
 
-    @Override
-    protected Parameter parseNewParameter(String input, int position) {
-        return switch (input) {
-            case "r", "round" -> new Parameter("round", position, 1);
-            default -> super.parseNewParameter(input, position);
-        };
-    }
-
-    private int roundTo = -1;
-    private double result = 0;
+    String variableName;
+    int roundTo = -1;
+    double result = 0;
 
     @Override
-    protected void handleParameter(Parameter parameter) {
-        switch (parameter.value) {
-            case "round" -> roundTo = 0;
+    public void supplyParameter(Argument argument) {
+        switch (argument.getValue()) {
+            case "R", "ROUND" -> argument.supplyValue("round").supplyHandler(args -> roundTo = 0);
+            case "r", "round" -> argument.supplyValue("round").supplyExpectations(1)
+                .supplyHandler(args -> {
+                    try {
+                        roundTo = Integer.parseInt(args[0].getValue());
+                    } catch (Exception e) {
+                        roundTo = Context.readInt(args[0].getValue());
+                    }
+                    if (roundTo < 0)
+                        throw new IllegalArgumentException("Rounding argument must be a positive number");
+                });
+            case "v", "var" -> argument
+                .supplyValue("var")
+                .supplyExpectations(1)
+                .supplyHandler(args -> variableName = args[0].getValue())
+                .supplyFinalizer(() -> Context.declare(variableName, this));
+            default -> super.supplyParameter(argument);
         }
     }
 
     @Override
-    protected void handleArgumentExpectedByParameter(ValueArgument argument, Parameter parameter) {
-        switch (parameter.value) {
-            case "round" -> roundTo = argument.parseValueInt();
+    protected void handle(List<Argument> arguments) {
+        for (var argument : arguments) {
+            try {
+                result += Double.parseDouble(argument.getValue());
+            } catch (Exception e) {
+                result += Context.readDouble(argument.getValue());
+            }
         }
-    }
-
-    @Override
-    protected void handleRegularArgument(ValueArgument argument) {
-        try {
-            result += argument.parseValueDouble();
-        } catch (NotNumericArgument e) {
-            result += readNumericVariable(argument.value);
-        }
-    }
-
-    @Override
-    protected void finalizeExecution() {
         System.out.println((roundTo < 0) ? result : round(result, roundTo));
     }
 
