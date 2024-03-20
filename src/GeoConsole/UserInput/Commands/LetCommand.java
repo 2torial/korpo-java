@@ -1,9 +1,10 @@
 package GeoConsole.UserInput.Commands;
 
-import GeoConsole.UserInput.Arguments.Parameter;
-import GeoConsole.UserInput.Arguments.ValueArgument;
+import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
-import GeoConsole.UserInput.Exceptions.NotNumericArgument;
+import GeoConsole.UserInput.Context;
+
+import java.util.List;
 
 public class LetCommand extends Command {
     @Override
@@ -17,62 +18,47 @@ public class LetCommand extends Command {
     }
 
     @Override
+    public int getNumberOfArguments() {
+        return 2;
+    }
+
+    @Override
     public String getExtendedHelp() {
         return """
             Declares variable of given type (str or num)"
             If not specified, program is going to try converting variable to num
-            Pattern: let _name _[-str] _value
+            Pattern: let var value [-num]
             Arguments:
               name\tName of the variable
-              -str\tEnsures declaring as string
-              value\tValue of the variable""";
+              value\tValue of the variable
+              -str\tEnsures declaring as numeric""";
     }
 
-    private int handledArguments = 0;
-    private boolean isString = false;
-    private String variableName;
+    boolean parseDouble = false;
 
     @Override
-    protected Parameter parseNewParameter(String input, int position) {
-        return switch (input) {
-            case "str" -> new Parameter(input, position, 0);
-            default -> super.parseNewParameter(input, position);
-        };
-    }
-
-    @Override
-    protected void handleParameter(Parameter parameter) {
-        if (parameter.value.equals("str")) {
-            if (parameter.position != 2)
-                throw new IllegalArgumentException(
-                    String.format("[%s] cannot be passed on position (%d)", parameter, parameter.position));
-            isString = true;
+    public void supplyParameter(Argument argument) {
+        switch (argument.getValue()) {
+            case "n", "num" -> argument
+                .supplyValue("num")
+                .supplyHandler(args -> parseDouble = true);
+            default -> super.supplyParameter(argument);
         }
     }
 
     @Override
-    protected void handleRegularArgument(ValueArgument argument) {
-        if (handledArguments == 0)
-            variableName = argument.value;
-        else if (handledArguments == 1) {
-            if (isString)
-                declareStringVariable(variableName, argument.value);
-            else try {
-                declareNumericVariable(variableName, argument.parseValueDouble());
-            } catch (NotNumericArgument e) {
-                declareStringVariable(variableName, argument.value);
-            }
-        } else throw new IllegalArgumentException("Too many arguments");
-        handledArguments++;
-    }
+    protected void handle(List<Argument> arguments) {
+        var variableName = arguments.getFirst().getValue();
+        var variableValue = arguments.get(1).getValue();
 
-    @Override
-    protected void finalizeExecution() {
-        if (isString)
-            System.out.printf("%s : str = %s\n", variableName, readStringVariable(variableName));
-        else {
+        if (parseDouble) {
+            double value = Double.parseDouble(variableValue);
             System.out.printf("%s : num = ", variableName);
-            System.out.println(readNumericVariable(variableName));
+            System.out.println(value);
+            Context.declare(variableName, value);
+        } else {
+            System.out.printf("%s : str = %s\n", variableName, variableValue);
+            Context.declare(variableName, variableValue);
         }
     }
 }

@@ -1,8 +1,6 @@
 package GeoConsole.UserInput;
 
-import GeoConsole.UserInput.Arguments.ValueArgument;
 import GeoConsole.UserInput.Commands.*;
-import GeoConsole.UserInput.Exceptions.UnknownCommandName;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -16,23 +14,27 @@ public final class CommandFactory {
         String name = tokens[0];
         Supplier<Command> supplier = commandSuppliers.get(name);
         if (supplier == null)
-            throw new UnknownCommandName(name);
+            throw new IllegalArgumentException("Unknown command: " + name);
         var command = supplier.get();
 
         for (int position = 1; position < tokens.length; position++) {
-            String value = tokens[position];
-            if (value == null || value.isEmpty())
-                throw new IllegalArgumentException("Argument cannot be empty");
-            else if (value.charAt(0) != '-') {
-                command.addValueArgument(new ValueArgument(value, position));
-                continue;
-            }
+            try {
+                String value = tokens[position];
+                if (value == null || value.isEmpty())
+                    throw new IllegalArgumentException("Argument cannot be empty");
+                else if (value.charAt(0) != '-') {
+                    command.addArgument(new Argument(value, position, false));
+                    continue;
+                }
 
-            if (value.length() == 1 || value.charAt(1) == '-')
-                throw new IllegalArgumentException(
-                    String.format("[%s] (position %d) is not a valid parameter", value, position));
-            var parameter = command.parseNewParameter(value.substring(1), position);
-            command.addParameter(parameter);
+                if (value.length() == 1 || value.charAt(1) == '-')
+                    throw new IllegalArgumentException(String.format("[%s] is not a valid parameter", value));
+                var parameter = new Argument(value.substring(1), position, true);
+                command.supplyParameter(parameter);
+                command.addArgument(parameter);
+            } catch (Exception e) {
+                throw new IllegalArgumentException(e.getMessage() + String.format(" [position: %d]", position));
+            }
         }
 
         return command;
