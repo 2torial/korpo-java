@@ -1,5 +1,6 @@
 package GeoConsole.Figure;
 
-public interface Figure {
-    public double getArea();
+public abstract class Figure {
+    public double area;
+    public abstract double getArea();
 }
