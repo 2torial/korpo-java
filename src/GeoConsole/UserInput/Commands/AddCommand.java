@@ -54,7 +54,7 @@ public class AddCommand extends Command {
                 .supplyValue("var")
                 .supplyExpectations(1)
                 .supplyHandler(args -> variableName = args[0].getValue())
-                .supplyFinalizer(() -> Context.declare(variableName, this));
+                .supplyFinalizer(() -> Context.declare(variableName, result));
             default -> super.supplyParameter(argument);
         }
     }
