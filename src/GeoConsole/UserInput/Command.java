@@ -63,17 +63,14 @@ public abstract class Command {
                 }
                 argument.getHandler().accept(parameterArguments);
                 finalizers.add(argument.getFinalizer());
+                continue;
             }
             commandArguments.add(argument);
         }
 
         if (getNumberOfArguments() < 0 || commandArguments.size() == getNumberOfArguments())
             handle(commandArguments);
-        else
-        {
-            String msg = "Incorrect number of arguments, expected %d, %d were given";
-            throw new IllegalArgumentException(String.format(msg, commandArguments.size(), getNumberOfArguments()));
-        }
+        else throw new IllegalArgumentException("Incorrect number of arguments");
         for (var finalizer : finalizers)
             finalizer.run();
     }

@@ -52,8 +52,6 @@ public final class CommandFactory {
         commandSuppliers.put("exit", ExitCommand::new);
         commandSuppliers.put("add", AddCommand::new);
         commandSuppliers.put("let", LetCommand::new);
-        commandSuppliers.put("square", SquareCommand::new);
-        commandSuppliers.put("triangle", TriangleCommand::new);
 
         commandSuppliers.forEach((key, supplier) -> commandPool.put(key, supplier.get()));
     }
