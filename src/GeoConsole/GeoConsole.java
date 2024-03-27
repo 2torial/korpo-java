@@ -22,7 +22,7 @@ public class GeoConsole{
         if (isExited)
             throw new IllegalStateException("Console is exited");
 
-        String[] tokens = scanner.nextLine().trim().split("\\s+");
+        String[] tokens = scanner.nextLine().trim().toLowerCase().split("\\s+");
         if (tokens.length == 0)
             throw new IllegalArgumentException("Input cannot be empty");
 
