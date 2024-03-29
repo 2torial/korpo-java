@@ -4,8 +4,6 @@ import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.CommandFactory;
 
-import java.util.List;
-
 public class HelpCommand extends Command {
     @Override
     public String getName() {
@@ -18,12 +16,7 @@ public class HelpCommand extends Command {
     }
 
     @Override
-    public int getNumberOfArguments() {
-        return 0;
-    }
-
-    @Override
-    protected void handle(List<Argument> arguments) {
+    protected void handle(Argument[] arguments) {
         var builder = new StringBuilder();
         CommandFactory.forEachInstance((key, command) ->
             builder.append(String.format("%s\t%s\n", key, command.getHelp())));

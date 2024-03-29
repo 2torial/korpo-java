@@ -1,4 +1,4 @@
-package GeoConsole.UserInput;
+package GeoConsole.UserInput.Context;
 
 import GeoConsole.Figure.Figure;
 

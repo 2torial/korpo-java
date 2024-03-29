@@ -2,9 +2,8 @@ package GeoConsole.UserInput.Commands;
 
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
-import GeoConsole.UserInput.Context;
-
-import java.util.List;
+import GeoConsole.UserInput.Context.Context;
+import GeoConsole.UserInput.Exceptions.*;
 
 public class AddCommand extends Command {
     @Override
@@ -37,38 +36,29 @@ public class AddCommand extends Command {
     double result = 0;
 
     @Override
-    public void supplyParameter(Argument argument) {
-        switch (argument.getValue()) {
-            case "R", "ROUND" -> argument.supplyValue("round").supplyHandler(args -> roundTo = 0);
-            case "r", "round" -> argument.supplyValue("round").supplyExpectations(1)
-                .supplyHandler(args -> {
-                    try {
-                        roundTo = Integer.parseInt(args[0].getValue());
-                    } catch (Exception e) {
-                        roundTo = Context.readInt(args[0].getValue());
-                    }
+    public void supplyParameter(Argument argument) throws InvalidParameterException {
+        switch (argument.rawValue) {
+            case "R", "ROUND" -> argument.setName("round").supplyHandler(() -> roundTo = 0);
+            case "r", "round" -> argument.setName("round").supplyHandler(1, args -> {
+                    roundTo = args[0].getIntegerValue();
                     if (roundTo < 0)
                         throw new IllegalArgumentException("Rounding argument must be a positive number");
                 });
-            case "v", "var" -> argument
-                .supplyValue("var")
-                .supplyExpectations(1)
-                .supplyHandler(args -> variableName = args[0].getValue())
-                .supplyFinalizer(() -> Context.declare(variableName, result));
+            case "v", "var" -> argument.setName("var").enforceRelativePosition(getNumberOfArguments() + 1) // must be passed after all arguments
+                .supplyHandler(1, args -> variableName = args[0].rawValue)
+                .supplyFinalizer(args -> Context.declare(variableName, result));
+
             default -> super.supplyParameter(argument);
         }
     }
 
     @Override
-    protected void handle(List<Argument> arguments) {
+    protected void handle(Argument[] arguments) {
         for (var argument : arguments) {
-            try {
-                result += Double.parseDouble(argument.getValue());
-            } catch (Exception e) {
-                result += Context.readDouble(argument.getValue());
-            }
+            result += argument.getNumericValue();
         }
-        System.out.println((roundTo < 0) ? result : round(result, roundTo));
+        result = (roundTo < 0) ? result : round(result, roundTo);
+        System.out.println(result);
     }
 
     private double round(double value, int n) {
