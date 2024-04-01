@@ -3,6 +3,7 @@ package GeoConsole.UserInput.Commands;
 import GeoConsole.Figure.Triangle;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
+import GeoConsole.UserInput.Context;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -65,8 +66,10 @@ public class TriangleCommand extends Command {
 
     @Override
     protected void handle(List<Argument> arguments) {
-        if(werePropertiesSet)
+        if(werePropertiesSet) {
             triangle.print();
+            Context.addFigure(triangle);
+        }
         else
             throw new IllegalArgumentException("Unsupported command entered");
     }

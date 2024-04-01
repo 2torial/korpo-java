@@ -24,6 +24,7 @@ public class Square extends Figure{
         area = value;
     }
 
+    @Override
     public void print(){
         System.out.printf("Square:\n\tside: %f\n\tdiagonal: %f\n\tarea: %f\n", side, diagonal, area);
     }

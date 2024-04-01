@@ -24,6 +24,7 @@ public class Triangle extends Figure{
         area = value;
     }
 
+    @Override
     public void print(){
         System.out.printf("Triangle:\n\tside: %f\n\theight: %f\n\tarea: %f\n", side, height, area);
     }
