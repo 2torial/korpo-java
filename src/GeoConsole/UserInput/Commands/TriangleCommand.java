@@ -1,6 +1,6 @@
 package GeoConsole.UserInput.Commands;
 
-import GeoConsole.Figure.Triangle;
+import GeoConsole.Figure.EquilateralTriangle;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.Context;
@@ -38,7 +38,7 @@ public class TriangleCommand extends Command {
 
     double readValue;
     boolean werePropertiesSet = false;
-    Triangle triangle = new Triangle();
+    EquilateralTriangle triangle = new EquilateralTriangle();
     @Override
     public void supplyParameter(Argument argument) {
         Consumer<Argument[]> sideHandler = args -> {
