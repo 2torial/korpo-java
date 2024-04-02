@@ -3,6 +3,7 @@ package GeoConsole.UserInput.Commands;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
 import GeoConsole.Figure.Square;
+import GeoConsole.UserInput.Context;
 
 import java.util.List;
 import java.util.function.Consumer;
@@ -64,8 +65,10 @@ public class SquareCommand extends Command {
 
     @Override
     protected void handle(List<Argument> arguments) {
-        if(werePropertiesSet)
+        if(werePropertiesSet) {
             square.print();
+            Context.addFigure(square);
+        }
         else
             throw new IllegalArgumentException("Unsupported command entered");
     }
