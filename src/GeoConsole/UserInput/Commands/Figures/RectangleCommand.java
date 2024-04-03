@@ -1,8 +1,10 @@
 package GeoConsole.UserInput.Commands.Figures;
 
+import GeoConsole.Figure.Attribute;
 import GeoConsole.Figure.Rectangle;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
+import GeoConsole.UserInput.Context.Context;
 import GeoConsole.UserInput.Exceptions.*;
 
 public class RectangleCommand extends Command {
@@ -22,26 +24,36 @@ public class RectangleCommand extends Command {
     }
 
     Rectangle rectangle = new Rectangle();
+    Attribute[] actions = {Attribute.NIL, Attribute.NIL};
+    int parameterPosition = 1;
+
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
-            case "side" -> argument.enforceRelativePosition(state.readAndIncrement()).allowDuplicates(1)
-                .supplyFinalizer(args -> rectangle.setSide(args[state.readAndIncrement()].getNumericValue()));
-            case "diag" -> argument.enforceRelativePosition(state.readAndIncrement())
-                .supplyFinalizer(args -> rectangle.setDiagonal(args[state.readAndIncrement()].getNumericValue()));
-            case "area" -> argument.enforceRelativePosition(state.readAndIncrement())
-                .supplyFinalizer(args -> rectangle.setArea(args[state.readAndIncrement()].getNumericValue()));
+            case "side" -> argument.enforceRelativePosition(parameterPosition).allowDuplicates(1)
+                .supplyHandler(pos -> actions[pos-1] = Attribute.SIDE);
+            case "diag", "diagonal" -> argument.setName("diagonal")
+                .enforceRelativePosition(parameterPosition)
+                .supplyHandler(pos -> actions[pos-1] = Attribute.DIAGONAL);
+            case "area" -> argument.enforceRelativePosition(parameterPosition)
+                .supplyHandler(pos -> actions[pos-1] = Attribute.AREA);
             default -> super.supplyParameter(argument);
         }
+        parameterPosition++;
     }
 
     @Override
     protected void handle(Argument[] arguments) {
-        state.reset();
-    }
-
-    @Override
-    protected void finalize(Argument[] arguments) {
+        for (int i = 0; i < 2; i++) {
+            var action = actions[i];
+            switch (action) {
+                case Attribute.SIDE -> rectangle.setSide(arguments[i].getNumericValue());
+                case Attribute.DIAGONAL -> rectangle.setDiagonal(arguments[i].getNumericValue());
+                case Attribute.AREA -> rectangle.setArea(arguments[i].getNumericValue());
+                default -> throw new IllegalStateException("Unspecified argument at position: " + (i+1));
+            }
+        }
         rectangle.print();
+        Context.addFigure(rectangle);
     }
 }

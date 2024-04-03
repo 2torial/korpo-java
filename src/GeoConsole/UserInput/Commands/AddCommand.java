@@ -39,14 +39,13 @@ public class AddCommand extends Command {
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
             case "R", "ROUND" -> argument.setName("round").supplyHandler(() -> roundTo = 0);
-            case "r", "round" -> argument.setName("round").supplyHandler(1, args -> {
+            case "r", "round" -> argument.setName("round").supplyHandler(1, (args, pos) -> {
                     roundTo = args[0].getIntegerValue();
                     if (roundTo < 0)
                         throw new IllegalArgumentException("Rounding argument must be a positive number");
                 });
             case "v", "var" -> argument.setName("var").enforceRelativePosition(getNumberOfArguments() + 1) // must be passed after all arguments
-                .supplyHandler(1, args -> variableName = args[0].rawValue)
-                .supplyFinalizer(args -> Context.declare(variableName, result));
+                .supplyHandler(1, (args, pos) -> variableName = args[0].rawValue);
 
             default -> super.supplyParameter(argument);
         }
@@ -59,6 +58,8 @@ public class AddCommand extends Command {
         }
         result = (roundTo < 0) ? result : round(result, roundTo);
         System.out.println(result);
+        if (variableName != null)
+            Context.declare(variableName, result);
     }
 
     private double round(double value, int n) {

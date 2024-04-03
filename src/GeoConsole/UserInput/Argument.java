@@ -2,6 +2,7 @@ package GeoConsole.UserInput;
 
 import GeoConsole.UserInput.Exceptions.InvalidPositionException;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class Argument {
@@ -14,9 +15,7 @@ public class Argument {
 
     private int allowedDuplicates = 0;
     private int expectedSubArguments = 0;
-    private Consumer<Argument[]> handler = args -> {};
-    private Consumer<Argument[]> finalizer = args -> {};
-
+    private BiConsumer<Argument[], Integer> handler = (args, pos) -> {};
     public Argument(String value, int position, boolean isParameter) {
         this.name = value.toLowerCase();
         this.rawValue = value;
@@ -58,23 +57,22 @@ public class Argument {
         return allowedDuplicates;
     }
 
-    public Argument supplyHandler(int numberOfSubArguments, Consumer<Argument[]> handler) {
+    public void supplyHandler(int numberOfSubArguments, BiConsumer<Argument[], Integer> handler) {
         if (numberOfSubArguments < 0)
             throw new IllegalArgumentException("Number of expected arguments cannot be negative");
         expectedSubArguments = numberOfSubArguments;
         if (handler == null)
             throw new IllegalArgumentException("Handler cannot be null");
         this.handler = handler;
-        return this;
     }
-    public Argument supplyHandler(Runnable handler) {
-        return supplyHandler(0, args -> handler.run());
+    public void supplyHandler(int numberOfSubArguments, Consumer<Argument[]> handler) {
+        supplyHandler(numberOfSubArguments, (args, pos) -> handler.accept(args));
     }
-
-    public void supplyFinalizer(Consumer<Argument[]> finalizer) {
-        if (finalizer == null)
-            throw new IllegalArgumentException("Finalizer cannot be null");
-        this.finalizer = finalizer;
+    public void supplyHandler(Consumer<Integer> handler) {
+        supplyHandler(0, (args, pos) -> handler.accept(pos));
+    }
+    public void supplyHandler(Runnable handler) {
+        supplyHandler(0, (args, pos) -> handler.run());
     }
 
     public double getNumericValue(int roundTo) {
@@ -99,16 +97,10 @@ public class Argument {
         return expectedSubArguments;
     }
 
-    public Consumer<Argument[]> getHandler() {
+    public BiConsumer<Argument[], Integer> getHandler() {
         if (!isParameter)
             throw new IllegalArgumentException("Only parameters support handler");
         return handler;
-    }
-
-    public Consumer<Argument[]> getFinalizer() {
-        if (!isParameter)
-            throw new IllegalArgumentException("Only parameters support finalizers");
-        return finalizer;
     }
 
     @Override

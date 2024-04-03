@@ -25,7 +25,7 @@ public class Rhombus extends Figure {
         if (propertiesUntilDefined <= 0)
             throw new IllegalStateException("Rectangle is already defined");
         if (value <= 0)
-            throw new IllegalArgumentException("The side has to be greater than 0");
+            throw new IllegalArgumentException("The diagonal has to be greater than 0");
         if (diagonalA == 0)
             diagonalA = value;
         else
@@ -39,7 +39,7 @@ public class Rhombus extends Figure {
         if (propertiesUntilDefined <= 0)
             throw new IllegalStateException("Rectangle is already defined");
         if (value <= 0)
-            throw new IllegalArgumentException("The side has to be greater than 0");
+            throw new IllegalArgumentException("The area has to be greater than 0");
         if (area > 0)
             throw new IllegalStateException("Area is already defined");
         area = value;

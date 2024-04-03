@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 public final class CommandFactory {
     private CommandFactory() {} // Static class
 
-    public static Command parseCommand(String[] tokens) throws InvalidParameterException, InvalidPositionException, DuplicateParameterException {
+    public static Command parseCommand(String[] tokens) throws InvalidParameterException, DuplicateParameterException {
         String name = tokens[0];
         Supplier<Command> supplier = commandSuppliers.get(name);
         if (supplier == null)
@@ -47,6 +47,7 @@ public final class CommandFactory {
     private final static LinkedHashMap<String, Command> commandPool = new LinkedHashMap<>();
     static {
         commandSuppliers.put("version", VersionCommand::new);
+        commandSuppliers.put("sort", SortCommand::new);
         commandSuppliers.put("help", HelpCommand::new);
         commandSuppliers.put("exit", ExitCommand::new);
         commandSuppliers.put("add", AddCommand::new);
@@ -55,8 +56,8 @@ public final class CommandFactory {
         commandSuppliers.put("triangle", TriangleCommand::new);
         commandSuppliers.put("rectangle", RectangleCommand::new);
         commandSuppliers.put("rhombus", RhombCommand::new);
+        commandSuppliers.put("iso-triangle", IsoscelesTriangleCommand::new);
 
         commandSuppliers.forEach((key, supplier) -> commandPool.put(key, supplier.get()));
     }
 }
-

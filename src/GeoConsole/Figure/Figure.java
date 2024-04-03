@@ -1,8 +1,6 @@
 package GeoConsole.Figure;
 
 public abstract class Figure {
-    abstract double getArea();
-
     protected final void throwIfNaN(double ...attributes) {
         for (var attr : attributes)
             if (Double.isNaN(attr))
@@ -14,4 +12,8 @@ public abstract class Figure {
             if (attr == 0)
                 throw new IllegalStateException("Given figure does not exist");
     }
+
+    public abstract double getArea();
+
+    public abstract void print();
 }

@@ -1,11 +1,9 @@
 package GeoConsole.UserInput;
 
-import GeoConsole.UserInput.Context.State;
 import GeoConsole.UserInput.Exceptions.*;
 
 import java.util.*;
 import java.util.List;
-import java.util.function.Consumer;
 
 public abstract class Command {
     private boolean showHelp = false;
@@ -21,8 +19,6 @@ public abstract class Command {
     public String getExtendedHelp() {
         return getHelp();
     }
-
-    protected State state = new State(1);
 
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
@@ -54,7 +50,6 @@ public abstract class Command {
         }
 
         var commandArguments = new LinkedList<Argument>();
-        List<Consumer<Argument[]>> finalizers = new LinkedList<>();
         int relativePosition = 1;
         while (!arguments.isEmpty()) {
             var argument = arguments.removeFirst();
@@ -81,22 +76,15 @@ public abstract class Command {
                 subArgument.setRelativePosition(subArgumentRelativePosition);
                 subArguments[n] = subArgument;
             }
-            argument.getHandler().accept(subArguments);
-            finalizers.add(argument.getFinalizer());
+            argument.getHandler().accept(subArguments, relativePosition);
         }
 
         if (getNumberOfArguments() >= 0 && commandArguments.size() != getNumberOfArguments())
             throw new InvalidNumberOfArguments(commandArguments.size(), this);
         var arguments = commandArguments.toArray(new Argument[0]);
         handle(arguments);
-
-        for (var finalizer : finalizers)
-            finalizer.accept(arguments);
-        finalize(arguments);
     }
 
-    protected void handle(Argument[] arguments) {}
-
-    protected void finalize(Argument[] arguments) {}
+    protected abstract void handle(Argument[] arguments);
 }
 

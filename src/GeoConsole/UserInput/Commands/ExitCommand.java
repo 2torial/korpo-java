@@ -15,5 +15,7 @@ public class ExitCommand extends Command {
     }
 
     @Override
-    protected void handle(Argument[] arguments) { }
+    protected void handle(Argument[] arguments) {
+
+    }
 }

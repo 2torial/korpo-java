@@ -6,9 +6,18 @@ import java.util.*;
 
 public class Context {
     private static final Map<String, DataContainer> variables = new HashMap<>();
+    private static final List<Figure> figures = new LinkedList<>();
 
     public static <T> void declare(String variableName, T value) {
         variables.put(variableName, new Variable<>(value));
+    }
+
+    public static void addFigure(Figure f){
+        figures.add(f);
+    }
+
+    public static List<Figure> getFigureList() {
+        return figures;
     }
 
     public static int readInt(String variableName) {
