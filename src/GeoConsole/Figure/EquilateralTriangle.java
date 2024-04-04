@@ -3,10 +3,6 @@ package GeoConsole.Figure;
 //trojkat rownoboczny
 public class EquilateralTriangle extends Triangle{
     double side;
-    @Override
-    public double getArea() {
-        return area;
-    }
 
     public EquilateralTriangle(double sidevalue, double heightvalue, double areavalue){
         if(sidevalue < 0.0 && heightvalue < 0.0 && areavalue < 0.0)
@@ -28,5 +24,6 @@ public class EquilateralTriangle extends Triangle{
         }
         A = side; B = side; C = side;
         type = "equilateral";
+        circleDescribedAround = new Circle( A * Math.sqrt(3) / 3.0, -1, -1);
     }
 }

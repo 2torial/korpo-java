@@ -1,15 +1,8 @@
 package GeoConsole.Figure;
 
+//trojkat rownoramienny
 public class IsoscelesTriangle extends Triangle {
     double side; //A - base
-
-    public IsoscelesTriangle(){
-        type = "isosceles";
-    }
-    @Override
-    public double getArea() {
-        return area;
-    }
 
     public IsoscelesTriangle(double sideValue, double baseValue, double areaValue, double heightValue) { //when < 0 , value not provided
         if( sideValue > 0.0 && baseValue > 0.0){

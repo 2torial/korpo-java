@@ -4,10 +4,6 @@ public class Rhombus extends Figure {
     private int propertiesUntilDefined = 2;
     double side, diagonalA, diagonalB, area;
 
-    @Override
-    public double getArea() {
-        return area;
-    }
     public final void setSide(double value){
         if (propertiesUntilDefined <= 0)
             throw new IllegalStateException("Rectangle is already defined");

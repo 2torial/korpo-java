@@ -1,7 +1,7 @@
 package GeoConsole.Figure;
 
 public abstract class Triangle extends Figure {
-    double A, B, C, height, area; //height on A
+    double A, B, C, height; //height on A
     String type;
     @Override
     public void print(){

@@ -2,10 +2,7 @@ package GeoConsole.Figure;
 
 public class Square extends Figure {
     double side, diagonal, area;
-    @Override
-    public double getArea() {
-        return area;
-    }
+
     public final void setSide(double value){
         if (value <= 0)
             throw new IllegalArgumentException("The side has to be greater than 0");
