@@ -2,15 +2,16 @@ package GeoConsole.UserInput.Commands.Figures;
 
 import GeoConsole.Figure.Attribute;
 import GeoConsole.Figure.EquilateralTriangle;
+import GeoConsole.Figure.IsoscelesTriangle;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.Context.Context;
 import GeoConsole.UserInput.Exceptions.*;
 
-public class TriangleCommand extends Command {
+public class EquilateralTriangleCommand extends Command {
     @Override
     public String getName() {
-        return "triangle";
+        return "equilateraltriangle";
     }
 
     @Override
@@ -20,7 +21,7 @@ public class TriangleCommand extends Command {
 
     @Override
     public int getNumberOfArguments() {
-        return -1;
+        return 1;
     }
 
     Attribute[] actions = {Attribute.NIL, Attribute.NIL};
@@ -40,13 +41,14 @@ public class TriangleCommand extends Command {
 
     @Override
     protected void handle(Argument[] arguments) {
-        EquilateralTriangle triangle = new EquilateralTriangle();
+        double side = -1, area = -1, height = -1;
         switch (actions[0]) {
-            case Attribute.SIDE -> triangle.setSide(arguments[0].getNumericValue());
-            case Attribute.HEIGHT -> triangle.setHeight(arguments[0].getNumericValue());
-            case Attribute.AREA -> triangle.setArea(arguments[0].getNumericValue());
+            case Attribute.SIDE -> side = arguments[0].getNumericValue();
+            case Attribute.HEIGHT -> height = arguments[0].getNumericValue();
+            case Attribute.AREA -> area = arguments[0].getNumericValue();
             default -> throw new IllegalStateException("Unspecified argument at position 1");
         }
+        EquilateralTriangle triangle = new EquilateralTriangle(side, height, area);
 
         triangle.print();
         Context.addFigure(triangle);

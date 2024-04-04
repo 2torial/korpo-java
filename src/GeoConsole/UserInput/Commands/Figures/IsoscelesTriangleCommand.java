@@ -12,7 +12,7 @@ import GeoConsole.UserInput.Exceptions.InvalidParameterException;
 public class IsoscelesTriangleCommand extends Command {
     @Override
     public String getName() {
-        return "triangle";
+        return "isoscelestriangle";
     }
 
     @Override
