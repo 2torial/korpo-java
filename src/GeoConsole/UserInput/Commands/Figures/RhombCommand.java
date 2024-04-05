@@ -1,14 +1,11 @@
 package GeoConsole.UserInput.Commands.Figures;
 
-import GeoConsole.Figure.Attribute;
 import GeoConsole.Figure.Rhombus;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
+import GeoConsole.UserInput.Context.ArgumentsHandler;
 import GeoConsole.UserInput.Context.Context;
 import GeoConsole.UserInput.Exceptions.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class RhombCommand extends Command {
     @Override
@@ -27,20 +24,20 @@ public class RhombCommand extends Command {
     }
 
     Rhombus rhombus = new Rhombus();
-    Attribute[] actions = {Attribute.NIL, Attribute.NIL};
+    ArgumentsHandler handler = new ArgumentsHandler(2);
     int parameterPosition = 1;
 
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
             case "side" -> argument.enforceRelativePosition(parameterPosition)
-                .supplyHandler(pos -> actions[pos-1] = Attribute.SIDE);
+                .supplyHandler(pos -> handler.supply(pos, arg -> rhombus.setSide(arg.getNumericValue())));
             case "diag", "diagonal" -> argument.setName("diagonal")
                 .enforceRelativePosition(parameterPosition)
                 .allowDuplicates(1)
-                .supplyHandler(pos -> actions[pos-1] = Attribute.DIAGONAL);
+                .supplyHandler(pos -> handler.supply(pos, arg -> rhombus.setDiagonal(arg.getNumericValue())));
             case "area" -> argument.enforceRelativePosition(parameterPosition)
-                .supplyHandler(pos -> actions[pos-1] = Attribute.AREA);
+                .supplyHandler(pos -> handler.supply(pos, arg -> rhombus.setArea(arg.getNumericValue())));
             default -> super.supplyParameter(argument);
         }
         parameterPosition++;
@@ -48,15 +45,7 @@ public class RhombCommand extends Command {
 
     @Override
     protected void handle(Argument[] arguments) {
-        for (int i = 0; i < 2; i++) {
-            var action = actions[i];
-            switch (action) {
-                case Attribute.SIDE -> rhombus.setSide(arguments[i].getNumericValue());
-                case Attribute.DIAGONAL -> rhombus.setDiagonal(arguments[i].getNumericValue());
-                case Attribute.AREA -> rhombus.setArea(arguments[i].getNumericValue());
-                default -> throw new IllegalStateException("Unspecified argument at position: " + (i+1));
-            }
-        }
+        handler.handleArguments(arguments);
         rhombus.print();
         Context.addFigure(rhombus);
     }

@@ -1,10 +1,9 @@
 package GeoConsole.UserInput.Commands.Figures;
 
-import GeoConsole.Figure.Attribute;
 import GeoConsole.Figure.EquilateralTriangle;
-import GeoConsole.Figure.IsoscelesTriangle;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
+import GeoConsole.UserInput.Context.ArgumentsHandler;
 import GeoConsole.UserInput.Context.Context;
 import GeoConsole.UserInput.Exceptions.*;
 
@@ -24,30 +23,25 @@ public class EquilateralTriangleCommand extends Command {
         return 1;
     }
 
-    Attribute[] actions = {Attribute.NIL, Attribute.NIL};
+    ArgumentsHandler handler = new ArgumentsHandler(1);
+    double side = -1, area = -1, height = -1;
 
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
             case "side" -> argument.enforceRelativePosition(1)
-                .supplyHandler(pos -> actions[pos-1] = Attribute.SIDE);
+                .supplyHandler(pos -> handler.supply(pos, arg -> side = arg.getNumericValue()));
             case "height" -> argument.enforceRelativePosition(1)
-                .supplyHandler(pos -> actions[pos-1] = Attribute.HEIGHT);
+                .supplyHandler(pos -> handler.supply(pos, arg -> height = arg.getNumericValue()));
             case "area" -> argument.enforceRelativePosition(1)
-                .supplyHandler(pos -> actions[pos-1] = Attribute.AREA);
+                .supplyHandler(pos -> handler.supply(pos, arg -> area = arg.getNumericValue()));
             default -> super.supplyParameter(argument);
         }
     }
 
     @Override
     protected void handle(Argument[] arguments) {
-        double side = -1, area = -1, height = -1;
-        switch (actions[0]) {
-            case Attribute.SIDE -> side = arguments[0].getNumericValue();
-            case Attribute.HEIGHT -> height = arguments[0].getNumericValue();
-            case Attribute.AREA -> area = arguments[0].getNumericValue();
-            default -> throw new IllegalStateException("Unspecified argument at position 1");
-        }
+        handler.handleArguments(arguments);
         EquilateralTriangle triangle = new EquilateralTriangle(side, height, area);
 
         triangle.print();

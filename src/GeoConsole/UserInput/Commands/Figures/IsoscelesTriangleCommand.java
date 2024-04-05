@@ -1,11 +1,9 @@
 package GeoConsole.UserInput.Commands.Figures;
 
-import GeoConsole.Figure.Attribute;
-import GeoConsole.Figure.EquilateralTriangle;
 import GeoConsole.Figure.IsoscelesTriangle;
-import GeoConsole.Figure.Triangle;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
+import GeoConsole.UserInput.Context.ArgumentsHandler;
 import GeoConsole.UserInput.Context.Context;
 import GeoConsole.UserInput.Exceptions.InvalidParameterException;
 
@@ -25,19 +23,20 @@ public class IsoscelesTriangleCommand extends Command {
         return 2;
     }
 
-    Attribute[] actions = {Attribute.NIL, Attribute.NIL};
+    ArgumentsHandler handler = new ArgumentsHandler(2);
     int parameterPosition = 1;
+    double side = -1, base = -1, area = -1, height = -1;
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
             case "base" -> argument.enforceRelativePosition(parameterPosition)
-                .supplyHandler(pos -> actions[pos-1] = Attribute.BASE);
+                .supplyHandler(pos -> handler.supply(pos, arg -> base = arg.getNumericValue()));
             case "side" -> argument.enforceRelativePosition(parameterPosition)
-                .supplyHandler(pos -> actions[pos-1] = Attribute.SIDE);
+                .supplyHandler(pos -> handler.supply(pos, arg -> side = arg.getNumericValue()));
             case "height" -> argument.enforceRelativePosition(parameterPosition)
-                .supplyHandler(pos -> actions[pos-1] = Attribute.HEIGHT);
+                .supplyHandler(pos -> handler.supply(pos, arg -> height = arg.getNumericValue()));
             case "area" -> argument.enforceRelativePosition(parameterPosition)
-                .supplyHandler(pos -> actions[pos-1] = Attribute.AREA);
+                .supplyHandler(pos -> handler.supply(pos, arg -> area = arg.getNumericValue()));
             default -> super.supplyParameter(argument);
         }
         parameterPosition++;
@@ -45,16 +44,7 @@ public class IsoscelesTriangleCommand extends Command {
 
     @Override
     protected void handle(Argument[] arguments) {
-        double side = -1, base = -1, area = -1, height = -1;
-        for (int i = 0; i < 2; i++) {
-            switch (actions[i]) {
-                case Attribute.SIDE -> side = arguments[i].getNumericValue();
-                case Attribute.BASE -> base = arguments[i].getNumericValue();
-                case Attribute.HEIGHT -> height = arguments[i].getNumericValue();
-                case Attribute.AREA -> area = arguments[i].getNumericValue();
-                default -> throw new IllegalStateException("Unspecified argument at position " + (i+1));
-            }
-        }
+        handler.handleArguments(arguments);
         IsoscelesTriangle triangle = new IsoscelesTriangle(side, base, area, height);
         triangle.print();
         Context.addFigure(triangle);
