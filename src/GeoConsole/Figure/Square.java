@@ -35,6 +35,6 @@ public class Square extends Figure {
     @Override
     public void print() {
         throwIfZero(side, diagonal, area);
-        System.out.printf("Square:\n\tside: %f\n\tdiagonal: %f\n\tarea: %f\n", side, diagonal, area);
+        System.out.printf("[ID:%d] Square:\n\tside: %f\n\tdiagonal: %f\n\tarea: %f\n", id, side, diagonal, area);
     }
 }

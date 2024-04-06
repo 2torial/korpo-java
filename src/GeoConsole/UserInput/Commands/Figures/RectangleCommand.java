@@ -45,7 +45,7 @@ public class RectangleCommand extends Command {
     @Override
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
-        rectangle.print();
         Context.addFigure(rectangle);
+        rectangle.print();
     }
 }

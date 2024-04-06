@@ -7,12 +7,15 @@ import java.util.*;
 public class Context {
     private static final Map<String, DataContainer> variables = new HashMap<>();
     private static final List<Figure> figures = new LinkedList<>();
+    private static int figureCounter = 0;
 
     public static <T> void declare(String variableName, T value) {
         variables.put(variableName, new Variable<>(value));
     }
 
     public static void addFigure(Figure f){
+        figureCounter ++;
+        f.setId(figureCounter);
         figures.add(f);
     }
 

@@ -46,7 +46,7 @@ public class RhombCommand extends Command {
     @Override
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
-        rhombus.print();
         Context.addFigure(rhombus);
+        rhombus.print();
     }
 }

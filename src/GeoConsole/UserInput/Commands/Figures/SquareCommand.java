@@ -42,7 +42,7 @@ public class SquareCommand extends Command {
     @Override
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
-        square.print();
         Context.addFigure(square);
+        square.print();
     }
 }

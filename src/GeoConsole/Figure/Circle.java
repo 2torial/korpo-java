@@ -30,6 +30,6 @@ public class Circle extends Figure {
     }
 
     public void print() {
-        System.out.printf("Circle:\n\tradius:%f,\n\tarea:%f,\n\tcircumference:%f\n\t", radius, area, circumference);
+        System.out.printf("[ID:%d] Circle:\n\tradius:%f,\n\tarea:%f,\n\tcircumference:%f\n\t", id, radius, area, circumference);
     }
 }

@@ -44,7 +44,7 @@ public class EquilateralTriangleCommand extends Command {
         handler.handleArguments(arguments);
         EquilateralTriangle triangle = new EquilateralTriangle(side, height, area);
 
-        triangle.print();
         Context.addFigure(triangle);
+        triangle.print();
     }
 }

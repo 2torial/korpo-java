@@ -46,7 +46,7 @@ public class Rectangle extends Figure {
 
     public void print(){
         throwIfZero(sideB, sideA, area, diagonal);
-        System.out.printf("Rectangle:\n\tside: %f x %f\n\tdiagonal: %f\n\tarea: %f\n", sideA, sideB, diagonal, area);
+        System.out.printf("[ID:%d] Rectangle:\n\tside: %f x %f\n\tdiagonal: %f\n\tarea: %f\n", id, sideA, sideB, diagonal, area);
     }
 
     private void fillData() {
