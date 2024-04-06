@@ -19,6 +19,14 @@ public class Context {
         figures.add(f);
     }
 
+    public static Figure findFigureWithId(int idValue) {
+        for( Figure f : figures ) {
+            if( f.getId() == idValue )
+                return f;
+        }
+        throw new IllegalArgumentException(String.format("There is no figure with Id=%s", idValue));
+    }
+
     public static List<Figure> getFigureList() {
         return figures;
     }
