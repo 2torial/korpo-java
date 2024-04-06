@@ -48,4 +48,8 @@ public class IsoscelesTriangle extends Triangle {
         throwIfZero(A, B, C, area, height);
 
     }
+    @Override
+    public Circle getCircumcircle(){
+        return new Circle((1.0 /( 4.0 * area)) * A * B * C, -1, -1);
+    }
 }

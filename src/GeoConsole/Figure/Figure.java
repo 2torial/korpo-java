@@ -2,7 +2,6 @@ package GeoConsole.Figure;
 
 public abstract class Figure {
     double area, circumference;
-    Circle circleDescribedAround;
     protected final void throwIfNaN(double ...attributes) {
         for (var attr : attributes)
             if (Double.isNaN(attr))
@@ -18,6 +17,8 @@ public abstract class Figure {
     public double getArea() {
         return area;
     }
+
+    public abstract Circle getCircumcircle();
 
     public abstract void print();
 }

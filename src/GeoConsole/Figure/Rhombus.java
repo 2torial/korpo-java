@@ -66,4 +66,10 @@ public class Rhombus extends Figure {
         area = (area > 0) ? area : diagonalA * diagonalB / 2;
         throwIfNaN(side, diagonalA, diagonalB, area);
     }
+
+    @Override
+    public Circle getCircumcircle(){
+        double biggerDiag = Math.max(diagonalA, diagonalB);
+        return new Circle((1.0 /( 2.0 * area )) * side * side * biggerDiag, -1, -1);
+    }
 }

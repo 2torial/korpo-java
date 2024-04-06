@@ -64,4 +64,9 @@ public class Rectangle extends Figure {
         area = (area > 0) ? area : sideA * sideB;
         throwIfNaN(sideA, sideB, diagonal, area);
     }
+
+    @Override
+    public Circle getCircumcircle(){
+        return new Circle(diagonal / 2.0, -1, -1);
+    }
 }

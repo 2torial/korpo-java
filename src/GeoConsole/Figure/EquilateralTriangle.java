@@ -24,6 +24,11 @@ public class EquilateralTriangle extends Triangle{
         }
         A = side; B = side; C = side;
         type = "equilateral";
-        circleDescribedAround = new Circle( A * Math.sqrt(3) / 3.0, -1, -1);
+    }
+
+    @Override
+    public Circle getCircumcircle(){
+        Circle circleDescribedAround = new Circle( A * Math.sqrt(3) / 3.0, -1, -1);
+        return circleDescribedAround;
     }
 }

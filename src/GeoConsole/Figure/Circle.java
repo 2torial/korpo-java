@@ -25,6 +25,10 @@ public class Circle extends Figure {
         throwIfZero(radius, area, circumference);
     }
 
+    public Circle getCircumcircle() {
+        return this;
+    }
+
     public void print() {
         System.out.printf("Circle:\n\tradius:%f,\n\tarea:%f,\n\tcircumference:%f\n\t", radius, area, circumference);
     }

@@ -28,7 +28,12 @@ public class Square extends Figure {
     }
 
     @Override
-    public void print(){
+    public Circle getCircumcircle(){
+        return new Circle(diagonal / 2.0, -1, -1 );
+    }
+
+    @Override
+    public void print() {
         throwIfZero(side, diagonal, area);
         System.out.printf("Square:\n\tside: %f\n\tdiagonal: %f\n\tarea: %f\n", side, diagonal, area);
     }
