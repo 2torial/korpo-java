@@ -26,10 +26,10 @@ public class Circle extends Figure {
     }
 
     public Circle getCircumcircle() {
-        return this;
+        return new Circle( radius, -1, -1 );
     }
 
     public void print() {
-        System.out.printf("[ID:%d] Circle:\n\tradius:%f,\n\tarea:%f,\n\tcircumference:%f\n\t", id, radius, area, circumference);
+        System.out.printf("[ID:%d] Circle:\n\tradius:%f,\n\tarea:%f,\n\tcircumference:%f\n", id, radius, area, circumference);
     }
 }

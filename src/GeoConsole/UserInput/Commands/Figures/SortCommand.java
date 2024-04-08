@@ -6,6 +6,9 @@ import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.Context.Context;
 import GeoConsole.UserInput.Exceptions.InvalidParameterException;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class SortCommand extends Command {
@@ -43,16 +46,16 @@ public class SortCommand extends Command {
     }
 
     private void sortByArea() {
-        List<Figure> figurelist = Context.getFigureList();
+        List<Figure> figureList = Context.getFigureList();
 
-        figurelist.sort((f1, f2) -> {
+        figureList.sort((f1, f2) -> {
             if (f1.getArea() == f2.getArea())
                 return 0;
             return (f1.getArea() < f2.getArea()) ? -1 : 1;
         });
 
         int counter = 0;
-        for( var f : figurelist ){
+        for( var f : figureList ){
             System.out.printf("%d. ", counter ++);
             f.print();
         }

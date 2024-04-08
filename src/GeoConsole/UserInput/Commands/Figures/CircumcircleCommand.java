@@ -1,7 +1,6 @@
 package GeoConsole.UserInput.Commands.Figures;
 
-import GeoConsole.Figure.Circle;
-import GeoConsole.Figure.Square;
+import GeoConsole.Figure.*;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
@@ -31,7 +30,7 @@ public class CircumcircleCommand extends Command {
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
             case "id" -> argument.enforceRelativePosition(1)
-                    .supplyHandler(pos -> handler.supply(pos, arg -> providedId = arg.getNumericValue()));
+                    .supplyHandler(pos -> handler.supply(pos, arg -> providedId = arg.getIntegerValue()));
             default -> super.supplyParameter(argument);
         }
     }
@@ -40,7 +39,8 @@ public class CircumcircleCommand extends Command {
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
 
-        Circle circle = (Circle) Context.findFigureWithId(providedId);
+        Figure fig = Context.findFigureWithId(providedId);
+        Circle circle = fig.getCircumcircle();
         Context.addFigure(circle);
         circle.print();
     }
