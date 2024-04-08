@@ -2,7 +2,7 @@ package GeoConsole.Figure;
 
 public class Rectangle extends Figure {
     private int propertiesUntilDefined = 2;
-    double sideA, sideB, diagonal, area;
+    double sideA, sideB, diagonal;
 
     public final void setSide(double value){
         if (propertiesUntilDefined <= 0)

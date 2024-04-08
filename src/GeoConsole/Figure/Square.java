@@ -1,7 +1,7 @@
 package GeoConsole.Figure;
 
 public class Square extends Figure {
-    double side, diagonal, area;
+    double side, diagonal;
 
     public final void setSide(double value){
         if (value <= 0)

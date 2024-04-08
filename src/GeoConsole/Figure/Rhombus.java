@@ -2,7 +2,7 @@ package GeoConsole.Figure;
 
 public class Rhombus extends Figure {
     private int propertiesUntilDefined = 2;
-    double side, diagonalA, diagonalB, area;
+    double side, diagonalA, diagonalB;
 
     public final void setSide(double value){
         if (propertiesUntilDefined <= 0)
