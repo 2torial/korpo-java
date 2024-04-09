@@ -25,17 +25,16 @@ public class CircumcircleCommand extends FigureCommand {
     int providedId;
     String providedName;
     ArgumentsHandler handler = new ArgumentsHandler(1);
-    int parameterPosition = 1;
+    
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
-            case "id" -> argument.enforceRelativePosition(parameterPosition).setName("id/name")
+            case "id" -> argument.enforceRelativePosition(1).setName("id/name")
                 .supplyHandler(pos -> handler.supply(pos, arg -> providedId = arg.getIntegerValue()));
-            case "name" -> argument.enforceRelativePosition(parameterPosition).setName("id/name")
+            case "name" -> argument.enforceRelativePosition(1).setName("id/name")
                 .supplyHandler(pos -> handler.supply(pos, arg -> providedName = arg.rawValue));
             default -> super.supplyParameter(argument);
         }
-        parameterPosition++;
     }
 
     @Override
