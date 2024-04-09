@@ -1,77 +1,113 @@
 package GeoConsole.UserInput;
 
+import GeoConsole.UserInput.Exceptions.InvalidPositionException;
+
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class Argument {
-    private String value;
-    public final int position;
+    private String name;
+    public final String rawValue;
+    public final int absolutePosition;
+    private int relativePosition;
+    private int enforcedPosition = -1;
     public final boolean isParameter;
+    private InvalidPositionException positionException;
 
-    private int expectedArguments = 0;
-    private Consumer<Argument[]> handler = args -> {};
-    private Runnable finalizer = () -> {};
-
+    private int allowedDuplicates = 0;
+    private int expectedSubArguments = 0;
+    private BiConsumer<Argument[], Integer> handler = (args, pos) -> {};
     public Argument(String value, int position, boolean isParameter) {
-        this.value = value;
-        this.position = position;
+        this.name = value.toLowerCase();
+        this.rawValue = value;
+        this.absolutePosition = position;
         this.isParameter = isParameter;
     }
 
-    public Argument supplyValue(String value) {
-        if (value == null || value.isBlank())
-            throw new IllegalArgumentException("Argument value cannot be empty");
-        this.value = value;
+    public Argument setName(String name) {
+        if (name == null || name.isBlank())
+            throw new IllegalArgumentException("Argument name cannot be empty");
+        this.name = name.toLowerCase();
         return this;
     }
 
-    public Argument supplyExpectations(int expectedArguments) {
-        if (expectedArguments < 0)
+    public void setRelativePosition(int position) {
+        if (enforcedPosition > 0 && enforcedPosition != position)
+            positionException = new InvalidPositionException(this);
+        this.relativePosition = position;
+    }
+    public int getRelativePosition() {
+        return this.relativePosition;
+    }
+
+    public Argument enforceRelativePosition(int position) {
+        if (position < 0)
+            throw new IllegalArgumentException("Enforced position must be a positive number");
+        enforcedPosition = position;
+        return this;
+    }
+    public int getEnforcedPosition() {
+        return this.enforcedPosition;
+    }
+    public void throwIfInvalid() throws InvalidPositionException {
+        if (positionException != null)
+            throw positionException;
+    }
+
+    public Argument allowDuplicates(int number) {
+        if (!isParameter)
+            throw new IllegalArgumentException("Only parameters support allowing duplication");
+        if (number <= 0)
+            throw new IllegalArgumentException("Number of allowed duplicate parameters must be positive");
+        allowedDuplicates = number;
+        return this;
+    }
+    public int getNumberOfAllowedDuplicates() {
+        return allowedDuplicates;
+    }
+
+    public void supplyHandler(int numberOfSubArguments, BiConsumer<Argument[], Integer> handler) {
+        if (numberOfSubArguments < 0)
             throw new IllegalArgumentException("Number of expected arguments cannot be negative");
-        this.expectedArguments = expectedArguments;
-        return this;
-    }
-
-    public Argument supplyHandler(Consumer<Argument[]> handler) {
+        expectedSubArguments = numberOfSubArguments;
         if (handler == null)
             throw new IllegalArgumentException("Handler cannot be null");
         this.handler = handler;
-        return this;
+    }
+    public void supplyHandler(Consumer<Integer> handler) {
+        supplyHandler(0, (args, pos) -> handler.accept(pos));
     }
 
-    public void supplyFinalizer(Runnable finalizer) {
-        if (finalizer == null)
-            throw new IllegalArgumentException("Finalizer cannot be null");
-        this.finalizer = finalizer;
+    public double getNumericValue(int roundTo) {
+        if (roundTo < 0)
+            throw new IllegalArgumentException("Argument roundTo must be positive or 0");
+        double value = Double.parseDouble(rawValue);
+        if (roundTo == 0)
+            return value;
+        double rounder = Math.pow(10, roundTo);
+        return Math.round(value * rounder) / rounder;
+    }
+    public double getNumericValue() {
+        return getNumericValue(0);
+    }
+    public int getIntegerValue() {
+        return Integer.parseInt(rawValue);
     }
 
-    public String getValue() {
-        return value;
-    }
-
-    public int getExpectedArguments() {
+    public int getNumberOfSubArguments() {
         if (!isParameter)
             throw new IllegalArgumentException("Only parameters support expected arguments");
-        return expectedArguments;
+        return expectedSubArguments;
     }
 
-    public Consumer<Argument[]> getHandler() {
+    public BiConsumer<Argument[], Integer> getHandler() {
         if (!isParameter)
             throw new IllegalArgumentException("Only parameters support handler");
         return handler;
     }
 
-    public Runnable getFinalizer() {
-        if (!isParameter)
-            throw new IllegalArgumentException("Only parameters support finalizers");
-        return finalizer;
-    }
-
     @Override
     public String toString() {
-        return isParameter ? "-"+value : value;
-    }
-
-    public boolean hasValue(String value) {
-        return this.value.equals(value);
+        return (isParameter ? "--" : "") + name;
     }
 }

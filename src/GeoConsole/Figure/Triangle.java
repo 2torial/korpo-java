@@ -5,6 +5,7 @@ public abstract class Triangle extends Figure {
     String type;
     @Override
     public void print(){
-        System.out.printf("Triangle of type %s:\n\tA: %f\n\tB: %f\n\tC: %f\n\theight: %f\n\tarea: %f\n", type, A, B, C, height, area);
+        throwIfZero(A, B, C, height, area);
+        System.out.printf("[ID:%d] Triangle of type %s:\n\tA: %f\n\tB: %f\n\tC: %f\n\theight: %f\n\tarea: %f\n", id, type, A, B, C, height, area);
     }
 }

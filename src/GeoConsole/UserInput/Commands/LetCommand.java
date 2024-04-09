@@ -2,9 +2,8 @@ package GeoConsole.UserInput.Commands;
 
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
-import GeoConsole.UserInput.Context;
-
-import java.util.List;
+import GeoConsole.UserInput.Context.Context;
+import GeoConsole.UserInput.Exceptions.*;
 
 public class LetCommand extends Command {
     @Override
@@ -37,28 +36,26 @@ public class LetCommand extends Command {
     boolean parseDouble = false;
 
     @Override
-    public void supplyParameter(Argument argument) {
-        switch (argument.getValue()) {
-            case "n", "num" -> argument
-                .supplyValue("num")
-                .supplyHandler(args -> parseDouble = true);
+    public void supplyParameter(Argument argument) throws InvalidParameterException {
+        switch (argument.rawValue) {
+            case "n", "num" -> argument.setName("num").supplyHandler(pos -> parseDouble = true);
             default -> super.supplyParameter(argument);
         }
     }
 
     @Override
-    protected void handle(List<Argument> arguments) {
-        var variableName = arguments.getFirst().getValue();
-        var variableValue = arguments.get(1).getValue();
+    protected void handle(Argument[] arguments) {
+        var variableName = arguments[0].rawValue;
 
         if (parseDouble) {
-            double value = Double.parseDouble(variableValue);
+            double value = arguments[1].getNumericValue();
             System.out.printf("%s : num = ", variableName);
             System.out.println(value);
             Context.declare(variableName, value);
         } else {
-            System.out.printf("%s : str = %s\n", variableName, variableValue);
-            Context.declare(variableName, variableValue);
+            String value = arguments[1].rawValue;
+            System.out.printf("%s : str = %s\n", variableName, value);
+            Context.declare(variableName, value);
         }
     }
 }

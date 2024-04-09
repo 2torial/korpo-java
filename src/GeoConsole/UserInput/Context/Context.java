@@ -1,24 +1,44 @@
-package GeoConsole.UserInput;
+package GeoConsole.UserInput.Context;
 
 import GeoConsole.Figure.Figure;
 
-import javax.xml.crypto.Data;
 import java.util.*;
 
 public class Context {
     private static final Map<String, DataContainer> variables = new HashMap<>();
-    private static List<Figure> figures = new LinkedList<>();
+    private static final Map<Integer, Figure> figures = new HashMap<>();
+    private static final Map<String, Integer> figureNameToIdMap = new HashMap<>();
+    private static int figureCounter = 0;
 
     public static <T> void declare(String variableName, T value) {
         variables.put(variableName, new Variable<>(value));
     }
 
+    public static void addFigure(String figureName, Figure f){
+        figureCounter ++;
+        f.setId(figureCounter);
+        figureNameToIdMap.put(figureName, figureCounter);
+        figures.put(figureCounter, f);
+    }
     public static void addFigure(Figure f){
-        figures.add(f);
+        addFigure(String.valueOf(figureCounter+1), f);
+    }
+
+    public static Figure findFigureWithId(int idValue) {
+        var figure = figures.get(idValue);
+        if (figure == null)
+            throw new IllegalArgumentException(String.format("There is no figure with Id=%s", idValue));
+        return figure;
+    }
+    public static Figure findFigureWithName(String nameValue) {
+        Integer id = figureNameToIdMap.get(nameValue);
+        if (id == null)
+            throw new IllegalArgumentException(String.format("There is no figure with Name=%s", nameValue));
+        return findFigureWithId(id);
     }
 
     public static List<Figure> getFigureList() {
-        return figures;
+        return new LinkedList<>(figures.values());
     }
 
     public static int readInt(String variableName) {

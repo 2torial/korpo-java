@@ -4,8 +4,6 @@ import GeoConsole.GeoConsole;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
 
-import java.util.List;
-
 public class VersionCommand extends Command {
     @Override
     public String getName() {
@@ -23,7 +21,7 @@ public class VersionCommand extends Command {
     }
 
     @Override
-    protected void handle(List<Argument> arguments) {
+    protected void handle(Argument[] arguments) {
         System.out.println(GeoConsole.versionInfo);
     }
 }
