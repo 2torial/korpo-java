@@ -12,6 +12,7 @@ public class Argument {
     private int relativePosition;
     private int enforcedPosition = -1;
     public final boolean isParameter;
+    private InvalidPositionException positionException;
 
     private int allowedDuplicates = 0;
     private int expectedSubArguments = 0;
@@ -30,9 +31,9 @@ public class Argument {
         return this;
     }
 
-    public void setRelativePosition(int position) throws InvalidPositionException {
+    public void setRelativePosition(int position) {
         if (enforcedPosition > 0 && enforcedPosition != position)
-            throw new InvalidPositionException(position, this);
+            positionException = new InvalidPositionException(relativePosition, this);
         this.relativePosition = position;
     }
     public int getRelativePosition() {
@@ -43,6 +44,10 @@ public class Argument {
             throw new IllegalArgumentException("Enforced position must be a positive number");
         enforcedPosition = position;
         return this;
+    }
+    public void throwIfInvalid() throws InvalidPositionException {
+        if (positionException != null)
+            throw positionException;
     }
 
     public Argument allowDuplicates(int number) {
@@ -65,14 +70,8 @@ public class Argument {
             throw new IllegalArgumentException("Handler cannot be null");
         this.handler = handler;
     }
-    public void supplyHandler(int numberOfSubArguments, Consumer<Argument[]> handler) {
-        supplyHandler(numberOfSubArguments, (args, pos) -> handler.accept(args));
-    }
     public void supplyHandler(Consumer<Integer> handler) {
         supplyHandler(0, (args, pos) -> handler.accept(pos));
-    }
-    public void supplyHandler(Runnable handler) {
-        supplyHandler(0, (args, pos) -> handler.run());
     }
 
     public double getNumericValue(int roundTo) {

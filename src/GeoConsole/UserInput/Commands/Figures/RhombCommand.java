@@ -2,12 +2,10 @@ package GeoConsole.UserInput.Commands.Figures;
 
 import GeoConsole.Figure.Rhombus;
 import GeoConsole.UserInput.Argument;
-import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
-import GeoConsole.UserInput.Context.Context;
 import GeoConsole.UserInput.Exceptions.*;
 
-public class RhombCommand extends Command {
+public class RhombCommand extends FigureCommand {
     @Override
     public String getName() {
         return "rhombus";
@@ -15,7 +13,7 @@ public class RhombCommand extends Command {
 
     @Override
     public String getHelp() {
-        return "\tDeclares rhombus ...";
+        return "\tDeclares rhombus by 2 given parameters (side, diagonal or area)\nDiagonal can be passed twice";
     }
 
     @Override
@@ -46,7 +44,7 @@ public class RhombCommand extends Command {
     @Override
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
-        Context.addFigure(rhombus);
+        updateContext(rhombus);
         rhombus.print();
     }
 }

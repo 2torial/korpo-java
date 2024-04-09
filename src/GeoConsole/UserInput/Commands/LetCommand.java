@@ -38,7 +38,7 @@ public class LetCommand extends Command {
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
-            case "n", "num" -> argument.setName("num").supplyHandler(() -> parseDouble = true);
+            case "n", "num" -> argument.setName("num").supplyHandler(pos -> parseDouble = true);
             default -> super.supplyParameter(argument);
         }
     }

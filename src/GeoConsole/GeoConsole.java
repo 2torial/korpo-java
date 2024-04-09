@@ -12,7 +12,7 @@ public class GeoConsole{
     private final Scanner scanner = new Scanner(System.in);
 
     private boolean isExited = false;
-    public final static String versionInfo = "GeoConsole ver 0.0.8\nRelease date: 27.03.2024\n";
+    public final static String versionInfo = "GeoConsole ver 0.0.9+\nRelease date: 09.04.2024\n";
 
     public void exit() {
         isExited = true;
@@ -22,7 +22,7 @@ public class GeoConsole{
         return isExited;
     }
 
-    public void handleInput() throws InvalidParameterException, InvalidNumberOfArguments, InvalidPositionException, DuplicateParameterException {
+    public void handleInput() throws InvalidParameterException, InvalidNumberOfArguments, DuplicateParameterException, InvalidPositionException {
         if (isExited)
             throw new IllegalStateException("Console is exited");
 

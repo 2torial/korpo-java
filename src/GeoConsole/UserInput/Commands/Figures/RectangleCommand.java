@@ -2,12 +2,10 @@ package GeoConsole.UserInput.Commands.Figures;
 
 import GeoConsole.Figure.Rectangle;
 import GeoConsole.UserInput.Argument;
-import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
-import GeoConsole.UserInput.Context.Context;
 import GeoConsole.UserInput.Exceptions.*;
 
-public class RectangleCommand extends Command {
+public class RectangleCommand extends FigureCommand {
     @Override
     public String getName() {
         return "rectangle";
@@ -15,7 +13,7 @@ public class RectangleCommand extends Command {
 
     @Override
     public String getHelp() {
-        return "\tDeclares rectangle ...";
+        return "\tDeclares rectangle by 2 given parameters (side, diagonal or area)\nSide can be passed twice";
     }
 
     @Override
@@ -45,7 +43,7 @@ public class RectangleCommand extends Command {
     @Override
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
-        Context.addFigure(rectangle);
+        updateContext(rectangle);
         rectangle.print();
     }
 }

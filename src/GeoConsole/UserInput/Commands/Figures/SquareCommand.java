@@ -1,13 +1,11 @@
 package GeoConsole.UserInput.Commands.Figures;
 
 import GeoConsole.UserInput.Argument;
-import GeoConsole.UserInput.Command;
 import GeoConsole.Figure.Square;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
-import GeoConsole.UserInput.Context.Context;
 import GeoConsole.UserInput.Exceptions.*;
 
-public class SquareCommand extends Command {
+public class SquareCommand extends FigureCommand {
     @Override
     public String getName() {
         return "square";
@@ -42,7 +40,7 @@ public class SquareCommand extends Command {
     @Override
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
-        Context.addFigure(square);
+        updateContext(square);
         square.print();
     }
 }

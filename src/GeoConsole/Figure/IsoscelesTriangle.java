@@ -43,7 +43,6 @@ public class IsoscelesTriangle extends Triangle {
         }
         B = side;
         C = side;
-        type = "isosceles";
         throwIfNaN(A, B, C, area, height);
         throwIfZero(A, B, C, area, height);
 

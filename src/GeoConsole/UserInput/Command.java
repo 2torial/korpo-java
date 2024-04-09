@@ -1,5 +1,6 @@
 package GeoConsole.UserInput;
 
+import GeoConsole.UserInput.Context.Triple;
 import GeoConsole.UserInput.Exceptions.*;
 
 import java.util.*;
@@ -43,13 +44,14 @@ public abstract class Command {
         arguments.add(argument);
     }
 
-    public final void execute() throws IllegalArgumentException, InvalidNumberOfArguments, InvalidPositionException {
+    public final void execute() throws InvalidNumberOfArguments, InvalidPositionException {
         if (showHelp) {
             System.out.println(getExtendedHelp());
             return;
         }
 
         var commandArguments = new LinkedList<Argument>();
+        var parameterHandlers = new LinkedList<Triple<Argument, Argument[], Integer>>();
         int relativePosition = 1;
         while (!arguments.isEmpty()) {
             var argument = arguments.removeFirst();
@@ -76,12 +78,19 @@ public abstract class Command {
                 subArgument.setRelativePosition(subArgumentRelativePosition);
                 subArguments[n] = subArgument;
             }
-            argument.getHandler().accept(subArguments, relativePosition);
+            parameterHandlers.add(new Triple<>(argument, subArguments, relativePosition));
         }
 
         if (getNumberOfArguments() >= 0 && commandArguments.size() != getNumberOfArguments())
             throw new InvalidNumberOfArguments(commandArguments.size(), this);
         var arguments = commandArguments.toArray(new Argument[0]);
+        for (var triple : parameterHandlers) {
+            Argument parameter = triple.first;
+            Argument[] subArguments = triple.second;
+            int position = triple.third;
+            parameter.throwIfInvalid();
+            parameter.getHandler().accept(subArguments, position);
+        }
         handle(arguments);
     }
 

@@ -6,9 +6,6 @@ import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.Context.Context;
 import GeoConsole.UserInput.Exceptions.InvalidParameterException;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class SortCommand extends Command {
@@ -40,7 +37,7 @@ public class SortCommand extends Command {
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
             case "a", "area" -> argument.setName("area")
-                .supplyHandler(() -> sortType = Attribute.AREA);
+                .supplyHandler(pos -> sortType = Attribute.AREA);
             default -> super.supplyParameter(argument);
         }
     }

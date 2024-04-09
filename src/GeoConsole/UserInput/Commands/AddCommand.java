@@ -38,7 +38,7 @@ public class AddCommand extends Command {
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
-            case "R", "ROUND" -> argument.setName("round").supplyHandler(() -> roundTo = 0);
+            case "R", "ROUND" -> argument.setName("round").supplyHandler(pos -> roundTo = 0);
             case "r", "round" -> argument.setName("round").supplyHandler(1, (args, pos) -> {
                     roundTo = args[0].getIntegerValue();
                     if (roundTo < 0)

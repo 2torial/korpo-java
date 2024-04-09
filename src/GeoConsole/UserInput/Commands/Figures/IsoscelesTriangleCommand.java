@@ -2,12 +2,10 @@ package GeoConsole.UserInput.Commands.Figures;
 
 import GeoConsole.Figure.IsoscelesTriangle;
 import GeoConsole.UserInput.Argument;
-import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
-import GeoConsole.UserInput.Context.Context;
 import GeoConsole.UserInput.Exceptions.InvalidParameterException;
 
-public class IsoscelesTriangleCommand extends Command {
+public class IsoscelesTriangleCommand extends FigureCommand {
     @Override
     public String getName() {
         return "isoscelestriangle";
@@ -46,7 +44,7 @@ public class IsoscelesTriangleCommand extends Command {
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
         IsoscelesTriangle triangle = new IsoscelesTriangle(side, base, area, height);
-        Context.addFigure(triangle);
+        updateContext(triangle);
         triangle.print();
     }
 }

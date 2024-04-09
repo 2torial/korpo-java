@@ -2,12 +2,10 @@ package GeoConsole.UserInput.Commands.Figures;
 
 import GeoConsole.Figure.EquilateralTriangle;
 import GeoConsole.UserInput.Argument;
-import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
-import GeoConsole.UserInput.Context.Context;
 import GeoConsole.UserInput.Exceptions.*;
 
-public class EquilateralTriangleCommand extends Command {
+public class EquilateralTriangleCommand extends FigureCommand {
     @Override
     public String getName() {
         return "equilateraltriangle";
@@ -43,8 +41,7 @@ public class EquilateralTriangleCommand extends Command {
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
         EquilateralTriangle triangle = new EquilateralTriangle(side, height, area);
-
-        Context.addFigure(triangle);
+        updateContext(triangle);
         triangle.print();
     }
 }
