@@ -27,11 +27,11 @@ public class SquareCommand extends FigureCommand {
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
-            case "side" -> argument.enforceRelativePosition(1)
+            case "side" -> argument.enforceRelativePosition(1).setName("side/diag/area")
                 .supplyHandler(pos -> handler.supply(pos, arg -> square.setSide(arg.getNumericValue())));
-            case "diagonal" -> argument.enforceRelativePosition(1)
+            case "diagonal" -> argument.enforceRelativePosition(1).setName("side/diag/area")
                 .supplyHandler(pos -> handler.supply(pos, arg -> square.setDiagonal(arg.getNumericValue())));
-            case "area" -> argument.enforceRelativePosition(1)
+            case "area" -> argument.enforceRelativePosition(1).setName("side/diag/area")
                 .supplyHandler(pos -> handler.supply(pos, arg -> square.setArea(arg.getNumericValue())));
             default -> super.supplyParameter(argument);
         }

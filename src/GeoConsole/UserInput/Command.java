@@ -14,9 +14,7 @@ public abstract class Command {
 
     public abstract String getName();
     public abstract String getHelp();
-    public int getNumberOfArguments() {
-        return 0;
-    }
+    public abstract int getNumberOfArguments();
     public String getExtendedHelp() {
         return getHelp();
     }

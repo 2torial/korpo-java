@@ -30,7 +30,7 @@ public class RectangleCommand extends FigureCommand {
         switch (argument.rawValue) {
             case "side" -> argument.enforceRelativePosition(parameterPosition).allowDuplicates(1)
                 .supplyHandler(pos -> handler.supply(pos, arg -> rectangle.setSide(arg.getNumericValue())));
-            case "diag", "diagonal" -> argument.setName("diagonal")
+            case "diag", "diagonal" -> argument
                 .enforceRelativePosition(parameterPosition)
                 .supplyHandler(pos -> handler.supply(pos, arg -> rectangle.setDiagonal(arg.getNumericValue())));
             case "area" -> argument.enforceRelativePosition(parameterPosition)

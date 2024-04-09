@@ -9,25 +9,22 @@ import GeoConsole.UserInput.Exceptions.InvalidParameterException;
 public abstract class FigureCommand extends Command {
     private String figureName;
     protected boolean save = true;
-    protected boolean shouldSave() {
-        return save;
-    }
 
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
-            case "name" -> argument.enforceRelativePosition(getNumberOfArguments() + 1)
+            case "name" -> argument.enforceRelativePosition(getNumberOfArguments() + 1).setName("id/name")
                 .supplyHandler(1, (args, pos) -> figureName = args[0].rawValue);
-            case "show" -> argument.enforceRelativePosition(getNumberOfArguments() + 1)
+            case "print" -> argument.enforceRelativePosition(getNumberOfArguments() + 1).setName("save/print")
                 .supplyHandler(pos -> save = false);
-            case "save" -> argument.enforceRelativePosition(getNumberOfArguments() + 1)
+            case "save" -> argument.enforceRelativePosition(getNumberOfArguments() + 1).setName("save/print")
                 .supplyHandler(pos -> save = true);
             default -> super.supplyParameter(argument);
         }
     }
 
     protected void updateContext(Figure figure) {
-        if (!shouldSave())
+        if (!save)
             return;
         if (figureName == null)
             Context.addFigure(figure);

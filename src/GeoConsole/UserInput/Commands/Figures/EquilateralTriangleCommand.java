@@ -27,11 +27,11 @@ public class EquilateralTriangleCommand extends FigureCommand {
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
-            case "side" -> argument.enforceRelativePosition(1)
+            case "side" -> argument.enforceRelativePosition(1).setName("side/height/area")
                 .supplyHandler(pos -> handler.supply(pos, arg -> side = arg.getNumericValue()));
-            case "height" -> argument.enforceRelativePosition(1)
+            case "height" -> argument.enforceRelativePosition(1).setName("side/height/area")
                 .supplyHandler(pos -> handler.supply(pos, arg -> height = arg.getNumericValue()));
-            case "area" -> argument.enforceRelativePosition(1)
+            case "area" -> argument.enforceRelativePosition(1).setName("side/height/area")
                 .supplyHandler(pos -> handler.supply(pos, arg -> area = arg.getNumericValue()));
             default -> super.supplyParameter(argument);
         }

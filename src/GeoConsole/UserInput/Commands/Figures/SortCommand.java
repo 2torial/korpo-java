@@ -51,7 +51,7 @@ public class SortCommand extends Command {
             return (f1.getArea() < f2.getArea()) ? -1 : 1;
         });
 
-        int counter = 0;
+        int counter = 1;
         for( var f : figureList ){
             System.out.printf("%d. ", counter ++);
             f.print();

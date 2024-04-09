@@ -33,17 +33,21 @@ public class Argument {
 
     public void setRelativePosition(int position) {
         if (enforcedPosition > 0 && enforcedPosition != position)
-            positionException = new InvalidPositionException(relativePosition, this);
+            positionException = new InvalidPositionException(this);
         this.relativePosition = position;
     }
     public int getRelativePosition() {
         return this.relativePosition;
     }
+
     public Argument enforceRelativePosition(int position) {
         if (position < 0)
             throw new IllegalArgumentException("Enforced position must be a positive number");
         enforcedPosition = position;
         return this;
+    }
+    public int getEnforcedPosition() {
+        return this.enforcedPosition;
     }
     public void throwIfInvalid() throws InvalidPositionException {
         if (positionException != null)
