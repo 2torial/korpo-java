@@ -1,7 +1,7 @@
 package GeoConsole.Figure;
 
 public abstract class Figure {
-    double area, circumference;
+    double area, perimeter;
     int id;
 
     protected final void throwIfNaN(double ...attributes) {
@@ -18,6 +18,10 @@ public abstract class Figure {
 
     public double getArea() {
         return area;
+    }
+
+    public double getPerimeter() {
+        return perimeter;
     }
 
     public void setId(int value) { id = value; }

@@ -13,7 +13,7 @@ public class CircleCommand extends FigureCommand {
 
     @Override
     public String getHelp() {
-        return "\tDeclares circle by given parameter (radius, area, circumference)";
+        return "\tDeclares circle by given parameter (radius, area, perimeter)";
     }
 
     @Override
@@ -23,15 +23,15 @@ public class CircleCommand extends FigureCommand {
 
     ArgumentsHandler handler = new ArgumentsHandler(1);
 
-    double radius = -1, area = -1, circumference = -1;
+    double radius = -1, area = -1, perimeter = -1;
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
-            case "radius" -> argument.enforceRelativePosition(1).setName("radius/area/circumference")
+            case "radius" -> argument.enforceRelativePosition(1).setName("radius/area/perimeter")
                     .supplyHandler(pos -> handler.supply(pos, arg -> radius = arg.getNumericValue()));
-            case "circumference" -> argument.enforceRelativePosition(1).setName("radius/area/circumference")
-                    .supplyHandler(pos -> handler.supply(pos, arg -> circumference = arg.getNumericValue()));
-            case "area" -> argument.enforceRelativePosition(1).setName("radius/area/circumference")
+            case "perimeter" -> argument.enforceRelativePosition(1).setName("radius/area/perimeter")
+                    .supplyHandler(pos -> handler.supply(pos, arg -> perimeter = arg.getNumericValue()));
+            case "area" -> argument.enforceRelativePosition(1).setName("radius/area/perimeter")
                     .supplyHandler(pos -> handler.supply(pos, arg -> area = arg.getNumericValue()));
             default -> super.supplyParameter(argument);
         }
@@ -40,7 +40,7 @@ public class CircleCommand extends FigureCommand {
     @Override
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
-        Circle circle = new Circle(radius, area, circumference);
+        Circle circle = new Circle(radius, area, perimeter);
         updateContext(circle);
         circle.print();
     }

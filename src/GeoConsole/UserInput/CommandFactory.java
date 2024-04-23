@@ -59,6 +59,7 @@ public final class CommandFactory {
         commandSuppliers.put("isoscelestriangle", IsoscelesTriangleCommand::new);
         commandSuppliers.put("circumcircle", CircumcircleCommand::new);
         commandSuppliers.put("circle", CircleCommand::new);
+        commandSuppliers.put("triangle", TriangleCommand::new);
 
         commandSuppliers.forEach((key, supplier) -> commandPool.put(key, supplier.get()));
     }

@@ -46,7 +46,8 @@ public class Rectangle extends Figure {
 
     public void print(){
         throwIfZero(sideB, sideA, area, diagonal);
-        System.out.printf("[ID:%d] Rectangle:\n\tside: %f x %f\n\tdiagonal: %f\n\tarea: %f\n", id, sideA, sideB, diagonal, area);
+        System.out.printf("[ID:%d] Rectangle:\n\tside: %f x %f\n\tdiagonal: %f\n\tarea: %f\n\tperimeter: %f\n",
+                id, sideA, sideB, diagonal, area, perimeter);
     }
 
     private void fillData() {
@@ -62,7 +63,8 @@ public class Rectangle extends Figure {
             sideB = area / sideA;
         }
         area = (area > 0) ? area : sideA * sideB;
-        throwIfNaN(sideA, sideB, diagonal, area);
+        perimeter = (sideA + sideB) * 2.0;
+        throwIfNaN(sideA, sideB, diagonal, area, perimeter);
     }
 
     @Override

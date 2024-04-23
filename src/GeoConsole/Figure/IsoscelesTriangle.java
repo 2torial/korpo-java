@@ -43,9 +43,9 @@ public class IsoscelesTriangle extends Triangle {
         }
         B = side;
         C = side;
-        throwIfNaN(A, B, C, area, height);
-        throwIfZero(A, B, C, area, height);
-
+        perimeter = 2.0 * side + A;
+        throwIfNaN(A, B, C, area, height, perimeter);
+        throwIfZero(A, B, C, area, height, perimeter);
     }
     @Override
     public Circle getCircumcircle(){

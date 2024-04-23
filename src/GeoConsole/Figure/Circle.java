@@ -3,26 +3,26 @@ package GeoConsole.Figure;
 public class Circle extends Figure {
     double radius;
 
-    public Circle(double radiusValue, double areaValue, double circumferenceValue) {
-        if( radiusValue < 0.0 && areaValue < 0.0 && circumferenceValue < 0.0 )
-            throw new IllegalArgumentException("An argument (radius/area/circumference) has to be greater than 0");
+    public Circle(double radiusValue, double areaValue, double perimeterValue) {
+        if( radiusValue < 0.0 && areaValue < 0.0 && perimeterValue < 0.0 )
+            throw new IllegalArgumentException("An argument (radius/area/perimeter) has to be greater than 0");
         if( radiusValue > 0.0 ) {
             radius = radiusValue;
             area = Math.PI * radius * radius;
-            circumference = Math.PI * 2.0 * radius;
+            perimeter = Math.PI * 2.0 * radius;
         }
         else if( areaValue > 0.0 ) {
             area = areaValue;
             radius = Math.sqrt( area / (Math.PI) );
-            circumference = Math.PI * 2.0 * radius;
+            perimeter = Math.PI * 2.0 * radius;
         }
-        else if( circumferenceValue > 0.0 ) {
-            circumference = circumferenceValue;
-            radius = circumference / (2.0 * Math.PI);
+        else if( perimeterValue > 0.0 ) {
+            perimeter = perimeterValue;
+            radius = perimeter / (2.0 * Math.PI);
             area = Math.PI * radius * radius;
         }
-        throwIfNaN(radius, area, circumference);
-        throwIfZero(radius, area, circumference);
+        throwIfNaN(radius, area, perimeter);
+        throwIfZero(radius, area, perimeter);
     }
 
     public Circle getCircumcircle() {
@@ -30,6 +30,6 @@ public class Circle extends Figure {
     }
 
     public void print() {
-        System.out.printf("[ID:%d] Circle:\n\tradius: %f,\n\tarea: %f,\n\tcircumference: %f\n", id, radius, area, circumference);
+        System.out.printf("[ID:%d] Circle:\n\tradius: %f,\n\tarea: %f,\n\tperimeter: %f\n", id, radius, area, perimeter);
     }
 }

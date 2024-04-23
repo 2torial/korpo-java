@@ -5,6 +5,7 @@ public class EquilateralTriangle extends Triangle{
     double side;
 
     public EquilateralTriangle(double sideValue, double heightValue, double areaValue){
+        super();
         if(sideValue < 0.0 && heightValue < 0.0 && areaValue < 0.0)
             throw new IllegalArgumentException("An argument (side/height/area) has to be greater than 0");
         if( sideValue > 0.0 ) {
@@ -23,6 +24,7 @@ public class EquilateralTriangle extends Triangle{
             height = side * Math.sqrt(3.0) / 2.0;
         }
         A = side; B = side; C = side;
+        perimeter = 3.0*side;
     }
 
     @Override

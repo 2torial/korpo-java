@@ -9,6 +9,7 @@ public class Square extends Figure {
         side = value;
         diagonal = value * Math.sqrt(2.0);
         area = value * value;
+        perimeter = 4.0 * side;
     }
 
     public final void setDiagonal(double value){
@@ -17,6 +18,7 @@ public class Square extends Figure {
         side = value / Math.sqrt(2.0);
         diagonal = value;
         area = value * value / 2.0;
+        perimeter = 4.0 * side;
     }
 
     public final void setArea(double value){
@@ -25,6 +27,7 @@ public class Square extends Figure {
         side = Math.sqrt(value);
         diagonal = Math.sqrt(value * 2.0);
         area = value;
+        perimeter = 4.0 * side;
     }
 
     @Override
@@ -35,6 +38,7 @@ public class Square extends Figure {
     @Override
     public void print() {
         throwIfZero(side, diagonal, area);
-        System.out.printf("[ID:%d] Square:\n\tside: %f\n\tdiagonal: %f\n\tarea: %f\n", id, side, diagonal, area);
+        System.out.printf("[ID:%d] Square:\n\tside: %f\n\tdiagonal: %f\n\tarea: %f\n\tperimeter: %f\n",
+                id, side, diagonal, area, perimeter);
     }
 }

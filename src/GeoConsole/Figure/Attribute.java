@@ -7,4 +7,5 @@ public enum Attribute {
     AREA,
     DIAGONAL,
     BASE,
+    PERIMETER
 }

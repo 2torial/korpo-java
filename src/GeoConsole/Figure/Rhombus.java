@@ -48,7 +48,8 @@ public class Rhombus extends Figure {
         throwIfZero(side, area, diagonalA, diagonalB);
         if (propertiesUntilDefined > 0)
             throw new IllegalStateException("Figure is not fully declared");
-        System.out.printf("[ID:%d] Rhombus:\n\tside: %ff\n\tdiagonals: %f x %f\n\tarea: %f\n", id, side, diagonalA, diagonalB, area);
+        System.out.printf("[ID:%d] Rhombus:\n\tside: %ff\n\tdiagonals: %f x %f\n\tarea: %f\n\tperimeter: %f\n",
+                id, side, diagonalA, diagonalB, area, perimeter);
     }
 
     private void fillData() {
@@ -64,7 +65,8 @@ public class Rhombus extends Figure {
             diagonalB = area * 2 / diagonalA;
         }
         area = (area > 0) ? area : diagonalA * diagonalB / 2;
-        throwIfNaN(side, diagonalA, diagonalB, area);
+        perimeter = 4.0 * side;
+        throwIfNaN(side, diagonalA, diagonalB, area, perimeter);
     }
 
     @Override
