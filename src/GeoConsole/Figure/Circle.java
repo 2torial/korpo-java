@@ -32,4 +32,9 @@ public class Circle extends Figure {
     public void print() {
         System.out.printf("[ID:%d] Circle:\n\tradius: %f,\n\tarea: %f,\n\tperimeter: %f\n", id, radius, area, perimeter);
     }
+
+    @Override
+    public Figure doubleSelf() {
+        return new Circle(radius * 2, -1, -1);
+    }
 }

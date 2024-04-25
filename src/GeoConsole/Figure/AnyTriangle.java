@@ -12,4 +12,9 @@ public class AnyTriangle extends Triangle {
         throwIfZero(area, perimeter, A, B, C, height);
         throwIfNaN(area, perimeter, A, B, C, height);
     }
+
+    @Override
+    public Figure doubleSelf() {
+        return new AnyTriangle(A*2, B*2, C*2);
+    }
 }

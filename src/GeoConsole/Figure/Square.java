@@ -39,5 +39,8 @@ public class Square extends Figure {
                 id, side, diagonal, area, perimeter);
     }
 
-
+    @Override
+    public Square doubleSelf() {
+        return new Square(side * 2, -1, -1);
+    }
 }

@@ -39,4 +39,6 @@ public abstract class Figure {
     public abstract Circle getCircumcircle();
 
     public abstract void print();
+
+    public abstract Figure doubleSelf();
 }

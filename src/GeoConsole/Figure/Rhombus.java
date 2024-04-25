@@ -41,4 +41,9 @@ public class Rhombus extends Figure {
         double biggerDiag = Math.max(diagonalA, diagonalB);
         return new Circle((1.0 /( 2.0 * area )) * side * side * biggerDiag, -1, -1);
     }
+
+    @Override
+    public Rhombus doubleSelf() {
+        return new Rhombus(-1, diagonalA * 2, diagonalB * 2, -1);
+    }
 }

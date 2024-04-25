@@ -26,7 +26,7 @@ public class RightTriangle extends Triangle {
         } else if (hypotenuseValue > 0 && areaValue > 0) {
             C = hypotenuseValue;
             area = areaValue;
-            B = Math.sqrt(C*C - Math.pow(2*area/B, 2));
+            B = Math.sqrt(C*C - Math.pow(2*area/A, 2));
             A = 2 * area / B;
         }
         height = B;
@@ -38,5 +38,10 @@ public class RightTriangle extends Triangle {
     @Override
     public Circle getCircumcircle(){
         return new Circle(-1, -1, C/2);
+    }
+
+    @Override
+    public Figure doubleSelf() {
+        return new RightTriangle(A * 2, B * 2, -1, -1);
     }
 }

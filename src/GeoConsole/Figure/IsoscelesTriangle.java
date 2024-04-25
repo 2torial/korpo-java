@@ -5,7 +5,7 @@ public class IsoscelesTriangle extends Triangle {
     double side; //A - base
 
     {
-        type = "Isosceles";
+        type = "isosceles";
     }
 
     public IsoscelesTriangle(double sideValue, double baseValue, double areaValue, double heightValue) {
@@ -56,5 +56,10 @@ public class IsoscelesTriangle extends Triangle {
     @Override
     public Circle getCircumcircle(){
         return new Circle((1.0 /( 4.0 * area)) * A * B * C, -1, -1);
+    }
+
+    @Override
+    public IsoscelesTriangle doubleSelf() {
+        return new IsoscelesTriangle(B * 2, A * 2, -1, -1);
     }
 }

@@ -1,5 +1,7 @@
 package GeoConsole.Figure;
 
+import org.w3c.dom.css.Rect;
+
 public class Rectangle extends Figure {
     double sideA, sideB, diagonal;
 
@@ -39,5 +41,10 @@ public class Rectangle extends Figure {
     @Override
     public Circle getCircumcircle(){
         return new Circle(diagonal / 2.0, -1, -1);
+    }
+
+    @Override
+    public Rectangle doubleSelf() {
+        return new Rectangle(sideA * 2, sideB * 2, -1, -1);
     }
 }

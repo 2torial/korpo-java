@@ -36,4 +36,9 @@ public class EquilateralTriangle extends Triangle{
     public Circle getCircumcircle(){
         return new Circle( A * Math.sqrt(3) / 3.0, -1, -1);
     }
+
+    @Override
+    public EquilateralTriangle doubleSelf() {
+        return new EquilateralTriangle(A * 2, height * 2, -1);
+    }
 }
