@@ -5,7 +5,7 @@ import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
 import GeoConsole.UserInput.Exceptions.*;
 
-public class RhombCommand extends FigureCommand {
+public class RhombusCommand extends FigureCommand {
     @Override
     public String getName() {
         return "rhombus";
@@ -21,7 +21,7 @@ public class RhombCommand extends FigureCommand {
         return 2;
     }
 
-    Rhombus rhombus = new Rhombus();
+    double side = -1, diagonalA = -1, diagonalB = -1, area = -1;
     ArgumentsHandler handler = new ArgumentsHandler(2);
     int parameterPosition = 1;
 
@@ -29,13 +29,18 @@ public class RhombCommand extends FigureCommand {
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
             case "side" -> argument.enforceRelativePosition(parameterPosition)
-                .supplyHandler(pos -> handler.supply(pos, arg -> rhombus.setSide(arg.getNumericValue())));
+                .supplyHandler(pos -> handler.supply(pos, arg -> side = arg.getNumericValue()));
             case "diag", "diagonal" -> argument.setName("diagonal")
                 .enforceRelativePosition(parameterPosition)
                 .allowDuplicates(1)
-                .supplyHandler(pos -> handler.supply(pos, arg -> rhombus.setDiagonal(arg.getNumericValue())));
+                .supplyHandler(pos -> handler.supply(pos, arg -> {
+                    if (diagonalA < 0)
+                        diagonalA = arg.getNumericValue();
+                    else
+                        diagonalB = arg.getNumericValue();
+                }));
             case "area" -> argument.enforceRelativePosition(parameterPosition)
-                .supplyHandler(pos -> handler.supply(pos, arg -> rhombus.setArea(arg.getNumericValue())));
+                .supplyHandler(pos -> handler.supply(pos, arg -> area = arg.getNumericValue()));
             default -> super.supplyParameter(argument);
         }
         parameterPosition++;
@@ -44,6 +49,7 @@ public class RhombCommand extends FigureCommand {
     @Override
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
+        Rhombus rhombus = new Rhombus(side, diagonalA, diagonalB, area);
         updateContext(rhombus);
         rhombus.print();
     }

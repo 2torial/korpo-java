@@ -1,8 +1,17 @@
 package GeoConsole.Figure;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 public abstract class Figure {
     double area, perimeter;
     int id;
+
+    private final Date dateOfCreation = new Date();
+
+    public Date getDateOfCreation() {
+        return dateOfCreation;
+    }
 
     protected final void throwIfNaN(double ...attributes) {
         for (var attr : attributes)
@@ -30,4 +39,6 @@ public abstract class Figure {
     public abstract Circle getCircumcircle();
 
     public abstract void print();
+
+    public abstract Figure doubleSelf();
 }

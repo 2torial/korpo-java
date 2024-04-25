@@ -55,11 +55,13 @@ public final class CommandFactory {
         commandSuppliers.put("square", SquareCommand::new);
         commandSuppliers.put("equilateraltriangle", EquilateralTriangleCommand::new);
         commandSuppliers.put("rectangle", RectangleCommand::new);
-        commandSuppliers.put("rhombus", RhombCommand::new);
+        commandSuppliers.put("rhombus", RhombusCommand::new);
         commandSuppliers.put("isoscelestriangle", IsoscelesTriangleCommand::new);
         commandSuppliers.put("circumcircle", CircumcircleCommand::new);
         commandSuppliers.put("circle", CircleCommand::new);
         commandSuppliers.put("triangle", TriangleCommand::new);
+        commandSuppliers.put("righttriangle", RightTriangleCommand::new);
+        commandSuppliers.put("double", DoubleFigureCommand::new);
 
         commandSuppliers.forEach((key, supplier) -> commandPool.put(key, supplier.get()));
     }

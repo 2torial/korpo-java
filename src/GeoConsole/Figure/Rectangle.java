@@ -1,74 +1,50 @@
 package GeoConsole.Figure;
 
+import org.w3c.dom.css.Rect;
+
 public class Rectangle extends Figure {
-    private int propertiesUntilDefined = 2;
     double sideA, sideB, diagonal;
 
-    public final void setSide(double value){
-        if (propertiesUntilDefined <= 0)
-            throw new IllegalStateException("Rectangle is already defined");
-        if (value <= 0)
-            throw new IllegalArgumentException("The side has to be greater than 0");
-        if (sideA == 0)
-            sideA = value;
-        else
-            sideB = value;
-        propertiesUntilDefined--;
-        if (propertiesUntilDefined == 0)
-            fillData();
-    }
-
-    public final void setDiagonal(double value){
-        if (propertiesUntilDefined <= 0)
-            throw new IllegalStateException("Rectangle is already defined");
-        if (value <= 0)
-            throw new IllegalArgumentException("The diagonal has to be greater than 0");
-        if (diagonal > 0)
-            throw new IllegalStateException("Diagonal is already defined");
-        diagonal = value;
-        propertiesUntilDefined--;
-        if (propertiesUntilDefined == 0)
-            fillData();
-    }
-
-    public final void setArea(double value){
-        if (propertiesUntilDefined <= 0)
-            throw new IllegalStateException("Rectangle is already defined");
-        if (value <= 0)
-            throw new IllegalArgumentException("The area has to be greater than 0");
-        if (area > 0)
-            throw new IllegalStateException("Area is already defined");
-        area = value;
-        propertiesUntilDefined--;
-        if (propertiesUntilDefined == 0)
-            fillData();
-    }
-
-    public void print(){
-        throwIfZero(sideB, sideA, area, diagonal);
-        System.out.printf("[ID:%d] Rectangle:\n\tside: %f x %f\n\tdiagonal: %f\n\tarea: %f\n\tperimeter: %f\n",
-                id, sideA, sideB, diagonal, area, perimeter);
-    }
-
-    private void fillData() {
-        if (sideA > 0 && sideB > 0)
+    public Rectangle(double sideAValue, double sideBValue, double diagonalValue, double areaValue) {
+        if (sideAValue <= 0.0 && sideBValue <= 0.0 && diagonalValue < 0.0 && areaValue < 0.0)
+            throw new IllegalArgumentException("An argument (side/diagonal/area) has to be greater than 0");
+        if (sideAValue > 0 && sideBValue > 0) {
+            sideA = sideAValue;
+            sideB = sideBValue;
             diagonal = Math.sqrt(sideA * sideA + sideB * sideB);
-        else if (sideA > 0 && diagonal > 0)
+        } else if (sideAValue > 0 && diagonalValue > 0) {
+            sideA = sideAValue;
+            diagonal = diagonalValue;
             sideB = Math.sqrt(diagonal * diagonal - sideA * sideA);
-        else if (sideA > 0 && area > 0) {
+        } else if (sideAValue > 0 && areaValue > 0) {
+            sideA = sideAValue;
+            area = areaValue;
             sideB = area / sideA;
             diagonal = Math.sqrt(sideA * sideA + sideB * sideB);
-        } else {
+        } else if (diagonalValue > 0 && areaValue > 0){
+            diagonal = diagonalValue;
+            area = areaValue;
             sideA = Math.sqrt((Math.pow(diagonal, 2) + Math.sqrt(Math.pow(diagonal, 4) - 4 * Math.pow(area, 2))) / 2);
             sideB = area / sideA;
         }
         area = (area > 0) ? area : sideA * sideB;
         perimeter = (sideA + sideB) * 2.0;
-        throwIfNaN(sideA, sideB, diagonal, area, perimeter);
+        throwIfZero(area, perimeter, sideA, sideB, diagonal);
+        throwIfNaN(area, perimeter, sideA, sideB, diagonal);
+    }
+
+    public void print(){
+        System.out.printf("[ID:%d] Rectangle:\n\tside: %f x %f\n\tdiagonal: %f\n\tarea: %f\n\tperimeter: %f\n",
+                id, sideA, sideB, diagonal, area, perimeter);
     }
 
     @Override
     public Circle getCircumcircle(){
         return new Circle(diagonal / 2.0, -1, -1);
+    }
+
+    @Override
+    public Rectangle doubleSelf() {
+        return new Rectangle(sideA * 2, sideB * 2, -1, -1);
     }
 }
