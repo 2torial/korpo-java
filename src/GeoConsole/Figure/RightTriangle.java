@@ -26,7 +26,7 @@ public class RightTriangle extends Triangle {
         } else if (hypotenuseValue > 0 && areaValue > 0) {
             C = hypotenuseValue;
             area = areaValue;
-            B = Math.sqrt(C*C - Math.pow(2*area/A, 2));
+            B = Math.sqrt((C*C + Math.sqrt(Math.pow(C, 4) - 16*A*A)) / 2);
             A = 2 * area / B;
         }
         height = B;
