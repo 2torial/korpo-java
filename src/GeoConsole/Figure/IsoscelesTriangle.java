@@ -4,6 +4,10 @@ package GeoConsole.Figure;
 public class IsoscelesTriangle extends Triangle {
     double side; //A - base
 
+    {
+        type = "Isosceles";
+    }
+
     public IsoscelesTriangle(double sideValue, double baseValue, double areaValue, double heightValue) { //when < 0 , value not provided
         if( sideValue > 0.0 && baseValue > 0.0){
             side = sideValue;
@@ -44,8 +48,8 @@ public class IsoscelesTriangle extends Triangle {
         B = side;
         C = side;
         perimeter = 2.0 * side + A;
-        throwIfNaN(A, B, C, area, height, perimeter);
-        throwIfZero(A, B, C, area, height, perimeter);
+        throwIfZero(area, perimeter, A, B, C, height, side);
+        throwIfZero(area, perimeter, A, B, C, height, side);
     }
     @Override
     public Circle getCircumcircle(){

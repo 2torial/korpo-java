@@ -4,7 +4,7 @@ public class Circle extends Figure {
     double radius;
 
     public Circle(double radiusValue, double areaValue, double perimeterValue) {
-        if( radiusValue < 0.0 && areaValue < 0.0 && perimeterValue < 0.0 )
+        if( radiusValue <= 0.0 && areaValue <= 0.0 && perimeterValue <= 0.0 )
             throw new IllegalArgumentException("An argument (radius/area/perimeter) has to be greater than 0");
         if( radiusValue > 0.0 ) {
             radius = radiusValue;
@@ -21,8 +21,8 @@ public class Circle extends Figure {
             radius = perimeter / (2.0 * Math.PI);
             area = Math.PI * radius * radius;
         }
-        throwIfNaN(radius, area, perimeter);
-        throwIfZero(radius, area, perimeter);
+        throwIfZero(area, perimeter, radius);
+        throwIfZero(area, perimeter, radius);
     }
 
     public Circle getCircumcircle() {

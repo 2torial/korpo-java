@@ -2,7 +2,7 @@ package GeoConsole.Figure;
 
 public abstract class Triangle extends Figure {
     double A, B, C, height; //height on A
-    String type;
+    String type = "unspecified";
 
     @Override
     public Circle getCircumcircle(){
@@ -11,7 +11,6 @@ public abstract class Triangle extends Figure {
 
     @Override
     public void print(){
-        throwIfZero(A, B, C, area);
         System.out.printf("[ID:%d] Triangle of type %s:\n\tA: %f\n\tB: %f\n\tC: %f\n\theight: %f\n\tarea: %f\n\tperimeter: %f\n",
                 id, type, A, B, C, height, area, perimeter);
     }

@@ -4,8 +4,11 @@ package GeoConsole.Figure;
 public class EquilateralTriangle extends Triangle{
     double side;
 
+    {
+        type = "equilateral";
+    }
+
     public EquilateralTriangle(double sideValue, double heightValue, double areaValue){
-        super();
         if(sideValue < 0.0 && heightValue < 0.0 && areaValue < 0.0)
             throw new IllegalArgumentException("An argument (side/height/area) has to be greater than 0");
         if( sideValue > 0.0 ) {
@@ -25,11 +28,12 @@ public class EquilateralTriangle extends Triangle{
         }
         A = side; B = side; C = side;
         perimeter = 3.0*side;
+        throwIfZero(area, perimeter, A, B, C, height, side);
+        throwIfZero(area, perimeter, A, B, C, height, side);
     }
 
     @Override
     public Circle getCircumcircle(){
-        Circle circleDescribedAround = new Circle( A * Math.sqrt(3) / 3.0, -1, -1);
-        return circleDescribedAround;
+        return new Circle( A * Math.sqrt(3) / 3.0, -1, -1);
     }
 }
