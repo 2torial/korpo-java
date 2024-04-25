@@ -1,15 +1,16 @@
 package GeoConsole.Figure;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 public abstract class Figure {
     double area, perimeter;
     int id;
 
-    private final LocalDate dateOfCreation = LocalDate.now();
+    private final Date dateOfCreation = new Date();
 
-    public String getDateOfCreation() {
-        return dateOfCreation.toString();
+    public Date getDateOfCreation() {
+        return dateOfCreation;
     }
 
     protected final void throwIfNaN(double ...attributes) {

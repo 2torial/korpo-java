@@ -5,8 +5,11 @@ import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.Context.Context;
 import GeoConsole.UserInput.Exceptions.InvalidParameterException;
+
+import java.text.SimpleDateFormat;
 import java.util.Collections;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class SortCommand extends Command {
@@ -30,22 +33,25 @@ public class SortCommand extends Command {
         return """
             Sorts and prints all saved figures with respect to one of following arguments:
             -area -> area of a figure
-            -perimeter -> perimeter of a figure""";
+            -perimeter -> perimeter of a figure
+            -date -> figure's date of creation""";
     }
 
-    private Attribute sortType = Attribute.NIL;
     private Order sortOrder = Order.ASC;
+    private Comparator<Figure> comparator = Comparator.comparing(Figure::getDateOfCreation);
 
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
-            case "a", "area" -> argument.setName("area")
-                    .supplyHandler(pos -> sortType = Attribute.AREA);
-            case "p", "peri", "perimeter" -> argument.setName("perimeter")
-                    .supplyHandler(pos -> sortType = Attribute.PERIMETER);
-            case "asc", "ascending" -> argument.setName("ascending")
+            case "a", "area" -> argument.setName("area/perimeter/date")
+                    .supplyHandler(pos -> comparator = Comparator.comparingDouble(Figure::getArea));
+            case "p", "peri", "perimeter" -> argument.setName("area/perimeter/date")
+                    .supplyHandler(pos -> comparator = Comparator.comparingDouble(Figure::getPerimeter));
+            case "d", "date" -> argument.setName("area/perimeter/date")
+                    .supplyHandler(pos -> comparator = Comparator.comparing(Figure::getDateOfCreation));
+            case "asc", "ascending" -> argument.setName("ascending/descending")
                     .supplyHandler(pos -> sortOrder = Order.ASC);
-            case "desc", "descending" -> argument.setName("descending")
+            case "desc", "descending" -> argument.setName("ascending/descending")
                     .supplyHandler(pos -> sortOrder = Order.DESC);
             default -> super.supplyParameter(argument);
         }
@@ -54,11 +60,7 @@ public class SortCommand extends Command {
     @Override
     protected void handle(Argument[] arguments) {
         List<Figure> figureList = Context.getFigureList();
-        switch (sortType) {
-            case Attribute.AREA -> sortByArea(figureList);
-            case Attribute.PERIMETER -> sortByPerimeter(figureList);
-            default -> throw new IllegalArgumentException("Unsupported comparator");
-        }
+        figureList.sort(comparator);
 
         int counter = 1;
         if(sortOrder == Order.DESC){
@@ -67,22 +69,7 @@ public class SortCommand extends Command {
         for( var f : figureList ){
             System.out.printf("%d. ", counter ++);
             f.print();
+            System.out.println("Date of creation: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(f.getDateOfCreation()));
         }
-    }
-
-    private void sortByArea(List<Figure> figureList) {
-        figureList.sort((f1, f2) -> {
-            if (f1.getArea() == f2.getArea())
-                return 0;
-            return (f1.getArea() < f2.getArea()) ? -1 : 1;
-        });
-    }
-
-    private void sortByPerimeter(List<Figure> figureList) {
-        figureList.sort((f1, f2) -> {
-            if (f1.getPerimeter() == f2.getPerimeter())
-                return 0;
-            return (f1.getPerimeter() < f2.getPerimeter()) ? -1 : 1;
-        });
     }
 }
