@@ -10,6 +10,6 @@ public class AnyTriangle extends Triangle {
         area = Math.sqrt(s*(s-a)*(s-b)*(s-c));
         height = 2.0*area/A;
         throwIfZero(area, perimeter, A, B, C, height);
-        throwIfZero(area, perimeter, A, B, C, height);
+        throwIfNaN(area, perimeter, A, B, C, height);
     }
 }

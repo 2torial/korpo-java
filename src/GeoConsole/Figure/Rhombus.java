@@ -28,7 +28,7 @@ public class Rhombus extends Figure {
         area = (area > 0) ? area : diagonalA * diagonalB / 2;
         perimeter = 4.0 * side;
         throwIfZero(area, perimeter, side, diagonalA, diagonalB);
-        throwIfZero(area, perimeter, side, diagonalA, diagonalB);
+        throwIfNaN(area, perimeter, side, diagonalA, diagonalB);
     }
 
     public void print() {

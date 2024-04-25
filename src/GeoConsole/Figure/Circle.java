@@ -22,7 +22,7 @@ public class Circle extends Figure {
             area = Math.PI * radius * radius;
         }
         throwIfZero(area, perimeter, radius);
-        throwIfZero(area, perimeter, radius);
+        throwIfNaN(area, perimeter, radius);
     }
 
     public Circle getCircumcircle() {

@@ -66,10 +66,12 @@ public class SortCommand extends Command {
         if(sortOrder == Order.DESC){
             Collections.reverse(figureList);
         }
-        for( var f : figureList ){
+        if (figureList.isEmpty())
+            System.out.println("No figures");
+        else for (var f : figureList) {
             System.out.printf("%d. ", counter ++);
             f.print();
-            System.out.println("Date of creation: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(f.getDateOfCreation()));
+            System.out.printf("Date of creation: %s\n\n", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(f.getDateOfCreation()));
         }
     }
 }
