@@ -25,6 +25,19 @@ public abstract class Figure {
                 throw new IllegalStateException("Given figure does not exist");
     }
 
+    protected final void checkForPositives(int n, double ...parameters) {
+        if (n < 0)
+            throw new IllegalArgumentException("N must be greater than or equal to 0");
+        for (var param : parameters) {
+            if (param > 0)
+                n--;
+            if (n < 0)
+                throw new IllegalStateException("Passed too many positive parameters");
+        }
+        if (n > 0)
+            throw new IllegalStateException("Passed too little positive parameters");
+    }
+
     public double getArea() {
         return area;
     }
