@@ -1,7 +1,5 @@
 package GeoConsole.Figure;
 
-import org.w3c.dom.css.Rect;
-
 public class Rectangle extends Figure {
     double sideA, sideB, diagonal;
 
@@ -33,9 +31,9 @@ public class Rectangle extends Figure {
         throwIfNaN(area, perimeter, sideA, sideB, diagonal);
     }
 
-    public void print(){
-        System.out.printf("[ID:%d] Rectangle:\n\tside: %f x %f\n\tdiagonal: %f\n\tarea: %f\n\tperimeter: %f\n",
-                id, sideA, sideB, diagonal, area, perimeter);
+    public void print(int roundTo) {
+        printfRounded("[ID:%d] Rectangle:\n\tside: %f x %f\n\tdiagonal: %f\n\tarea: %f\n\tperimeter: %f\n",
+                roundTo, id, sideA, sideB, diagonal, area, perimeter);
     }
 
     @Override

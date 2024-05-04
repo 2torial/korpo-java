@@ -51,6 +51,6 @@ public class RhombusCommand extends FigureCommand {
         handler.handleArguments(arguments);
         Rhombus rhombus = new Rhombus(side, diagonalA, diagonalB, area);
         updateContext(rhombus);
-        rhombus.print();
+        rhombus.print(roundTo);
     }
 }

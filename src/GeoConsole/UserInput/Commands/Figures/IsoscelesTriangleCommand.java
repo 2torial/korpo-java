@@ -45,6 +45,6 @@ public class IsoscelesTriangleCommand extends FigureCommand {
         handler.handleArguments(arguments);
         IsoscelesTriangle triangle = new IsoscelesTriangle(side, base, area, height);
         updateContext(triangle);
-        triangle.print();
+        triangle.print(roundTo);
     }
 }

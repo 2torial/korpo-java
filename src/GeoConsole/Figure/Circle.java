@@ -29,8 +29,8 @@ public class Circle extends Figure {
         return new Circle( radius, -1, -1 );
     }
 
-    public void print() {
-        System.out.printf("[ID:%d] Circle:\n\tradius: %f,\n\tarea: %f,\n\tperimeter: %f\n", id, radius, area, perimeter);
+    public void print(int roundTo) {
+        printfRounded("[ID:%d] Circle:\n\tradius: %f,\n\tarea: %f,\n\tperimeter: %f\n", roundTo, id, radius, area, perimeter);
     }
 
     @Override

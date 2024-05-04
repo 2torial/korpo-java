@@ -45,6 +45,6 @@ public class DoubleFigureCommand extends FigureCommand {
             ? Context.findFigureWithId(providedId).doubleSelf()
             : Context.findFigureWithName(providedName).doubleSelf();
         updateContext(fig);
-        fig.print();
+        fig.print(roundTo);
     }
 }

@@ -49,6 +49,6 @@ public class RightTriangleCommand extends FigureCommand {
         handler.handleArguments(arguments);
         RightTriangle triangle = new RightTriangle(adjoiningSideA, adjoiningSideB, hypotenuseSide, area);
         updateContext(triangle);
-        triangle.print();
+        triangle.print(roundTo);
     }
 }

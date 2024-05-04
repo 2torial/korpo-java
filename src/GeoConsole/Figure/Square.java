@@ -4,6 +4,7 @@ public class Square extends Figure {
     double side, diagonal;
 
     public Square(double sideValue, double diagonalValue, double areaValue) {
+        checkForPositives(1, sideValue, diagonalValue, areaValue);
         if (sideValue <= 0.0 && diagonalValue <= 0.0 && areaValue < 0.0)
             throw new IllegalArgumentException("An argument (side/diagonal/area) has to be greater than 0");
         if (sideValue > 0.0) {
@@ -34,9 +35,9 @@ public class Square extends Figure {
     }
 
     @Override
-    public void print() {
-        System.out.printf("[ID:%d] Square:\n\tside: %f\n\tdiagonal: %f\n\tarea: %f\n\tperimeter: %f\n",
-                id, side, diagonal, area, perimeter);
+    public void print(int roundTo) {
+        printfRounded("[ID:%d] Square:\n\tside: %f\n\tdiagonal: %f\n\tarea: %f\n\tperimeter: %f\n",
+                roundTo, id, side, diagonal, area, perimeter);
     }
 
     @Override

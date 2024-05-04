@@ -38,21 +38,27 @@ public class SortCommand extends Command {
     }
 
     private Order sortOrder = Order.ASC;
+    private int roundTo = 2;
     private Comparator<Figure> comparator = Comparator.comparing(Figure::getDateOfCreation);
 
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
             case "a", "area" -> argument.setName("area/perimeter/date")
-                    .supplyHandler(pos -> comparator = Comparator.comparingDouble(Figure::getArea));
+                .supplyHandler(pos -> comparator = Comparator.comparingDouble(Figure::getArea));
             case "p", "peri", "perimeter" -> argument.setName("area/perimeter/date")
-                    .supplyHandler(pos -> comparator = Comparator.comparingDouble(Figure::getPerimeter));
+                .supplyHandler(pos -> comparator = Comparator.comparingDouble(Figure::getPerimeter));
             case "d", "date" -> argument.setName("area/perimeter/date")
-                    .supplyHandler(pos -> comparator = Comparator.comparing(Figure::getDateOfCreation));
+                .supplyHandler(pos -> comparator = Comparator.comparing(Figure::getDateOfCreation));
             case "asc", "ascending" -> argument.setName("ascending/descending")
-                    .supplyHandler(pos -> sortOrder = Order.ASC);
+                .supplyHandler(pos -> sortOrder = Order.ASC);
             case "desc", "descending" -> argument.setName("ascending/descending")
-                    .supplyHandler(pos -> sortOrder = Order.DESC);
+                .supplyHandler(pos -> sortOrder = Order.DESC);
+            case "r", "round" -> argument.setName("round").supplyHandler(1, (args, pos) -> {
+                roundTo = args[0].getIntegerValue();
+                if (roundTo < 0)
+                    throw new IllegalArgumentException("Rounding argument must be a positive number");
+            });
             default -> super.supplyParameter(argument);
         }
     }
@@ -70,7 +76,7 @@ public class SortCommand extends Command {
             System.out.println("No figures");
         else for (var f : figureList) {
             System.out.printf("%d. ", counter ++);
-            f.print();
+            f.print(roundTo);
             System.out.printf("Date of creation: %s\n\n", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(f.getDateOfCreation()));
         }
     }

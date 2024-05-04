@@ -46,6 +46,6 @@ public class CircumcircleCommand extends FigureCommand {
             : Context.findFigureWithName(providedName);
         Circle circle = fig.getCircumcircle();
         updateContext(circle);
-        circle.print();
+        circle.print(roundTo);
     }
 }
