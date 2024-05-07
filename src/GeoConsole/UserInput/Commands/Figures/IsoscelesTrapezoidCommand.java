@@ -18,7 +18,7 @@ public class IsoscelesTrapezoidCommand extends FigureCommand{
 
     @Override
     public int getNumberOfArguments() {
-        return 1;
+        return 3;
     }
 
     ArgumentsHandler handler = new ArgumentsHandler(3);

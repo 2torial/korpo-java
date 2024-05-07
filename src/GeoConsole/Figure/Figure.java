@@ -5,7 +5,7 @@ import java.util.Date;
 public abstract class Figure {
     double area, perimeter;
     int id;
-    
+
 
     private final Date dateOfCreation = new Date();
 
