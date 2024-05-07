@@ -39,6 +39,13 @@ public class SaveCommand extends Command {
               name\tName of the file""";
     }
 
+    private void fileSaving(Path filePath, List<String> lines) {
+        try {
+            Files.write(filePath, lines, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     protected void handle(Argument[] arguments) {
@@ -50,11 +57,17 @@ public class SaveCommand extends Command {
         }
 
         Path filePath = Paths.get(filename);
+
+        Runnable saveTask = () -> fileSaving(filePath, figureDescriptions);
+
+        Thread thread = new Thread(saveTask);
+        thread.start();
         try {
-            Files.write(filePath, figureDescriptions, StandardCharsets.UTF_8);
-        } catch (IOException e) {
+            thread.join();
+        } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
 
+        System.out.println("file saved!");
     }
 }
