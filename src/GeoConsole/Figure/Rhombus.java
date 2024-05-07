@@ -33,6 +33,13 @@ public class Rhombus extends Figure {
         throwIfNaN(area, perimeter, side, diagonalA, diagonalB);
     }
 
+    @Override
+    public String getDescription(int roundTo) {
+        return stringRounded("[ID:%d] Rhombus: side: %f, diagonals: %f x %f, area: %f, perimeter: %f\n",
+                roundTo, id, side, diagonalA, diagonalB, area, perimeter);
+    }
+
+    @Override
     public void print(int roundTo) {
         System.out.println(stringRounded("[ID:%d] Rhombus:\n\tside: %ff\n\tdiagonals: %f x %f\n\tarea: %f\n\tperimeter: %f\n",
                 roundTo, id, side, diagonalA, diagonalB, area, perimeter));

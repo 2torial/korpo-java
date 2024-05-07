@@ -35,6 +35,12 @@ public class Square extends Figure {
     }
 
     @Override
+    public String getDescription(int roundTo) {
+        return stringRounded("[ID:%d] Square: side: %f, diagonal: %f, area: %f, perimeter: %f\n",
+                roundTo, id, side, diagonal, area, perimeter);
+    }
+
+    @Override
     public void print(int roundTo) {
         System.out.println(stringRounded("[ID:%d] Square:\n\tside: %f\n\tdiagonal: %f\n\tarea: %f\n\tperimeter: %f\n",
                 roundTo, id, side, diagonal, area, perimeter));

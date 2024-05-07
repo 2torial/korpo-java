@@ -56,9 +56,15 @@ public class IsoscelesTrapezoid extends Figure{
     }
 
     @Override
+    public String getDescription(int roundTo) {
+        return stringRounded("[ID:%d] Isosceles Trapezoid, a:%f, b:%f, side: %f, area: %f, perimeter: %f\n",
+                roundTo, id, a, b, side, area, perimeter);
+    }
+
+    @Override
     public void print(int roundTo) {
-        System.out.println(stringRounded("[ID:%d] Isosceles Trapezoid:\n\tside: %f\n\tarea: %f\n\tperimeter: %f\n",
-                roundTo, id, side, area, perimeter));
+        System.out.println(stringRounded("[ID:%d] Isosceles Trapezoid:\n\ta: %f\n\tb: %f\n\tside: %f\n\tarea: %f\n\tperimeter: %f\n",
+                roundTo, id, a, b, side, area, perimeter));
     }
 
     @Override

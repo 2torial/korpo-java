@@ -30,7 +30,13 @@ public class Rectangle extends Figure {
         throwIfZero(area, perimeter, sideA, sideB, diagonal);
         throwIfNaN(area, perimeter, sideA, sideB, diagonal);
     }
+    @Override
+    public String getDescription(int roundTo) {
+        return stringRounded("[ID:%d] Rectangle: side: %f x %f, diagonal: %f, area: %f, perimeter: %f\n",
+                roundTo, id, sideA, sideB, diagonal, area, perimeter);
+    }
 
+    @Override
     public void print(int roundTo) {
         System.out.println(stringRounded("[ID:%d] Rectangle:\n\tside: %f x %f\n\tdiagonal: %f\n\tarea: %f\n\tperimeter: %f\n",
                 roundTo, id, sideA, sideB, diagonal, area, perimeter));

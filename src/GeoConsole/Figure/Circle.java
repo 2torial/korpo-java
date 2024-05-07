@@ -29,6 +29,12 @@ public class Circle extends Figure {
         return new Circle( radius, -1, -1 );
     }
 
+    @Override
+    public String getDescription(int roundTo) {
+        return stringRounded("[ID:%d] Circle: radius: %f, area: %f, perimeter: %f\n", roundTo, id, radius, area, perimeter);
+    }
+
+    @Override
     public void print(int roundTo) {
         System.out.println(stringRounded("[ID:%d] Circle:\n\tradius: %f,\n\tarea: %f,\n\tperimeter: %f\n", roundTo, id, radius, area, perimeter));
     }

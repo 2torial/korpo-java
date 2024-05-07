@@ -69,6 +69,8 @@ public abstract class Figure {
 
     public abstract Circle getCircumcircle();
 
+    public abstract String getDescription(int roundTo);
+
     public abstract void print(int roundTo);
 
     public abstract Figure doubleSelf();

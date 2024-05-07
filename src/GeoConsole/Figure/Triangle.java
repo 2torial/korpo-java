@@ -10,6 +10,12 @@ public abstract class Triangle extends Figure {
     }
 
     @Override
+    public String getDescription(int roundTo) {
+        return stringRounded("[ID:%d] Triangle of type %s: A: %f, B: %f, C: %f, height: %f, area: %f, perimeter: %f\n",
+                roundTo, id, type, A, B, C, height, area, perimeter);
+    }
+
+    @Override
     public void print(int roundTo) {
         System.out.println(stringRounded("[ID:%d] Triangle of type %s:\n\tA: %f\n\tB: %f\n\tC: %f\n\theight: %f\n\tarea: %f\n\tperimeter: %f\n",
                 roundTo, id, type, A, B, C, height, area, perimeter));
