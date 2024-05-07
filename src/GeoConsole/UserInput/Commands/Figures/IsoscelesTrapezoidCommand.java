@@ -23,22 +23,24 @@ public class IsoscelesTrapezoidCommand extends FigureCommand{
 
     ArgumentsHandler handler = new ArgumentsHandler(3);
     double a = -1, b = -1, side = -1, area = -1, height = -1;
+    int parameterPosition = 1;
 
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
-            case "a" -> argument.enforceRelativePosition(1).setName("a/b/side/height/area")
+            case "a" -> argument.enforceRelativePosition(parameterPosition)
                     .supplyHandler(pos -> handler.supply(pos, arg -> a = arg.getNumericValue()));
-            case "b" -> argument.enforceRelativePosition(1).setName("a/b/side/height/area")
+            case "b" -> argument.enforceRelativePosition(parameterPosition)
                     .supplyHandler(pos -> handler.supply(pos, arg -> b = arg.getNumericValue()));
-            case "side" -> argument.enforceRelativePosition(1).setName("a/b/side/height/area")
+            case "side" -> argument.enforceRelativePosition(parameterPosition)
                     .supplyHandler(pos -> handler.supply(pos, arg -> side = arg.getNumericValue()));
-            case "height" -> argument.enforceRelativePosition(1).setName("a/b/side/height/area")
+            case "height" -> argument.enforceRelativePosition(parameterPosition)
                     .supplyHandler(pos -> handler.supply(pos, arg -> height = arg.getNumericValue()));
-            case "area" -> argument.enforceRelativePosition(1).setName("a/b/side/height/area")
+            case "area" -> argument.enforceRelativePosition(parameterPosition)
                     .supplyHandler(pos -> handler.supply(pos, arg -> area = arg.getNumericValue()));
             default -> super.supplyParameter(argument);
         }
+        parameterPosition++;
     }
 
     @Override
