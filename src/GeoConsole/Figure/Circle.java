@@ -30,7 +30,7 @@ public class Circle extends Figure {
     }
 
     public void print(int roundTo) {
-        printfRounded("[ID:%d] Circle:\n\tradius: %f,\n\tarea: %f,\n\tperimeter: %f\n", roundTo, id, radius, area, perimeter);
+        System.out.println(stringRounded("[ID:%d] Circle:\n\tradius: %f,\n\tarea: %f,\n\tperimeter: %f\n", roundTo, id, radius, area, perimeter));
     }
 
     @Override

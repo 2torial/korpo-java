@@ -57,8 +57,8 @@ public class IsoscelesTrapezoid extends Figure{
 
     @Override
     public void print(int roundTo) {
-        printfRounded("[ID:%d] Isosceles Trapezoid:\n\tside: %f\n\tarea: %f\n\tperimeter: %f\n",
-                roundTo, id, side, area, perimeter);
+        System.out.println(stringRounded("[ID:%d] Isosceles Trapezoid:\n\tside: %f\n\tarea: %f\n\tperimeter: %f\n",
+                roundTo, id, side, area, perimeter));
     }
 
     @Override

@@ -34,8 +34,8 @@ public class Rhombus extends Figure {
     }
 
     public void print(int roundTo) {
-        printfRounded("[ID:%d] Rhombus:\n\tside: %ff\n\tdiagonals: %f x %f\n\tarea: %f\n\tperimeter: %f\n",
-                roundTo, id, side, diagonalA, diagonalB, area, perimeter);
+        System.out.println(stringRounded("[ID:%d] Rhombus:\n\tside: %ff\n\tdiagonals: %f x %f\n\tarea: %f\n\tperimeter: %f\n",
+                roundTo, id, side, diagonalA, diagonalB, area, perimeter));
     }
 
     @Override

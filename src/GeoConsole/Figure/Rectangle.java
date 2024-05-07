@@ -32,8 +32,8 @@ public class Rectangle extends Figure {
     }
 
     public void print(int roundTo) {
-        printfRounded("[ID:%d] Rectangle:\n\tside: %f x %f\n\tdiagonal: %f\n\tarea: %f\n\tperimeter: %f\n",
-                roundTo, id, sideA, sideB, diagonal, area, perimeter);
+        System.out.println(stringRounded("[ID:%d] Rectangle:\n\tside: %f x %f\n\tdiagonal: %f\n\tarea: %f\n\tperimeter: %f\n",
+                roundTo, id, sideA, sideB, diagonal, area, perimeter));
     }
 
     @Override

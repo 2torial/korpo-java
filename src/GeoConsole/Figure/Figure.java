@@ -6,7 +6,6 @@ public abstract class Figure {
     double area, perimeter;
     int id;
 
-
     private final Date dateOfCreation = new Date();
 
     public Date getDateOfCreation() {
@@ -43,17 +42,18 @@ public abstract class Figure {
         return Math.round(value * rounder) / rounder;
     }
 
-    protected void printfRounded(String msg, int n, Object ...args) {
-        if (n >= 0) {
-            for (int i = 0; i < args.length; i++) {
-                var arg = args[i];
-                if (arg instanceof Double)
-                    args[i] = round(n, (Double)arg);
-                else if (arg instanceof Float)
-                    args[i] = round(n, (Float)arg);
-            }
+    protected String stringRounded(String msg, int n, Object ...args) {
+        String replacement = "%." + String.format("%d", n) + "f";
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(msg);
+
+        while( stringBuilder.indexOf("%f") != -1 )
+        {
+            int index = stringBuilder.indexOf("%f");
+            stringBuilder.replace(index, index + 2, replacement);
         }
-        System.out.printf(msg, args);
+
+        return String.format(stringBuilder.toString(), args);
     }
 
     public double getArea() {
