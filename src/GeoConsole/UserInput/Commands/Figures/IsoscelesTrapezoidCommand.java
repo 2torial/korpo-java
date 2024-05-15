@@ -1,6 +1,7 @@
 package GeoConsole.UserInput.Commands.Figures;
 
 import GeoConsole.Figure.IsoscelesTrapezoid;
+import GeoConsole.Figure.IsoscelesTriangle;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
 import GeoConsole.UserInput.Exceptions.InvalidParameterException;
@@ -47,7 +48,7 @@ public class IsoscelesTrapezoidCommand extends FigureCommand{
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
         IsoscelesTrapezoid trapezoid = new IsoscelesTrapezoid(a, b, side, height, area);
-        updateContext(trapezoid);
+        updateContext(trapezoid, IsoscelesTrapezoid.class);
         trapezoid.print(roundTo);
     }
 }

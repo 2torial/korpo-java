@@ -41,7 +41,7 @@ public class CircleCommand extends FigureCommand {
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
         Circle circle = new Circle(radius, area, perimeter);
-        updateContext(circle);
+        updateContext(circle, Circle.class);
         circle.print(roundTo);
     }
 }

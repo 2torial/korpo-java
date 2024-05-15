@@ -7,16 +7,11 @@ import GeoConsole.UserInput.Context.Context;
 import GeoConsole.UserInput.Exceptions.InvalidParameterException;
 
 public abstract class FigureCommand extends Command {
-    protected boolean save = true;
     protected int roundTo = 2;
 
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
-            case "print" -> argument.enforceRelativePosition(getNumberOfArguments() + 1).setName("save/print")
-                .supplyHandler(pos -> save = false);
-            case "save" -> argument.enforceRelativePosition(getNumberOfArguments() + 1).setName("save/print")
-                .supplyHandler(pos -> save = true);
             case "r", "round" -> argument.setName("round")
                 .enforceRelativePosition(getNumberOfArguments() + 1)
                 .supplyHandler(1, (args, pos) -> {
@@ -31,9 +26,13 @@ public abstract class FigureCommand extends Command {
         }
     }
 
-    protected void updateContext(Figure figure) {
-        if (!save)
-            return;
+    protected <T extends Figure> void updateContext(T figure, Class<? extends Figure> type) {
+        for (var fig : Context.getFigureList()) {
+            try {
+                if (type.cast(fig).equals(figure))
+                    return;
+            } catch (NumberFormatException ignore) {}
+        }
         Context.addFigure(figure);
     }
 }

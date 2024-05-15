@@ -1,7 +1,5 @@
 package GeoConsole.Figure;
 
-import java.util.Objects;
-
 public abstract class Triangle extends Figure {
     double A, B, C, height; //height on A
     String type = "unspecified";

@@ -1,6 +1,6 @@
 package GeoConsole.Figure;
 
-import java.util.Objects;
+import GeoConsole.UserInput.Context.Pair;
 
 public class Square extends Figure {
     double side, diagonal;
@@ -43,8 +43,8 @@ public class Square extends Figure {
     }
 
     @Override
-    public Square doubleSelf() {
-        return new Square(side*Math.sqrt(2), -1, -1);
+    public Pair<Figure, Class<? extends Figure>> doubleSelf() {
+        return new Pair<>(new Square(side*Math.sqrt(2), -1, -1), Square.class);
     }
 
     @Override

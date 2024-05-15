@@ -1,6 +1,6 @@
 package GeoConsole.Figure;
 
-import java.util.Objects;
+import GeoConsole.UserInput.Context.Pair;
 
 public class Rhombus extends Figure {
     public final double side, diagonalA, diagonalB;
@@ -50,8 +50,14 @@ public class Rhombus extends Figure {
     }
 
     @Override
-    public Rhombus doubleSelf() {
-        return new Rhombus(-1, diagonalA*Math.sqrt(2), diagonalB*Math.sqrt(2), -1);
+    public Pair<Figure, Class<? extends Figure>> doubleSelf() {
+        return new Pair<>(
+            new Rhombus(
+                -1,
+                diagonalA*Math.sqrt(2),
+                diagonalB*Math.sqrt(2),
+                -1),
+            Rhombus.class);
     }
 
     @Override

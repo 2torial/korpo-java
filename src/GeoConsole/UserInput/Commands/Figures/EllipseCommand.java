@@ -45,7 +45,7 @@ public class EllipseCommand extends FigureCommand {
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
         Ellipse ellipse = new Ellipse(axle1, axle2, area);
-        updateContext(ellipse);
+        updateContext(ellipse, Ellipse.class);
         ellipse.print(roundTo);
     }
 }

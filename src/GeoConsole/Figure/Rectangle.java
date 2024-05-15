@@ -1,6 +1,6 @@
 package GeoConsole.Figure;
 
-import java.util.Objects;
+import GeoConsole.UserInput.Context.Pair;
 
 public class Rectangle extends Figure {
     double sideA, sideB, diagonal;
@@ -44,8 +44,14 @@ public class Rectangle extends Figure {
     }
 
     @Override
-    public Rectangle doubleSelf() {
-        return new Rectangle(sideA*Math.sqrt(2), sideB*Math.sqrt(2), -1, -1);
+    public Pair<Figure, Class<? extends Figure>> doubleSelf() {
+        return new Pair<>(
+            new Rectangle(
+                sideA*Math.sqrt(2),
+                sideB*Math.sqrt(2),
+                -1,
+                -1),
+            Rectangle.class);
     }
 
     @Override

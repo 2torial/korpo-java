@@ -1,6 +1,6 @@
 package GeoConsole.Figure;
 
-import java.util.Objects;
+import GeoConsole.UserInput.Context.Pair;
 
 public class Ellipse extends Figure {
     public final double axle1, axle2;
@@ -34,8 +34,13 @@ public class Ellipse extends Figure {
     }
 
     @Override
-    public Ellipse doubleSelf() {
-        return new Ellipse(axle1 * Math.sqrt(2), axle2*Math.sqrt(2), -1);
+    public Pair<Figure, Class<? extends Figure>> doubleSelf() {
+        return new Pair<>(
+            new Ellipse(
+                axle1 * Math.sqrt(2),
+                axle2*Math.sqrt(2),
+                -1),
+            Ellipse.class);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package GeoConsole.Figure;
 
+import GeoConsole.UserInput.Context.Pair;
+
 public class AnyTriangle extends Triangle {
     public AnyTriangle(double a, double b, double c) {
         if(a <= 0.0 || b <= 0.0 || c <= 0.0)
@@ -14,7 +16,7 @@ public class AnyTriangle extends Triangle {
     }
 
     @Override
-    public Figure doubleSelf() {
-        return new AnyTriangle(A*Math.sqrt(2), B*2*Math.sqrt(2), C*2*Math.sqrt(2));
+    public Pair<Figure, Class<? extends Figure>> doubleSelf() {
+        return new Pair<>(new AnyTriangle(A*Math.sqrt(2), B*2*Math.sqrt(2), C*2*Math.sqrt(2)), AnyTriangle.class);
     }
 }

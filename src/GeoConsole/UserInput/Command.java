@@ -83,9 +83,9 @@ public abstract class Command {
             throw new InvalidNumberOfArguments(commandArguments.size(), this);
         var arguments = commandArguments.toArray(new Argument[0]);
         for (var triple : parameterHandlers) {
-            Argument parameter = triple.first;
-            Argument[] subArguments = triple.second;
-            int position = triple.third;
+            Argument parameter = triple.first();
+            Argument[] subArguments = triple.second();
+            int position = triple.third();
             parameter.throwIfInvalid();
             parameter.getHandler().accept(subArguments, position);
         }

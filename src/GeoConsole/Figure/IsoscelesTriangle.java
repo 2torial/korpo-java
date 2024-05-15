@@ -1,5 +1,7 @@
 package GeoConsole.Figure;
 
+import GeoConsole.UserInput.Context.Pair;
+
 import java.util.Objects;
 
 //trojkat rownoramienny
@@ -61,8 +63,14 @@ public class IsoscelesTriangle extends Triangle {
     }
 
     @Override
-    public IsoscelesTriangle doubleSelf() {
-        return new IsoscelesTriangle(-1, A*Math.sqrt(2), -1, height*Math.sqrt(2));
+    public Pair<Figure, Class<? extends Figure>> doubleSelf() {
+        return new Pair<>(
+            new IsoscelesTriangle(
+                -1,
+                A*Math.sqrt(2),
+                -1,
+                height*Math.sqrt(2)),
+            IsoscelesTriangle.class);
     }
 
     @Override

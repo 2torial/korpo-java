@@ -1,5 +1,7 @@
 package GeoConsole.Figure;
 
+import GeoConsole.UserInput.Context.Pair;
+
 public class RightTriangle extends Triangle {
     {
         type = "right-angled";
@@ -41,8 +43,14 @@ public class RightTriangle extends Triangle {
     }
 
     @Override
-    public Figure doubleSelf() {
-        return new RightTriangle(A*Math.sqrt(2), B*Math.sqrt(2), -1, -1);
+    public Pair<Figure, Class<? extends Figure>> doubleSelf() {
+        return new Pair<>(
+            new RightTriangle(
+                A*Math.sqrt(2),
+                B*Math.sqrt(2),
+                -1,
+                -1),
+            RightTriangle.class);
     }
 
     @Override

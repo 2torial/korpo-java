@@ -1,5 +1,7 @@
 package GeoConsole.Figure;
 
+import GeoConsole.UserInput.Context.Pair;
+
 import java.util.Date;
 
 public abstract class Figure {
@@ -75,5 +77,5 @@ public abstract class Figure {
         System.out.print(getDescription(roundTo));
     }
 
-    public abstract Figure doubleSelf();
+    public abstract Pair<Figure, Class<? extends Figure>> doubleSelf();
 }

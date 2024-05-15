@@ -1,5 +1,7 @@
 package GeoConsole.Figure;
 
+import GeoConsole.UserInput.Context.Pair;
+
 import java.util.Objects;
 
 public class IsoscelesTrapezoid extends Figure{
@@ -66,7 +68,16 @@ public class IsoscelesTrapezoid extends Figure{
     }
 
     @Override
-    public IsoscelesTrapezoid doubleSelf() { return new IsoscelesTrapezoid( a*Math.sqrt(2), b*Math.sqrt(2), -1, height*Math.sqrt(2), -1 ); }
+    public Pair<Figure, Class<? extends Figure>> doubleSelf() {
+        return new Pair<>(
+            new IsoscelesTrapezoid(
+                a*Math.sqrt(2),
+                b*Math.sqrt(2),
+                -1,
+                height*Math.sqrt(2),
+                -1),
+            IsoscelesTrapezoid.class);
+    }
 
     @Override
     public boolean equals(Object o) {

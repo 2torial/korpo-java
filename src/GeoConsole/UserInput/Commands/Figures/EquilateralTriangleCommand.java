@@ -41,7 +41,7 @@ public class EquilateralTriangleCommand extends FigureCommand {
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
         EquilateralTriangle triangle = new EquilateralTriangle(side, height, area);
-        updateContext(triangle);
+        updateContext(triangle, EquilateralTriangle.class);
         triangle.print(roundTo);
     }
 }

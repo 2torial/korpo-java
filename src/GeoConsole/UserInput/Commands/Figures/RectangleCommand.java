@@ -49,7 +49,7 @@ public class RectangleCommand extends FigureCommand {
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
         Rectangle rectangle = new Rectangle(sideA, sideB, diagonal, area);
-        updateContext(rectangle);
+        updateContext(rectangle, Rectangle.class);
         rectangle.print(roundTo);
     }
 }
