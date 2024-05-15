@@ -20,25 +20,15 @@ public class RemoveCommand extends FigureCommand {
         return 1;
     }
 
-    boolean byId = false;
-
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
-        switch (argument.rawValue) {
-            case "id" -> argument.enforceRelativePosition(1).setName("id/name")
-                .supplyHandler(pos -> byId = true);
-            case "name" -> argument.enforceRelativePosition(1).setName("id/name")
-                .supplyHandler(pos -> byId = false);
-            default -> super.supplyParameter(argument);
-        }
+        super.supplyParameter(argument);
     }
 
     @Override
     protected void handle(Argument[] arguments) {
-        if (byId)
-            arguments[0].getIntegerValue();
         try {
-            Context.removeFigure(arguments[0].rawValue);
+            Context.removeFigure(arguments[0].getIntegerValue());
             System.out.println("Figure removed successfully");
         } catch (Exception ignored) {
             System.out.println("Invalid input – figure not found");

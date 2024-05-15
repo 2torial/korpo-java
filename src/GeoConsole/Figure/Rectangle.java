@@ -1,5 +1,7 @@
 package GeoConsole.Figure;
 
+import java.util.Objects;
+
 public class Rectangle extends Figure {
     double sideA, sideB, diagonal;
 
@@ -37,12 +39,6 @@ public class Rectangle extends Figure {
     }
 
     @Override
-    public void print(int roundTo) {
-        System.out.println(stringRounded("[ID:%d] Rectangle:\n\tside: %f x %f\n\tdiagonal: %f\n\tarea: %f\n\tperimeter: %f\n",
-                roundTo, id, sideA, sideB, diagonal, area, perimeter));
-    }
-
-    @Override
     public Circle getCircumcircle(){
         return new Circle(diagonal / 2.0, -1, -1);
     }
@@ -50,5 +46,13 @@ public class Rectangle extends Figure {
     @Override
     public Rectangle doubleSelf() {
         return new Rectangle(sideA*Math.sqrt(2), sideB*Math.sqrt(2), -1, -1);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rectangle rectangle = (Rectangle) o;
+        return Double.compare(sideA, rectangle.sideA) == 0 && Double.compare(sideB, rectangle.sideB) == 0;
     }
 }

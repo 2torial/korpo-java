@@ -1,5 +1,7 @@
 package GeoConsole.Figure;
 
+import java.util.Objects;
+
 public class Circle extends Figure {
     double radius;
 
@@ -35,12 +37,15 @@ public class Circle extends Figure {
     }
 
     @Override
-    public void print(int roundTo) {
-        System.out.println(stringRounded("[ID:%d] Circle:\n\tradius: %f,\n\tarea: %f,\n\tperimeter: %f\n", roundTo, id, radius, area, perimeter));
+    public Figure doubleSelf() {
+        return new Circle(radius*Math.sqrt(2), -1, -1);
     }
 
     @Override
-    public Figure doubleSelf() {
-        return new Circle(radius*Math.sqrt(2), -1, -1);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Circle circle = (Circle) o;
+        return Double.compare(radius, circle.radius) == 0;
     }
 }

@@ -71,7 +71,9 @@ public abstract class Figure {
 
     public abstract String getDescription(int roundTo);
 
-    public abstract void print(int roundTo);
+    public void print(int roundTo) {
+        System.out.print(getDescription(roundTo));
+    }
 
     public abstract Figure doubleSelf();
 }

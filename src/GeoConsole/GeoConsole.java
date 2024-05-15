@@ -12,7 +12,7 @@ public class GeoConsole{
     private final Scanner scanner = new Scanner(System.in);
 
     private boolean isExited = false;
-    public final static String versionInfo = "GeoConsole ver 0.1.2\nRelease date: 04.05.2024\n";
+    public final static String versionInfo = "GeoConsole ver 1.0P\nRelease date: 15.05.2024\n";
 
     public void exit() {
         isExited = true;

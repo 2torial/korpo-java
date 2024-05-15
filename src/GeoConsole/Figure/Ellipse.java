@@ -1,17 +1,20 @@
 package GeoConsole.Figure;
 
+import java.util.Objects;
+
 public class Ellipse extends Figure {
     public final double axle1, axle2;
 
     public Ellipse(double axle1Value, double axle2Value, double areaValue) {
         checkForPositives(2, axle1Value, axle2Value, areaValue);
         if (axle1Value > 0 && axle2Value > 0) {
-            axle1 = axle1Value;
-            axle2 = axle2Value;
+            axle1 = Math.max(axle1Value, axle2Value);
+            axle2 = Math.min(axle1Value, axle2Value);
         } else if (axle1Value > 0 && areaValue > 0) {
-            axle1 = axle1Value;
             area = areaValue;
-            axle2 = area / Math.PI / axle1;
+            double axleTmp = area / Math.PI / axle1Value;
+            axle1 = Math.max(axle1Value, axleTmp);
+            axle2 = Math.min(axle1Value, axleTmp);
         } else throw new RuntimeException("Unreachable state");
         area = (area > 0) ? area : Math.PI * axle1 * axle2;
         perimeter = Math.PI * (3 * (axle1 + axle2) /2 - Math.sqrt(axle1 * axle2));
@@ -26,11 +29,6 @@ public class Ellipse extends Figure {
     }
 
     @Override
-    public void print(int roundTo) {
-        System.out.println(getDescription(roundTo));
-    }
-
-    @Override
     public Circle getCircumcircle(){
         return new Circle(Math.max(axle1, axle2), -1, -1);
     }
@@ -38,5 +36,13 @@ public class Ellipse extends Figure {
     @Override
     public Ellipse doubleSelf() {
         return new Ellipse(axle1 * Math.sqrt(2), axle2*Math.sqrt(2), -1);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Ellipse ellipse = (Ellipse) o;
+        return Double.compare(axle1, ellipse.axle1) == 0 && Double.compare(axle2, ellipse.axle2) == 0;
     }
 }

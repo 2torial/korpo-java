@@ -1,5 +1,7 @@
 package GeoConsole.Figure;
 
+import java.util.Objects;
+
 public abstract class Triangle extends Figure {
     double A, B, C, height; //height on A
     String type = "unspecified";
@@ -16,9 +18,10 @@ public abstract class Triangle extends Figure {
     }
 
     @Override
-    public void print(int roundTo) {
-        System.out.println(stringRounded("[ID:%d] Triangle of type %s:\n\tA: %f\n\tB: %f\n\tC: %f\n\theight: %f\n\tarea: %f\n\tperimeter: %f\n",
-                roundTo, id, type, A, B, C, height, area, perimeter));
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Triangle triangle = (Triangle) o;
+        return Double.compare(A, triangle.A) == 0 && Double.compare(height, triangle.height) == 0;
     }
-
 }

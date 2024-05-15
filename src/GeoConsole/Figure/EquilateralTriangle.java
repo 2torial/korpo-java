@@ -1,5 +1,7 @@
 package GeoConsole.Figure;
 
+import java.util.Objects;
+
 //trojkat rownoboczny
 public class EquilateralTriangle extends Triangle{
     double side;
@@ -40,5 +42,13 @@ public class EquilateralTriangle extends Triangle{
     @Override
     public EquilateralTriangle doubleSelf() {
         return new EquilateralTriangle(A*Math.sqrt(2), height*Math.sqrt(2), -1);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        EquilateralTriangle that = (EquilateralTriangle) o;
+        return Double.compare(side, that.side) == 0;
     }
 }

@@ -50,8 +50,6 @@ public final class CommandFactory {
         commandSuppliers.put("sort", SortCommand::new);
         commandSuppliers.put("help", HelpCommand::new);
         commandSuppliers.put("exit", ExitCommand::new);
-        commandSuppliers.put("add", AddCommand::new);
-        commandSuppliers.put("let", LetCommand::new);
         commandSuppliers.put("square", SquareCommand::new);
         commandSuppliers.put("equilateraltriangle", EquilateralTriangleCommand::new);
         commandSuppliers.put("rectangle", RectangleCommand::new);

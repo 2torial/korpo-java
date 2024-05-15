@@ -41,9 +41,7 @@ public class CircumcircleCommand extends FigureCommand {
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
 
-        Figure fig = (providedName == null)
-            ? Context.findFigureWithId(providedId)
-            : Context.findFigureWithName(providedName);
+        Figure fig = Context.findFigure(providedId);
         Circle circle = fig.getCircumcircle();
         updateContext(circle);
         circle.print(roundTo);

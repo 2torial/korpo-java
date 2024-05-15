@@ -44,4 +44,9 @@ public class RightTriangle extends Triangle {
     public Figure doubleSelf() {
         return new RightTriangle(A*Math.sqrt(2), B*Math.sqrt(2), -1, -1);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
 }

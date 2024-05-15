@@ -1,5 +1,7 @@
 package GeoConsole.Figure;
 
+import java.util.Objects;
+
 public class IsoscelesTrapezoid extends Figure{
     public double a, b, side, height;
 
@@ -64,12 +66,13 @@ public class IsoscelesTrapezoid extends Figure{
     }
 
     @Override
-    public void print(int roundTo) {
-        System.out.println(stringRounded("[ID:%d] Isosceles Trapezoid:\n\ta: %f\n\tb: %f\n\tside: %f\n\tarea: %f\n\tperimeter: %f\n",
-                roundTo, id, a, b, side, area, perimeter));
-    }
-
-    @Override
     public IsoscelesTrapezoid doubleSelf() { return new IsoscelesTrapezoid( a*Math.sqrt(2), b*Math.sqrt(2), -1, height*Math.sqrt(2), -1 ); }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        IsoscelesTrapezoid that = (IsoscelesTrapezoid) o;
+        return Double.compare(a, that.a) == 0 && Double.compare(b, that.b) == 0;
+    }
 }

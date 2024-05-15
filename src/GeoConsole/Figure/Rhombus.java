@@ -1,5 +1,7 @@
 package GeoConsole.Figure;
 
+import java.util.Objects;
+
 public class Rhombus extends Figure {
     public final double side, diagonalA, diagonalB;
 
@@ -40,12 +42,6 @@ public class Rhombus extends Figure {
     }
 
     @Override
-    public void print(int roundTo) {
-        System.out.println(stringRounded("[ID:%d] Rhombus:\n\tside: %ff\n\tdiagonals: %f x %f\n\tarea: %f\n\tperimeter: %f\n",
-                roundTo, id, side, diagonalA, diagonalB, area, perimeter));
-    }
-
-    @Override
     public Circle getCircumcircle(){
         if (diagonalA != diagonalB)
             throw new IllegalArgumentException("To circumscribe circle on a rhombus, it must be a square");
@@ -56,5 +52,13 @@ public class Rhombus extends Figure {
     @Override
     public Rhombus doubleSelf() {
         return new Rhombus(-1, diagonalA*Math.sqrt(2), diagonalB*Math.sqrt(2), -1);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rhombus rhombus = (Rhombus) o;
+        return Double.compare(diagonalA, rhombus.diagonalA) == 0 && Double.compare(diagonalB, rhombus.diagonalB) == 0;
     }
 }

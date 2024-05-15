@@ -1,5 +1,7 @@
 package GeoConsole.Figure;
 
+import java.util.Objects;
+
 //trojkat rownoramienny
 public class IsoscelesTriangle extends Triangle {
     double side; //A - base
@@ -61,5 +63,13 @@ public class IsoscelesTriangle extends Triangle {
     @Override
     public IsoscelesTriangle doubleSelf() {
         return new IsoscelesTriangle(-1, A*Math.sqrt(2), -1, height*Math.sqrt(2));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        IsoscelesTriangle that = (IsoscelesTriangle) o;
+        return Double.compare(side, that.side) == 0;
     }
 }

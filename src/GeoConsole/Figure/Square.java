@@ -1,5 +1,7 @@
 package GeoConsole.Figure;
 
+import java.util.Objects;
+
 public class Square extends Figure {
     double side, diagonal;
 
@@ -41,13 +43,15 @@ public class Square extends Figure {
     }
 
     @Override
-    public void print(int roundTo) {
-        System.out.println(stringRounded("[ID:%d] Square:\n\tside: %f\n\tdiagonal: %f\n\tarea: %f\n\tperimeter: %f\n",
-                roundTo, id, side, diagonal, area, perimeter));
+    public Square doubleSelf() {
+        return new Square(side*Math.sqrt(2), -1, -1);
     }
 
     @Override
-    public Square doubleSelf() {
-        return new Square(side*Math.sqrt(2), -1, -1);
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Square square = (Square) o;
+        return Double.compare(side, square.side) == 0;
     }
 }

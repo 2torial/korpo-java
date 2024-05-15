@@ -41,9 +41,7 @@ public class DoubleFigureCommand extends FigureCommand {
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
 
-        Figure fig = (providedName == null)
-            ? Context.findFigureWithId(providedId).doubleSelf()
-            : Context.findFigureWithName(providedName).doubleSelf();
+        Figure fig = Context.findFigure(providedId).doubleSelf();
         updateContext(fig);
         fig.print(roundTo);
     }
