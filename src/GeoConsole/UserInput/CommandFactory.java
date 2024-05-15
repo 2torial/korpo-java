@@ -65,6 +65,7 @@ public final class CommandFactory {
         commandSuppliers.put("isoscelestrapezoid", IsoscelesTrapezoidCommand::new);
         commandSuppliers.put("save", SaveCommand::new);
         commandSuppliers.put("remove", RemoveCommand::new);
+        commandSuppliers.put("ellipse", EllipseCommand::new);
 
         commandSuppliers.forEach((key, supplier) -> commandPool.put(key, supplier.get()));
     }
