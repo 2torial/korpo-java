@@ -50,7 +50,6 @@ public class RhombusCommand extends FigureCommand {
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
         Rhombus rhombus = new Rhombus(side, diagonalA, diagonalB, area);
-        updateContext(rhombus, Rhombus.class);
-        rhombus.print(roundTo);
+        updateContext(rhombus);
     }
 }

@@ -26,13 +26,24 @@ public abstract class FigureCommand extends Command {
         }
     }
 
-    protected <T extends Figure> void updateContext(T figure, Class<? extends Figure> type) {
+    protected void updateContext(Figure figure) {
+        var figureClassPair = figure.simplify();
+        var simplifiedFigure = figureClassPair == null ? figure : figureClassPair.first();
+        var type = figureClassPair == null ? figure.getClass() : figureClassPair.second();
+        boolean isDuplicate = false;
         for (var fig : Context.getFigureList()) {
             try {
-                if (type.cast(fig).equals(figure))
-                    return;
+                if (type.cast(fig).equals(simplifiedFigure)) {
+                    isDuplicate = true;
+                    break;
+                }
             } catch (Exception ignore) {}
         }
-        Context.addFigure(figure);
+
+        if (!isDuplicate)
+            Context.addFigure(simplifiedFigure);
+        else
+            System.out.println("Duplicate:");
+        simplifiedFigure.print(roundTo);
     }
 }

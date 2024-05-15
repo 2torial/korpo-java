@@ -43,8 +43,8 @@ public class Square extends Figure {
     }
 
     @Override
-    public Pair<Figure, Class<? extends Figure>> doubleSelf() {
-        return new Pair<>(new Square(side*Math.sqrt(2), -1, -1), Square.class);
+    public Figure doubleSelf() {
+        return new Square(side*Math.sqrt(2), -1, -1);
     }
 
     @Override

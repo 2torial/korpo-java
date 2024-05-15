@@ -23,7 +23,6 @@ public class TriangleCommand extends FigureCommand {
     @Override
     protected void handle(Argument[] arguments) {
         AnyTriangle triangle = new AnyTriangle(arguments[0].getNumericValue(), arguments[1].getNumericValue(), arguments[2].getNumericValue());
-        updateContext(triangle, AnyTriangle.class);
-        triangle.print(roundTo);
+        updateContext(triangle);
     }
 }

@@ -80,4 +80,9 @@ public class SortCommand extends Command {
             System.out.printf("Date of creation: %s\n\n", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(f.getDateOfCreation()));
         }
     }
+
+    private enum Order {
+        ASC,
+        DESC
+    }
 }

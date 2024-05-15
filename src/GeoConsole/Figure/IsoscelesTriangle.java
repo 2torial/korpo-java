@@ -1,10 +1,5 @@
 package GeoConsole.Figure;
 
-import GeoConsole.UserInput.Context.Pair;
-
-import java.util.Objects;
-
-//trojkat rownoramienny
 public class IsoscelesTriangle extends Triangle {
     double side; //A - base
 
@@ -63,14 +58,8 @@ public class IsoscelesTriangle extends Triangle {
     }
 
     @Override
-    public Pair<Figure, Class<? extends Figure>> doubleSelf() {
-        return new Pair<>(
-            new IsoscelesTriangle(
-                -1,
-                A*Math.sqrt(2),
-                -1,
-                height*Math.sqrt(2)),
-            IsoscelesTriangle.class);
+    public Figure doubleSelf() {
+        return new IsoscelesTriangle(-1, A*Math.sqrt(2), -1, height*Math.sqrt(2));
     }
 
     @Override

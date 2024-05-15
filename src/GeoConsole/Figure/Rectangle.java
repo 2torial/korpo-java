@@ -44,14 +44,8 @@ public class Rectangle extends Figure {
     }
 
     @Override
-    public Pair<Figure, Class<? extends Figure>> doubleSelf() {
-        return new Pair<>(
-            new Rectangle(
-                sideA*Math.sqrt(2),
-                sideB*Math.sqrt(2),
-                -1,
-                -1),
-            Rectangle.class);
+    public Figure doubleSelf() {
+        return new Rectangle(sideA*Math.sqrt(2), sideB*Math.sqrt(2), -1, -1);
     }
 
     @Override
@@ -60,5 +54,12 @@ public class Rectangle extends Figure {
         if (o == null || getClass() != o.getClass()) return false;
         Rectangle rectangle = (Rectangle) o;
         return roundedComparator.compare(sideA, rectangle.sideA) == 0 && roundedComparator.compare(sideB, rectangle.sideB) == 0;
+    }
+
+    @Override
+    public Pair<Figure, Class<? extends Figure>> simplify() {
+        if (sideA == sideB)
+            return new Pair<>(new Square(sideA, -1, -1), Square.class);
+        return null;
     }
 }

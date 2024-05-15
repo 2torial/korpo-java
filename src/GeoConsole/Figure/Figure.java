@@ -81,5 +81,9 @@ public abstract class Figure {
         System.out.print(getDescription(roundTo));
     }
 
-    public abstract Pair<Figure, Class<? extends Figure>> doubleSelf();
+    public abstract Figure doubleSelf();
+
+    public Pair<Figure, Class<? extends  Figure>> simplify() {
+        return null;
+    }
 }

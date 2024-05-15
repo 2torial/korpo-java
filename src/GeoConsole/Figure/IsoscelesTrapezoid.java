@@ -2,8 +2,6 @@ package GeoConsole.Figure;
 
 import GeoConsole.UserInput.Context.Pair;
 
-import java.util.Objects;
-
 public class IsoscelesTrapezoid extends Figure{
     public double a, b, side, height;
 
@@ -68,15 +66,8 @@ public class IsoscelesTrapezoid extends Figure{
     }
 
     @Override
-    public Pair<Figure, Class<? extends Figure>> doubleSelf() {
-        return new Pair<>(
-            new IsoscelesTrapezoid(
-                a*Math.sqrt(2),
-                b*Math.sqrt(2),
-                -1,
-                height*Math.sqrt(2),
-                -1),
-            IsoscelesTrapezoid.class);
+    public Figure doubleSelf() {
+        return new IsoscelesTrapezoid(a*Math.sqrt(2), b*Math.sqrt(2), -1, height*Math.sqrt(2), -1);
     }
 
     @Override
@@ -85,5 +76,15 @@ public class IsoscelesTrapezoid extends Figure{
         if (o == null || getClass() != o.getClass()) return false;
         IsoscelesTrapezoid that = (IsoscelesTrapezoid) o;
         return roundedComparator.compare(a, that.a) == 0 && roundedComparator.compare(b, that.b) == 0;
+    }
+
+    @Override
+    public Pair<Figure, Class<? extends Figure>> simplify() {
+        if (roundedComparator.compare(a, b) == 0) {
+            if (roundedComparator.compare(a, height) == 0)
+                return new Pair<>(new Square(a, height, -1), Square.class);
+            return new Pair<>(new Rectangle(a, height, -1, -1), Rectangle.class);
+        }
+        return null;
     }
 }

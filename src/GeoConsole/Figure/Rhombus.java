@@ -50,14 +50,8 @@ public class Rhombus extends Figure {
     }
 
     @Override
-    public Pair<Figure, Class<? extends Figure>> doubleSelf() {
-        return new Pair<>(
-            new Rhombus(
-                -1,
-                diagonalA*Math.sqrt(2),
-                diagonalB*Math.sqrt(2),
-                -1),
-            Rhombus.class);
+    public Figure doubleSelf() {
+        return new Rhombus(-1, diagonalA*Math.sqrt(2), diagonalB*Math.sqrt(2), -1);
     }
 
     @Override
@@ -66,5 +60,12 @@ public class Rhombus extends Figure {
         if (o == null || getClass() != o.getClass()) return false;
         Rhombus rhombus = (Rhombus) o;
         return roundedComparator.compare(diagonalA, rhombus.diagonalA) == 0 && roundedComparator.compare(diagonalB, rhombus.diagonalB) == 0;
+    }
+
+    @Override
+    public Pair<Figure, Class<? extends Figure>> simplify() {
+        if (diagonalA == diagonalB)
+            return new Pair<>(new Square(-1, diagonalA, -1), Square.class);
+        return null;
     }
 }

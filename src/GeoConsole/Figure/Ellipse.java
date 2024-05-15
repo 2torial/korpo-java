@@ -34,13 +34,8 @@ public class Ellipse extends Figure {
     }
 
     @Override
-    public Pair<Figure, Class<? extends Figure>> doubleSelf() {
-        return new Pair<>(
-            new Ellipse(
-                axle1 * Math.sqrt(2),
-                axle2*Math.sqrt(2),
-                -1),
-            Ellipse.class);
+    public Figure doubleSelf() {
+        return new Ellipse(axle1 * Math.sqrt(2), axle2*Math.sqrt(2), -1);
     }
 
     @Override
@@ -49,5 +44,12 @@ public class Ellipse extends Figure {
         if (o == null || getClass() != o.getClass()) return false;
         Ellipse ellipse = (Ellipse) o;
         return roundedComparator.compare(axle1, ellipse.axle1) == 0 && roundedComparator.compare(axle2, ellipse.axle2) == 0;
+    }
+
+    @Override
+    public Pair<Figure, Class<? extends Figure>> simplify() {
+        if (roundedComparator.compare(axle1, axle2) == 0)
+            return new Pair<>(new Circle(axle1, -1, -1), Circle.class);
+        return null;
     }
 }

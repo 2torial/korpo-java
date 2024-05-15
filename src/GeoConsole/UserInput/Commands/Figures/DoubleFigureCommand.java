@@ -41,8 +41,7 @@ public class DoubleFigureCommand extends FigureCommand {
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
 
-        var figureClassPair = Context.findFigure(providedId).doubleSelf();
-        updateContext(figureClassPair.first(), figureClassPair.second());
-        figureClassPair.first().print(roundTo);
+        var figure = Context.findFigure(providedId).doubleSelf();
+        updateContext(figure);
     }
 }

@@ -43,14 +43,8 @@ public class RightTriangle extends Triangle {
     }
 
     @Override
-    public Pair<Figure, Class<? extends Figure>> doubleSelf() {
-        return new Pair<>(
-            new RightTriangle(
-                A*Math.sqrt(2),
-                B*Math.sqrt(2),
-                -1,
-                -1),
-            RightTriangle.class);
+    public Figure doubleSelf() {
+        return new RightTriangle(A*Math.sqrt(2), B*Math.sqrt(2), -1, -1);
     }
 
     @Override

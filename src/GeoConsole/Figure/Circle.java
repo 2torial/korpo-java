@@ -1,7 +1,5 @@
 package GeoConsole.Figure;
 
-import GeoConsole.UserInput.Context.Pair;
-
 public class Circle extends Figure {
     double radius;
 
@@ -37,8 +35,8 @@ public class Circle extends Figure {
     }
 
     @Override
-    public Pair<Figure, Class<? extends Figure>> doubleSelf() {
-        return new Pair<>(new Circle(radius*Math.sqrt(2), -1, -1), Circle.class);
+    public Figure doubleSelf() {
+        return new Circle(radius*Math.sqrt(2), -1, -1);
     }
 
     @Override
