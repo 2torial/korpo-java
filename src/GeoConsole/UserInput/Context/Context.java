@@ -9,19 +9,31 @@ public class Context {
     private static final Map<Integer, Figure> figures = new HashMap<>();
     private static final Map<String, Integer> figureNameToIdMap = new HashMap<>();
     private static int figureCounter = 0;
+    private static final LinkedList<Integer> removedIds = new LinkedList<>();
 
     public static <T> void declare(String variableName, T value) {
         variables.put(variableName, new Variable<>(value));
     }
 
     public static void addFigure(String figureName, Figure f){
-        figureCounter ++;
-        f.setId(figureCounter);
-        figureNameToIdMap.put(figureName, figureCounter);
-        figures.put(figureCounter, f);
+        figureCounter++;
+        int id = removedIds.isEmpty() ? figureCounter : removedIds.poll();
+        f.setId(id);
+        figureNameToIdMap.put(figureName, id);
+        figures.put(id, f);
     }
     public static void addFigure(Figure f){
-        addFigure(String.valueOf(figureCounter+1), f);
+        addFigure(Integer.toString(removedIds.isEmpty() ? figureCounter+1 : removedIds.getFirst()), f);
+    }
+
+    public static void removeFigure(String figureName){
+        Figure fig = figures.get(figureNameToIdMap.get(figureName));
+        if (fig == null)
+            throw new IllegalArgumentException("Could not find specified figure");
+        figureNameToIdMap.remove(figureName);
+        figures.remove(fig.getId());
+        removedIds.add(fig.getId());
+        figureCounter--;
     }
 
     public static Figure findFigureWithId(int idValue) {

@@ -65,7 +65,7 @@ public abstract class Figure {
     }
 
     public void setId(int value) { id = value; }
-    //public int getId() { return id; }
+    public int getId() { return id; }
 
     public abstract Circle getCircumcircle();
 
