@@ -59,6 +59,6 @@ public class Rectangle extends Figure {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Rectangle rectangle = (Rectangle) o;
-        return Double.compare(sideA, rectangle.sideA) == 0 && Double.compare(sideB, rectangle.sideB) == 0;
+        return roundedComparator.compare(sideA, rectangle.sideA) == 0 && roundedComparator.compare(sideB, rectangle.sideB) == 0;
     }
 }

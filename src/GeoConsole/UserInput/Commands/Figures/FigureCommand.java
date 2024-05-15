@@ -31,7 +31,7 @@ public abstract class FigureCommand extends Command {
             try {
                 if (type.cast(fig).equals(figure))
                     return;
-            } catch (NumberFormatException ignore) {}
+            } catch (Exception ignore) {}
         }
         Context.addFigure(figure);
     }

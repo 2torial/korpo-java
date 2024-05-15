@@ -84,6 +84,6 @@ public class IsoscelesTrapezoid extends Figure{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         IsoscelesTrapezoid that = (IsoscelesTrapezoid) o;
-        return Double.compare(a, that.a) == 0 && Double.compare(b, that.b) == 0;
+        return roundedComparator.compare(a, that.a) == 0 && roundedComparator.compare(b, that.b) == 0;
     }
 }

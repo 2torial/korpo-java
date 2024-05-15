@@ -65,6 +65,6 @@ public class Rhombus extends Figure {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Rhombus rhombus = (Rhombus) o;
-        return Double.compare(diagonalA, rhombus.diagonalA) == 0 && Double.compare(diagonalB, rhombus.diagonalB) == 0;
+        return roundedComparator.compare(diagonalA, rhombus.diagonalA) == 0 && roundedComparator.compare(diagonalB, rhombus.diagonalB) == 0;
     }
 }

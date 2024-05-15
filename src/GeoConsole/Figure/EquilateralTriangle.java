@@ -56,6 +56,6 @@ public class EquilateralTriangle extends Triangle{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EquilateralTriangle that = (EquilateralTriangle) o;
-        return Double.compare(side, that.side) == 0;
+        return roundedComparator.compare(side, that.side) == 0;
     }
 }

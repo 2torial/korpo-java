@@ -52,6 +52,6 @@ public class Square extends Figure {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Square square = (Square) o;
-        return Double.compare(side, square.side) == 0;
+        return roundedComparator.compare(side, square.side) == 0;
     }
 }

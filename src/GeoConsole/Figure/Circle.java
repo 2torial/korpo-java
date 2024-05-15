@@ -46,6 +46,6 @@ public class Circle extends Figure {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Circle circle = (Circle) o;
-        return Double.compare(radius, circle.radius) == 0;
+        return roundedComparator.compare(radius, circle.radius) == 0;
     }
 }

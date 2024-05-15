@@ -20,6 +20,6 @@ public abstract class Triangle extends Figure {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Triangle triangle = (Triangle) o;
-        return Double.compare(A, triangle.A) == 0 && Double.compare(height, triangle.height) == 0;
+        return roundedComparator.compare(A, triangle.A) == 0 && roundedComparator.compare(height, triangle.height) == 0;
     }
 }

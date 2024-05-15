@@ -2,6 +2,7 @@ package GeoConsole.Figure;
 
 import GeoConsole.UserInput.Context.Pair;
 
+import java.util.Comparator;
 import java.util.Date;
 
 public abstract class Figure {
@@ -38,6 +39,9 @@ public abstract class Figure {
         if (n > 0)
             throw new IllegalStateException("Passed too little positive parameters");
     }
+
+    protected Comparator<Double> roundedComparator =
+        (a, b) -> Double.compare(round(10, a), round(10, b));
 
     protected double round(int n, double value) {
         double rounder = Math.pow(10, n);

@@ -48,6 +48,6 @@ public class Ellipse extends Figure {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ellipse ellipse = (Ellipse) o;
-        return Double.compare(axle1, ellipse.axle1) == 0 && Double.compare(axle2, ellipse.axle2) == 0;
+        return roundedComparator.compare(axle1, ellipse.axle1) == 0 && roundedComparator.compare(axle2, ellipse.axle2) == 0;
     }
 }

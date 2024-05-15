@@ -78,6 +78,6 @@ public class IsoscelesTriangle extends Triangle {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         IsoscelesTriangle that = (IsoscelesTriangle) o;
-        return Double.compare(side, that.side) == 0;
+        return roundedComparator.compare(side, that.side) == 0;
     }
 }
