@@ -41,6 +41,6 @@ public class Circle extends Figure {
 
     @Override
     public Figure doubleSelf() {
-        return new Circle(radius * 2, -1, -1);
+        return new Circle(radius*Math.sqrt(2), -1, -1);
     }
 }

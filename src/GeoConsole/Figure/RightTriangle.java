@@ -42,6 +42,6 @@ public class RightTriangle extends Triangle {
 
     @Override
     public Figure doubleSelf() {
-        return new RightTriangle(A * 2, B * 2, -1, -1);
+        return new RightTriangle(A*Math.sqrt(2), B*Math.sqrt(2), -1, -1);
     }
 }

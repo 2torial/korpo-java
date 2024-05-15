@@ -55,6 +55,6 @@ public class Rhombus extends Figure {
 
     @Override
     public Rhombus doubleSelf() {
-        return new Rhombus(-1, diagonalA * 2, diagonalB * 2, -1);
+        return new Rhombus(-1, diagonalA*Math.sqrt(2), diagonalB*Math.sqrt(2), -1);
     }
 }

@@ -48,6 +48,6 @@ public class Square extends Figure {
 
     @Override
     public Square doubleSelf() {
-        return new Square(side * 2, -1, -1);
+        return new Square(side*Math.sqrt(2), -1, -1);
     }
 }

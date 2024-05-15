@@ -49,6 +49,6 @@ public class Rectangle extends Figure {
 
     @Override
     public Rectangle doubleSelf() {
-        return new Rectangle(sideA * 2, sideB * 2, -1, -1);
+        return new Rectangle(sideA*Math.sqrt(2), sideB*Math.sqrt(2), -1, -1);
     }
 }

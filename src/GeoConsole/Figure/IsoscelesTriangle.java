@@ -60,6 +60,6 @@ public class IsoscelesTriangle extends Triangle {
 
     @Override
     public IsoscelesTriangle doubleSelf() {
-        return new IsoscelesTriangle(B * 2, A * 2, -1, -1);
+        return new IsoscelesTriangle(-1, A*Math.sqrt(2), -1, height*Math.sqrt(2));
     }
 }

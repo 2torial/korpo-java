@@ -39,6 +39,6 @@ public class EquilateralTriangle extends Triangle{
 
     @Override
     public EquilateralTriangle doubleSelf() {
-        return new EquilateralTriangle(A * 2, height * 2, -1);
+        return new EquilateralTriangle(A*Math.sqrt(2), height*Math.sqrt(2), -1);
     }
 }

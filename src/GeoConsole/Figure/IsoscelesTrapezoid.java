@@ -70,6 +70,6 @@ public class IsoscelesTrapezoid extends Figure{
     }
 
     @Override
-    public IsoscelesTrapezoid doubleSelf() { return new IsoscelesTrapezoid( a * 2, b * 2, side * 2, -1, -1 ); }
+    public IsoscelesTrapezoid doubleSelf() { return new IsoscelesTrapezoid( a*Math.sqrt(2), b*Math.sqrt(2), -1, height*Math.sqrt(2), -1 ); }
 
 }

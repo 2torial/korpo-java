@@ -15,6 +15,6 @@ public class AnyTriangle extends Triangle {
 
     @Override
     public Figure doubleSelf() {
-        return new AnyTriangle(A*2, B*2, C*2);
+        return new AnyTriangle(A*Math.sqrt(2), B*2*Math.sqrt(2), C*2*Math.sqrt(2));
     }
 }
