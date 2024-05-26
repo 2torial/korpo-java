@@ -1,1 +1,0 @@
-{"side":11.090536506409418,"diagonal":15.684387141358123,"name":"Square","area":123.0,"perimeter":44.36214602563767,"id":1,"dateOfCreation":"May 26, 2024, 4:55:05 PM"}
