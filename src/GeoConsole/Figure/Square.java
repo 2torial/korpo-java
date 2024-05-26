@@ -27,8 +27,11 @@ public class Square extends Figure {
             diagonal = Math.sqrt(area * 2.0);
             perimeter = 4.0 * side;
         }
+
         throwIfZero(area, perimeter, side, diagonal);
         throwIfNaN(area, perimeter, side, diagonal);
+
+        name = "Square";
     }
 
     @Override

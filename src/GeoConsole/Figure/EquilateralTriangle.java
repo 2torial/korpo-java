@@ -27,8 +27,11 @@ public class EquilateralTriangle extends Triangle{
         }
         A = side; B = side; C = side;
         perimeter = 3.0*side;
+
         throwIfZero(area, perimeter, A, B, C, height, side);
         throwIfNaN(area, perimeter, A, B, C, height, side);
+
+        name = "Equilateral Triangle";
     }
 
     @Override

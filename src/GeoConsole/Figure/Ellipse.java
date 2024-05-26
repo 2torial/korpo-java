@@ -18,8 +18,11 @@ public class Ellipse extends Figure {
         } else throw new RuntimeException("Unreachable state");
         area = (area > 0) ? area : Math.PI * axle1 * axle2;
         perimeter = Math.PI * (3 * (axle1 + axle2) /2 - Math.sqrt(axle1 * axle2));
+
         throwIfZero(axle1Value, axle2Value, area, perimeter);
         throwIfNaN(axle1Value, axle2Value, area, perimeter);
+
+        name = "Ellipse";
     }
 
     @Override

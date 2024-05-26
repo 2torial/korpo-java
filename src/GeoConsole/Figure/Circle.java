@@ -21,8 +21,11 @@ public class Circle extends Figure {
             radius = perimeter / (2.0 * Math.PI);
             area = Math.PI * radius * radius;
         }
+
         throwIfZero(area, perimeter, radius);
         throwIfNaN(area, perimeter, radius);
+
+        name = "Circle";
     }
 
     public Circle getCircumcircle() {

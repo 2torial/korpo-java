@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.Date;
 
 public abstract class Figure {
+    String name;
     double area, perimeter;
     int id;
 
@@ -40,7 +41,7 @@ public abstract class Figure {
             throw new IllegalStateException("Passed too little positive parameters");
     }
 
-    protected Comparator<Double> roundedComparator =
+    protected transient Comparator<Double> roundedComparator =
         (a, b) -> Double.compare(round(10, a), round(10, b));
 
     protected double round(int n, double value) {

@@ -5,6 +5,7 @@ import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.Context.Context;
 import GeoConsole.Figure.Figure;
 import GeoConsole.UserInput.Exceptions.*;
+import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -51,9 +52,11 @@ public class SaveCommand extends Command {
     protected void handle(Argument[] arguments) {
         String filename = arguments[0].rawValue;
 
+        Gson gson = new Gson();
+
         List<String> figureDescriptions = new LinkedList<>();
         for( Figure f : Context.getFigureList() ) {
-            figureDescriptions.add(f.getDescription(2));
+            figureDescriptions.add(gson.toJson(f));
         }
 
         Path filePath = Paths.get(filename);

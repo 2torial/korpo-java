@@ -31,8 +31,11 @@ public class Rhombus extends Figure {
         } else throw new RuntimeException("Unreachable state");
         area = (area > 0) ? area : diagonalA * diagonalB / 2;
         perimeter = 4.0 * sideValue;
+
         throwIfZero(area, perimeter, side, diagonalA, diagonalB);
         throwIfNaN(area, perimeter, side, diagonalA, diagonalB);
+
+        name = "Rhombus";
     }
 
     @Override

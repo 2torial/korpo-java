@@ -34,8 +34,11 @@ public class RightTriangle extends Triangle {
         height = B;
         area = area > 0 ? area : 0.5 * A * height;
         perimeter = A + B + C;
+
         throwIfZero(area, perimeter, A, B, C, height);
         throwIfNaN(area, perimeter, A, B, C, height);
+
+        name = "Right triangle";
     }
     @Override
     public Circle getCircumcircle(){

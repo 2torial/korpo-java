@@ -29,8 +29,11 @@ public class Rectangle extends Figure {
         }
         area = (area > 0) ? area : sideA * sideB;
         perimeter = (sideA + sideB) * 2.0;
+
         throwIfZero(area, perimeter, sideA, sideB, diagonal);
         throwIfNaN(area, perimeter, sideA, sideB, diagonal);
+
+        name = "Rectangle";
     }
     @Override
     public String getDescription(int roundTo) {

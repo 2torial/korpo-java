@@ -49,8 +49,11 @@ public class IsoscelesTrapezoid extends Figure{
         if( area <= 0.0 )
             area = (a + b) * height * 0.5;
         perimeter = a + b + side * 2.0;
+
         throwIfZero(area, perimeter, a, b, height, side);
         throwIfNaN(area, perimeter, a, b, height, side);
+
+        name = "Isosceles trapezoid";
     }
 
     @Override
