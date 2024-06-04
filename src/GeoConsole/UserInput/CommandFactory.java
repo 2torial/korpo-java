@@ -64,6 +64,7 @@ public final class CommandFactory {
         commandSuppliers.put("save", SaveCommand::new);
         commandSuppliers.put("remove", RemoveCommand::new);
         commandSuppliers.put("ellipse", EllipseCommand::new);
+        commandSuppliers.put("language", LanguageCommand::new);
 
         commandSuppliers.forEach((key, supplier) -> commandPool.put(key, supplier.get()));
     }
