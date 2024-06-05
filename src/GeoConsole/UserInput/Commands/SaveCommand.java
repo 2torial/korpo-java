@@ -4,6 +4,9 @@ import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.Context.Context;
 import GeoConsole.Figure.Figure;
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 import GeoConsole.UserInput.Exceptions.*;
 import com.google.gson.Gson;
 
@@ -16,6 +19,13 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class SaveCommand extends Command {
+    static {
+        Translator.save(Lang.PL, Identifier.COM_SAVE_DESCRIPTION,
+                "\tDeklaruje koło z podaną cechą (promień, pole, obwód)");
+        Translator.save(Lang.EN, Identifier.COM_SAVE_DESCRIPTION,
+                "\tSaves all figures to a file with specified name");
+    }
+
     @Override
     public String getName() {
         return "save";
@@ -23,7 +33,7 @@ public class SaveCommand extends Command {
 
     @Override
     public String getHelp() {
-        return "\tSaves all figures to a file with specified name";
+        return Translator.read(Identifier.COM_SAVE_DESCRIPTION);
     }
 
     @Override
