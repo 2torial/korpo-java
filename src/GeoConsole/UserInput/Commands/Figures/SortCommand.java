@@ -4,6 +4,9 @@ import GeoConsole.Figure.*;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.Context.Context;
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 import GeoConsole.UserInput.Exceptions.InvalidParameterException;
 
 import java.text.SimpleDateFormat;
@@ -13,6 +16,13 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SortCommand extends Command {
+    static {
+        Translator.save(Lang.PL, Identifier.COM_SORT_DESCRIPTION,
+                "\tSortuje wszystkie figury");
+        Translator.save(Lang.EN, Identifier.COM_SORT_DESCRIPTION,
+                "\tSorts all saved figures");
+    }
+
     @Override
     public String getName() {
         return "sort";
@@ -20,7 +30,7 @@ public class SortCommand extends Command {
 
     @Override
     public String getHelp() {
-        return "\tSorts all saved figures";
+        return Translator.read(Identifier.COM_SORT_DESCRIPTION);
     }
 
     @Override

@@ -2,9 +2,19 @@ package GeoConsole.UserInput.Commands.Figures;
 
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Context.Context;
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 import GeoConsole.UserInput.Exceptions.InvalidParameterException;
 
 public class RemoveCommand extends FigureCommand {
+    static {
+        Translator.save(Lang.PL, Identifier.COM_REMOVE_DESCRIPTION,
+                "\tUsuwa figurę z listy (wskazaną przez ID)");
+        Translator.save(Lang.EN, Identifier.COM_REMOVE_DESCRIPTION,
+                "\tRemove figure from the list (selected by id/name)");
+    }
+
     @Override
     public String getName() {
         return "square";
@@ -12,7 +22,7 @@ public class RemoveCommand extends FigureCommand {
 
     @Override
     public String getHelp() {
-        return "\tRemove figure from the list (selected by id/name)";
+        return Translator.read(Identifier.COM_REMOVE_DESCRIPTION);
     }
 
     @Override

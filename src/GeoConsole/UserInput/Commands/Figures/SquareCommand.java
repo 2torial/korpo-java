@@ -3,9 +3,19 @@ package GeoConsole.UserInput.Commands.Figures;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.Figure.Square;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 import GeoConsole.UserInput.Exceptions.*;
 
 public class SquareCommand extends FigureCommand {
+    static {
+        Translator.save(Lang.PL, Identifier.COM_SQUARE_DESCRIPTION,
+                "\tDeklaruje kwadrat z podaną cechą (bok, przekątna, pole)");
+        Translator.save(Lang.EN, Identifier.COM_SQUARE_DESCRIPTION,
+                "\tDeclares square by given parameter (side, diagonal or area)");
+    }
+
     @Override
     public String getName() {
         return "square";
@@ -13,7 +23,7 @@ public class SquareCommand extends FigureCommand {
 
     @Override
     public String getHelp() {
-        return "\tDeclares square by given parameter (side, diagonal or area)";
+        return Translator.read(Identifier.COM_SQUARE_DESCRIPTION);
     }
 
     @Override

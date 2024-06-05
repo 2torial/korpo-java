@@ -3,9 +3,19 @@ package GeoConsole.UserInput.Commands.Figures;
 import GeoConsole.Figure.Rhombus;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 import GeoConsole.UserInput.Exceptions.*;
 
 public class RhombusCommand extends FigureCommand {
+    static {
+        Translator.save(Lang.PL, Identifier.COM_RHOMBUS_DESCRIPTION,
+                "\tDeklaruje romb z dwoma danymi cechami (bok, przekątna, pole)\n\tPrzekątna może zostać podana dwukrotnie");
+        Translator.save(Lang.EN, Identifier.COM_RHOMBUS_DESCRIPTION,
+                "\tDeclares rhombus by 2 given parameters (side, diagonal or area)\nDiagonal can be passed twice");
+    }
+
     @Override
     public String getName() {
         return "rhombus";
@@ -13,7 +23,7 @@ public class RhombusCommand extends FigureCommand {
 
     @Override
     public String getHelp() {
-        return "\tDeclares rhombus by 2 given parameters (side, diagonal or area)\nDiagonal can be passed twice";
+        return Translator.read(Identifier.COM_RHOMBUS_DESCRIPTION);
     }
 
     @Override
