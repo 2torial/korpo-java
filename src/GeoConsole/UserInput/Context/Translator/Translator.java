@@ -33,6 +33,10 @@ public class Translator {
             throw new NullPointerException("Selected language cannot be null");
         language = lang;
     }
+
+    public static Lang getLanguage() {
+        return language;
+    }
 }
 
 
