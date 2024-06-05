@@ -1,8 +1,16 @@
 package GeoConsole.Figure;
 
 import GeoConsole.UserInput.Context.Pair;
+import GeoConsole.UserInput.Context.Translator.*;
 
 public class Ellipse extends Figure {
+    static {
+        Translator.save(Lang.PL, Identifier.FIG_ELLIPSE_DESCRIPTION,
+                "[ID:%d] Elipsa: osie: %f x %f, pole: %f, obwód: %f\n");
+        Translator.save(Lang.EN, Identifier.FIG_ELLIPSE_DESCRIPTION,
+                "[ID:%d] Ellipse: axle shafts: %f x %f, area: %f, perimeter: %f\n");
+    }
+
     public final double axle1, axle2;
 
     public Ellipse(double axle1Value, double axle2Value, double areaValue) {
@@ -15,19 +23,17 @@ public class Ellipse extends Figure {
             double axleTmp = area / Math.PI / axle1Value;
             axle1 = Math.max(axle1Value, axleTmp);
             axle2 = Math.min(axle1Value, axleTmp);
-        } else throw new RuntimeException("Unreachable state");
+        } else throw new RuntimeException(Translator.read(Identifier.ERR_UNREACHABLE));
         area = (area > 0) ? area : Math.PI * axle1 * axle2;
         perimeter = Math.PI * (3 * (axle1 + axle2) /2 - Math.sqrt(axle1 * axle2));
 
         throwIfZero(axle1Value, axle2Value, area, perimeter);
         throwIfNaN(axle1Value, axle2Value, area, perimeter);
-
-        name = "Ellipse";
     }
 
     @Override
     public String getDescription(int roundTo) {
-        return stringRounded("[ID:%d] Ellipse: axle shafts: %f x %f, area: %f, perimeter: %f\n",
+        return stringRounded(Translator.read(Identifier.FIG_ELLIPSE_DESCRIPTION),
             roundTo, id, axle1, axle2, area, perimeter);
     }
 

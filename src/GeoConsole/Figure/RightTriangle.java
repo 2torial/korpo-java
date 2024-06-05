@@ -1,15 +1,24 @@
 package GeoConsole.Figure;
 
-import GeoConsole.UserInput.Context.Pair;
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 
 public class RightTriangle extends Triangle {
+    static {
+        Translator.save(Lang.PL, Identifier.FIG_TRIANGLE_RIGHT_TYPE,
+                "protokątny");
+        Translator.save(Lang.EN, Identifier.FIG_TRIANGLE_RIGHT_TYPE,
+                "right-angled");
+    }
+
     {
-        type = "right-angled";
+        type = Translator.read(Identifier.FIG_TRIANGLE_RIGHT_TYPE);
     }
 
     public RightTriangle(double adjoiningAValue, double adjoiningBValue, double hypotenuseValue, double areaValue) {
         if (adjoiningAValue < 0 && adjoiningBValue < 0 && hypotenuseValue < 0 && areaValue < 0)
-            throw new IllegalArgumentException("An argument (side/height/area) has to be greater than 0");
+            throw new IllegalArgumentException(Translator.read(Identifier.ERR_TRIANGLE_ARGUMENT));
         if (adjoiningAValue > 0) {
             A = adjoiningAValue;
             if (adjoiningBValue > 0) {
@@ -37,8 +46,6 @@ public class RightTriangle extends Triangle {
 
         throwIfZero(area, perimeter, A, B, C, height);
         throwIfNaN(area, perimeter, A, B, C, height);
-
-        name = "Right triangle";
     }
     @Override
     public Circle getCircumcircle(){

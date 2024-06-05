@@ -1,13 +1,26 @@
 package GeoConsole.Figure;
 
 import GeoConsole.UserInput.Context.Pair;
+import GeoConsole.UserInput.Context.Translator.*;
 
 public class Rectangle extends Figure {
+    static {
+        Translator.save(Lang.PL, Identifier.FIG_RECTANGLE_DESCRIPTION,
+                "[ID:%d] Prostokąt: bok: %f x %f, przekątna: %f, pole: %f, obwód: %f\n");
+        Translator.save(Lang.EN, Identifier.FIG_RECTANGLE_DESCRIPTION,
+                "[ID:%d] Rectangle: side: %f x %f, diagonal: %f, area: %f, perimeter: %f\n");
+
+        Translator.save(Lang.PL, Identifier.ERR_RECTANGULAR_ARGUMENT,
+                "Argument (bok/przekątna/pole) musi być większy 0");
+        Translator.save(Lang.EN, Identifier.ERR_RECTANGULAR_ARGUMENT,
+                "An argument (side/diagonal/area) has to be greater than 0");
+    }
+
     double sideA, sideB, diagonal;
 
     public Rectangle(double sideAValue, double sideBValue, double diagonalValue, double areaValue) {
         if (sideAValue <= 0.0 && sideBValue <= 0.0 && diagonalValue < 0.0 && areaValue < 0.0)
-            throw new IllegalArgumentException("An argument (side/diagonal/area) has to be greater than 0");
+            throw new IllegalArgumentException(Translator.read(Identifier.ERR_RECTANGULAR_ARGUMENT));
         if (sideAValue > 0 && sideBValue > 0) {
             sideA = sideAValue;
             sideB = sideBValue;
@@ -32,12 +45,10 @@ public class Rectangle extends Figure {
 
         throwIfZero(area, perimeter, sideA, sideB, diagonal);
         throwIfNaN(area, perimeter, sideA, sideB, diagonal);
-
-        name = "Rectangle";
     }
     @Override
     public String getDescription(int roundTo) {
-        return stringRounded("[ID:%d] Rectangle: side: %f x %f, diagonal: %f, area: %f, perimeter: %f\n",
+        return stringRounded(Translator.read(Identifier.FIG_RECTANGLE_DESCRIPTION),
                 roundTo, id, sideA, sideB, diagonal, area, perimeter);
     }
 

@@ -1,12 +1,39 @@
 package GeoConsole.Figure;
 
 import GeoConsole.UserInput.Context.Pair;
+import GeoConsole.UserInput.Context.Translator.*;
 
 import java.util.Comparator;
 import java.util.Date;
 
 public abstract class Figure {
-    String name;
+    static {
+        Translator.save(Lang.PL, Identifier.ERR_UNREACHABLE,
+                "Niemożliwy stan");
+        Translator.save(Lang.EN, Identifier.ERR_UNREACHABLE,
+                "Unreachable state");
+
+        Translator.save(Lang.PL, Identifier.ERR_FIGURE_NOT_EXISTS,
+                "Dana figura nie istnieje");
+        Translator.save(Lang.EN, Identifier.ERR_FIGURE_NOT_EXISTS,
+                "Given figure does not exist");
+
+        Translator.save(Lang.PL, Identifier.ERR_N_GREATER,
+                "N musi być większe od 0");
+        Translator.save(Lang.EN, Identifier.ERR_N_GREATER,
+                "N must be greater than or equal to 0");
+
+        Translator.save(Lang.PL, Identifier.ERR_POSITIVE_TOO_MANY,
+                "Wprowadzono za dużo dodatnich parametrów");
+        Translator.save(Lang.EN, Identifier.ERR_POSITIVE_TOO_MANY,
+                "Passed too many positive parameters");
+
+        Translator.save(Lang.PL, Identifier.ERR_POSITIVE_TOO_LITTLE,
+                "Wprowadzono za mało dodatnich parametrów");
+        Translator.save(Lang.EN, Identifier.ERR_POSITIVE_TOO_LITTLE,
+                "Passed too little positive parameterów");
+    }
+
     double area, perimeter;
     int id;
 
@@ -19,26 +46,26 @@ public abstract class Figure {
     protected final void throwIfNaN(double ...attributes) {
         for (var attr : attributes)
             if (Double.isNaN(attr))
-                throw new IllegalStateException("Given figure does not exist");
+                throw new IllegalStateException(Translator.read(Identifier.ERR_FIGURE_NOT_EXISTS));
     }
 
     protected final void throwIfZero(double ...attributes) {
         for (var attr : attributes)
             if (attr == 0)
-                throw new IllegalStateException("Given figure does not exist");
+                throw new IllegalStateException(Translator.read(Identifier.ERR_FIGURE_NOT_EXISTS));
     }
 
     protected final void checkForPositives(int n, double ...parameters) {
         if (n < 0)
-            throw new IllegalArgumentException("N must be greater than or equal to 0");
+            throw new IllegalArgumentException(Translator.read(Identifier.ERR_N_GREATER));
         for (var param : parameters) {
             if (param > 0)
                 n--;
             if (n < 0)
-                throw new IllegalStateException("Passed too many positive parameters");
+                throw new IllegalStateException(Translator.read(Identifier.ERR_POSITIVE_TOO_MANY));
         }
         if (n > 0)
-            throw new IllegalStateException("Passed too little positive parameters");
+            throw new IllegalStateException(Translator.read(Identifier.ERR_POSITIVE_TOO_LITTLE));
     }
 
     protected transient Comparator<Double> roundedComparator =

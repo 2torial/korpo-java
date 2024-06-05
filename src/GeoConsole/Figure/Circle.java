@@ -1,11 +1,25 @@
 package GeoConsole.Figure;
 
+import GeoConsole.UserInput.Context.Translator.*;
+
 public class Circle extends Figure {
+    static {
+        Translator.save(Lang.PL, Identifier.ERR_CIRCLE_ARGUMENT,
+                "Argument (promień/pole/obwód) musi być większy 0");
+        Translator.save(Lang.EN, Identifier.ERR_CIRCLE_ARGUMENT,
+                "An argument (radius/area/perimeter) has to be greater than 0");
+
+        Translator.save(Lang.PL, Identifier.FIG_CIRCLE_DESCRIPTION,
+                "[ID:%d] Okrąg: promień: %f, pole: %f, obwód: %f\n");
+        Translator.save(Lang.EN, Identifier.FIG_CIRCLE_DESCRIPTION,
+                "[ID:%d] Circle: radius: %f, area: %f, perimeter: %f\n");
+    }
+
     double radius;
 
     public Circle(double radiusValue, double areaValue, double perimeterValue) {
         if( radiusValue <= 0.0 && areaValue <= 0.0 && perimeterValue <= 0.0 )
-            throw new IllegalArgumentException("An argument (radius/area/perimeter) has to be greater than 0");
+            throw new IllegalArgumentException(Translator.read(Identifier.ERR_CIRCLE_ARGUMENT));
         if( radiusValue > 0.0 ) {
             radius = radiusValue;
             area = Math.PI * radius * radius;
@@ -24,8 +38,6 @@ public class Circle extends Figure {
 
         throwIfZero(area, perimeter, radius);
         throwIfNaN(area, perimeter, radius);
-
-        name = "Circle";
     }
 
     public Circle getCircumcircle() {
@@ -34,7 +46,7 @@ public class Circle extends Figure {
 
     @Override
     public String getDescription(int roundTo) {
-        return stringRounded("[ID:%d] Circle: radius: %f, area: %f, perimeter: %f\n", roundTo, id, radius, area, perimeter);
+        return stringRounded(Translator.read(Identifier.FIG_CIRCLE_DESCRIPTION), roundTo, id, radius, area, perimeter);
     }
 
     @Override

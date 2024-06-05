@@ -1,8 +1,16 @@
 package GeoConsole.Figure;
 
 import GeoConsole.UserInput.Context.Pair;
+import GeoConsole.UserInput.Context.Translator.*;
 
 public class IsoscelesTrapezoid extends Figure{
+    static {
+        Translator.save(Lang.PL, Identifier.FIG_TRAPEZOID_ISOSCELES_DESCRIPTION,
+                "[ID:%d] Trapez równoramienny, a:%f, b:%f, bok: %f, pole: %f, obwód: %f\n");
+        Translator.save(Lang.EN, Identifier.FIG_TRAPEZOID_ISOSCELES_DESCRIPTION,
+                "[ID:%d] Isosceles Trapezoid, a:%f, b:%f, side: %f, area: %f, perimeter: %f\n");
+    }
+
     public double a, b, side, height;
 
     public IsoscelesTrapezoid(double aValue, double bValue, double sideValue, double heightValue, double areaValue)
@@ -52,8 +60,6 @@ public class IsoscelesTrapezoid extends Figure{
 
         throwIfZero(area, perimeter, a, b, height, side);
         throwIfNaN(area, perimeter, a, b, height, side);
-
-        name = "Isosceles trapezoid";
     }
 
     @Override
@@ -64,7 +70,7 @@ public class IsoscelesTrapezoid extends Figure{
 
     @Override
     public String getDescription(int roundTo) {
-        return stringRounded("[ID:%d] Isosceles Trapezoid, a:%f, b:%f, side: %f, area: %f, perimeter: %f\n",
+        return stringRounded(Translator.read(Identifier.FIG_TRAPEZOID_ISOSCELES_DESCRIPTION),
                 roundTo, id, a, b, side, area, perimeter);
     }
 

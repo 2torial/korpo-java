@@ -1,8 +1,21 @@
 package GeoConsole.Figure;
 
 import GeoConsole.UserInput.Context.Pair;
+import GeoConsole.UserInput.Context.Translator.*;
 
 public class Rhombus extends Figure {
+    static {
+        Translator.save(Lang.PL, Identifier.FIG_RHOMBUS_DESCRIPTION,
+                "[ID:%d] Romb: bok: %f, przekątne: %f x %f, pole: %f, obwód: %f\n");
+        Translator.save(Lang.EN, Identifier.FIG_RHOMBUS_DESCRIPTION,
+                "[ID:%d] Rhombus: side: %f, diagonals: %f x %f, area: %f, perimeter: %f\n");
+
+        Translator.save(Lang.PL, Identifier.ERR_RHOMBUS_CIRCUMSCRIBE,
+                "Nie można opisać okręgu na rombie, który nie jest kwadratem");
+        Translator.save(Lang.EN, Identifier.ERR_RHOMBUS_CIRCUMSCRIBE,
+                "Cannot circumscribe a circle on a rhombus which is not a square");
+    }
+
     public final double side, diagonalA, diagonalB;
 
     public Rhombus(double sideValue, double diagonalAValue, double diagonalBValue, double areaValue) {
@@ -22,7 +35,7 @@ public class Rhombus extends Figure {
                 area = areaValue;
                 diagonalB = area / diagonalA * 2;
                 side = Math.sqrt(diagonalA * diagonalA + diagonalB * diagonalB) / 2;
-            } else throw new RuntimeException("Unreachable state");
+            } else throw new RuntimeException(Translator.read(Identifier.ERR_UNREACHABLE));
         } else if (sideValue > 0 && areaValue > 0) {
             side = sideValue;
             area = areaValue;
@@ -34,20 +47,18 @@ public class Rhombus extends Figure {
 
         throwIfZero(area, perimeter, side, diagonalA, diagonalB);
         throwIfNaN(area, perimeter, side, diagonalA, diagonalB);
-
-        name = "Rhombus";
     }
 
     @Override
     public String getDescription(int roundTo) {
-        return stringRounded("[ID:%d] Rhombus: side: %f, diagonals: %f x %f, area: %f, perimeter: %f\n",
+        return stringRounded(Translator.read(Identifier.FIG_RHOMBUS_DESCRIPTION),
                 roundTo, id, side, diagonalA, diagonalB, area, perimeter);
     }
 
     @Override
     public Circle getCircumcircle(){
         if (diagonalA != diagonalB)
-            throw new IllegalArgumentException("To circumscribe circle on a rhombus, it must be a square");
+            throw new IllegalArgumentException(Translator.read(Identifier.ERR_RHOMBUS_CIRCUMSCRIBE));
         double biggerDiag = Math.max(diagonalA, diagonalB);
         return new Circle((1.0 /( 2.0 * area )) * side * side * biggerDiag, -1, -1);
     }
