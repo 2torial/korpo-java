@@ -4,9 +4,19 @@ import GeoConsole.Figure.*;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
 import GeoConsole.UserInput.Context.Context;
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 import GeoConsole.UserInput.Exceptions.InvalidParameterException;
 
 public class CircumcircleCommand extends FigureCommand {
+    static {
+        Translator.save(Lang.PL, Identifier.COM_CIRCUMCIRCLE_DESCRIPTION,
+                "\tDeklaruje koło opisane na figurze wskazanej w ID");
+        Translator.save(Lang.EN, Identifier.COM_CIRCUMCIRCLE_DESCRIPTION,
+                "\tDeclares circle described on figure specified by ID");
+    }
+
     @Override
     public String getName() {
         return "circumcircle";
@@ -14,7 +24,7 @@ public class CircumcircleCommand extends FigureCommand {
 
     @Override
     public String getHelp() {
-        return "\tDeclares circle described on figure specified by ID";
+        return Translator.read(Identifier.COM_CIRCUMCIRCLE_DESCRIPTION);
     }
 
     @Override

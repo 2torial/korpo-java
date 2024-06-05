@@ -3,9 +3,19 @@ package GeoConsole.UserInput.Commands.Figures;
 import GeoConsole.Figure.Ellipse;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 import GeoConsole.UserInput.Exceptions.InvalidParameterException;
 
 public class EllipseCommand extends FigureCommand {
+    static {
+        Translator.save(Lang.PL, Identifier.COM_ELLIPSE_DESCRIPTION,
+                "\tTworzy elipsę z dwóch podanych cech (pierwszej osi, drugiej osi lub pola)");
+        Translator.save(Lang.EN, Identifier.COM_ELLIPSE_DESCRIPTION,
+                "\tDeclares ellipse by 2 given parameters (axle shaft [max 2] or area)");
+    }
+
     @Override
     public String getName() {
         return "ellipse";
@@ -13,7 +23,7 @@ public class EllipseCommand extends FigureCommand {
 
     @Override
     public String getHelp() {
-        return "\tDeclares ellipse by 2 given parameters (axle shaft [max 2] or area)";
+        return Translator.read(Identifier.COM_ELLIPSE_DESCRIPTION);
     }
 
     @Override

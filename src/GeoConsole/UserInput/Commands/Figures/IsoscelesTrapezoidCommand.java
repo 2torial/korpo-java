@@ -4,9 +4,19 @@ import GeoConsole.Figure.IsoscelesTrapezoid;
 import GeoConsole.Figure.IsoscelesTriangle;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 import GeoConsole.UserInput.Exceptions.InvalidParameterException;
 
 public class IsoscelesTrapezoidCommand extends FigureCommand{
+    static {
+        Translator.save(Lang.PL, Identifier.COM_ISOSCELESTRAPEZOID_DESCRIPTION,
+                "\tDeklaruje trapez równoboczny z podaną cechą (bok, wysokość, pole)");
+        Translator.save(Lang.EN, Identifier.COM_ISOSCELESTRAPEZOID_DESCRIPTION,
+                "\tDeclares isosceles trapezoid by given parameter (side, height or area)");
+    }
+
     @Override
     public String getName() {
         return "isoscelestrapezoid";
@@ -14,7 +24,7 @@ public class IsoscelesTrapezoidCommand extends FigureCommand{
 
     @Override
     public String getHelp() {
-        return "\tDeclares isosceles trapezoid by given parameter (side, height or area)";
+        return Translator.read(Identifier.COM_ISOSCELESTRAPEZOID_DESCRIPTION);
     }
 
     @Override
