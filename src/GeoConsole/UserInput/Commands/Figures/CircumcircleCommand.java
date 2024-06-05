@@ -53,5 +53,6 @@ public class CircumcircleCommand extends FigureCommand {
 
         Figure fig = Context.findFigure(providedId);
         Circle circle = fig.getCircumcircle();
+        updateContext(circle);
     }
 }
