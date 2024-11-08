@@ -1,5 +1,8 @@
 package GeoConsole.UserInput;
 
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 import GeoConsole.UserInput.Context.Triple;
 import GeoConsole.UserInput.Exceptions.*;
 
@@ -7,6 +10,12 @@ import java.util.*;
 import java.util.List;
 
 public abstract class Command {
+    static {
+        Translator.save(Lang.PL, Identifier.ERR_EXPECTED_ARGUMENT,
+                "Oczekiwano argumentu, nie parameteru");
+        Translator.save(Lang.EN, Identifier.ERR_EXPECTED_ARGUMENT,
+                "Expected argument, not parameter");
+    }
     private boolean showHelp = false;
 
     protected final List<Argument> arguments = new LinkedList<>();
@@ -72,7 +81,7 @@ public abstract class Command {
                     throw new InvalidNumberOfArguments(n, argument);
                 }
                 if (subArgument.isParameter)
-                    throw new IllegalArgumentException("Expected argument, not parameter");
+                    throw new IllegalArgumentException(Translator.read(Identifier.ERR_EXPECTED_ARGUMENT));
                 subArgument.setRelativePosition(subArgumentRelativePosition);
                 subArguments[n] = subArgument;
             }
@@ -83,9 +92,9 @@ public abstract class Command {
             throw new InvalidNumberOfArguments(commandArguments.size(), this);
         var arguments = commandArguments.toArray(new Argument[0]);
         for (var triple : parameterHandlers) {
-            Argument parameter = triple.first;
-            Argument[] subArguments = triple.second;
-            int position = triple.third;
+            Argument parameter = triple.first();
+            Argument[] subArguments = triple.second();
+            int position = triple.third();
             parameter.throwIfInvalid();
             parameter.getHandler().accept(subArguments, position);
         }

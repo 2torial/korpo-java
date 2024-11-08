@@ -3,8 +3,18 @@ package GeoConsole.UserInput.Commands;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.CommandFactory;
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 
 public class HelpCommand extends Command {
+    static {
+        Translator.save(Lang.PL, Identifier.COM_HELP_DESCRIPTION,
+                "\tWyświetla dostępne komendy");
+        Translator.save(Lang.EN, Identifier.COM_HELP_DESCRIPTION,
+                "\tDisplays available commands");
+    }
+
     @Override
     public String getName() {
         return "help";
@@ -12,7 +22,7 @@ public class HelpCommand extends Command {
 
     @Override
     public String getHelp() {
-        return "Displays available commands";
+        return Translator.read(Identifier.COM_HELP_DESCRIPTION);
     }
 
     @Override

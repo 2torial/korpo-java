@@ -1,13 +1,24 @@
 package GeoConsole.Figure;
 
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
+
 public class RightTriangle extends Triangle {
+    static {
+        Translator.save(Lang.PL, Identifier.FIG_TRIANGLE_RIGHT_TYPE,
+                "protokątny");
+        Translator.save(Lang.EN, Identifier.FIG_TRIANGLE_RIGHT_TYPE,
+                "right-angled");
+    }
+
     {
-        type = "right-angled";
+        type = Translator.read(Identifier.FIG_TRIANGLE_RIGHT_TYPE);
     }
 
     public RightTriangle(double adjoiningAValue, double adjoiningBValue, double hypotenuseValue, double areaValue) {
         if (adjoiningAValue < 0 && adjoiningBValue < 0 && hypotenuseValue < 0 && areaValue < 0)
-            throw new IllegalArgumentException("An argument (side/height/area) has to be greater than 0");
+            throw new IllegalArgumentException(Translator.read(Identifier.ERR_TRIANGLE_ARGUMENT));
         if (adjoiningAValue > 0) {
             A = adjoiningAValue;
             if (adjoiningBValue > 0) {
@@ -32,6 +43,7 @@ public class RightTriangle extends Triangle {
         height = B;
         area = area > 0 ? area : 0.5 * A * height;
         perimeter = A + B + C;
+
         throwIfZero(area, perimeter, A, B, C, height);
         throwIfNaN(area, perimeter, A, B, C, height);
     }
@@ -42,6 +54,11 @@ public class RightTriangle extends Triangle {
 
     @Override
     public Figure doubleSelf() {
-        return new RightTriangle(A * 2, B * 2, -1, -1);
+        return new RightTriangle(A*Math.sqrt(2), B*Math.sqrt(2), -1, -1);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
     }
 }

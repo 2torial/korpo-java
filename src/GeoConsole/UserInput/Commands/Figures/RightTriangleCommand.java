@@ -3,9 +3,19 @@ package GeoConsole.UserInput.Commands.Figures;
 import GeoConsole.Figure.RightTriangle;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 import GeoConsole.UserInput.Exceptions.InvalidParameterException;
 
 public class RightTriangleCommand extends FigureCommand {
+    static {
+        Translator.save(Lang.PL, Identifier.COM_RIGHTTRIANGLE_DESCRIPTION,
+                "\tDeklaruje trójkąt prostokątny z danymi cechami (przyległe dwa boki, przeciwprostokątna, pole)");
+        Translator.save(Lang.EN, Identifier.COM_RIGHTTRIANGLE_DESCRIPTION,
+                "\tDeclares right triangle by given parameters (adjoining side [x2], hypotenuse side or area)");
+    }
+
     @Override
     public String getName() {
         return "righttriangle";
@@ -13,7 +23,7 @@ public class RightTriangleCommand extends FigureCommand {
 
     @Override
     public String getHelp() {
-        return "\tDeclares right triangle by given parameters (adjoining side [x2], hypotenuse side or area)";
+        return Translator.read(Identifier.COM_RIGHTTRIANGLE_DESCRIPTION);
     }
 
     @Override
@@ -49,6 +59,5 @@ public class RightTriangleCommand extends FigureCommand {
         handler.handleArguments(arguments);
         RightTriangle triangle = new RightTriangle(adjoiningSideA, adjoiningSideB, hypotenuseSide, area);
         updateContext(triangle);
-        triangle.print();
     }
 }

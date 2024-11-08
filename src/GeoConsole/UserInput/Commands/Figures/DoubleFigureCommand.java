@@ -4,9 +4,19 @@ import GeoConsole.Figure.Figure;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
 import GeoConsole.UserInput.Context.Context;
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 import GeoConsole.UserInput.Exceptions.InvalidParameterException;
 
 public class DoubleFigureCommand extends FigureCommand {
+    static {
+        Translator.save(Lang.PL, Identifier.COM_DOUBLEFIGURE_DESCRIPTION,
+                "\tTworzy figurę dwa razy większą od wskazanej w ID");
+        Translator.save(Lang.EN, Identifier.COM_DOUBLEFIGURE_DESCRIPTION,
+                "\tCreates figure double as large as one of given ID");
+    }
+
     @Override
     public String getName() {
         return "double";
@@ -14,8 +24,9 @@ public class DoubleFigureCommand extends FigureCommand {
 
     @Override
     public String getHelp() {
-        return "\tCreates figure double as large as one of given id";
+        return Translator.read(Identifier.COM_DOUBLEFIGURE_DESCRIPTION);
     }
+
 
     @Override
     public int getNumberOfArguments() {
@@ -41,10 +52,7 @@ public class DoubleFigureCommand extends FigureCommand {
     protected void handle(Argument[] arguments) {
         handler.handleArguments(arguments);
 
-        Figure fig = (providedName == null)
-            ? Context.findFigureWithId(providedId).doubleSelf()
-            : Context.findFigureWithName(providedName).doubleSelf();
-        updateContext(fig);
-        fig.print();
+        var figure = Context.findFigure(providedId).doubleSelf();
+        updateContext(figure);
     }
 }

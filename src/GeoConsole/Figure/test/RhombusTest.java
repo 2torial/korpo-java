@@ -43,9 +43,9 @@ class RhombusTest {
                     r2 = new Rhombus(-1, diagA, -1, area),
                     r3 = new Rhombus(-1, -1, diagB, area);
 
-            assertEquals(r1.getArea() * 4, r1.doubleSelf().getArea(), 0.005);
-            assertEquals(r2.getArea() * 4, r2.doubleSelf().getArea(), 0.005);
-            assertEquals(r3.getArea() * 4, r3.doubleSelf().getArea(), 0.005);
+            assertEquals(r1.getArea() * 2, r1.doubleSelf().getArea(), 0.005);
+            assertEquals(r2.getArea() * 2, r2.doubleSelf().getArea(), 0.005);
+            assertEquals(r3.getArea() * 2, r3.doubleSelf().getArea(), 0.005);
         }
     }
 }

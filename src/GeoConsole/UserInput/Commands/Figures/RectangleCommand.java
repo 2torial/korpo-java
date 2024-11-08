@@ -3,9 +3,19 @@ package GeoConsole.UserInput.Commands.Figures;
 import GeoConsole.Figure.Rectangle;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 import GeoConsole.UserInput.Exceptions.*;
 
 public class RectangleCommand extends FigureCommand {
+    static {
+        Translator.save(Lang.PL, Identifier.COM_RECTANGLE_DESCRIPTION,
+                "\tDeklaruje prostokąt z dwoma podanymi cechami (bok, przekątna, pole)\nBok może zostać podany dwa razy");
+        Translator.save(Lang.EN, Identifier.COM_RECTANGLE_DESCRIPTION,
+                "\tDeclares rectangle by 2 given parameters (side, diagonal or area)\nSide can be passed twice");
+    }
+
     @Override
     public String getName() {
         return "rectangle";
@@ -13,7 +23,7 @@ public class RectangleCommand extends FigureCommand {
 
     @Override
     public String getHelp() {
-        return "\tDeclares rectangle by 2 given parameters (side, diagonal or area)\nSide can be passed twice";
+        return Translator.read(Identifier.COM_RECTANGLE_DESCRIPTION);
     }
 
     @Override
@@ -50,6 +60,5 @@ public class RectangleCommand extends FigureCommand {
         handler.handleArguments(arguments);
         Rectangle rectangle = new Rectangle(sideA, sideB, diagonal, area);
         updateContext(rectangle);
-        rectangle.print();
     }
 }

@@ -1,13 +1,4 @@
 package GeoConsole.UserInput.Context;
 
-public class Triple<T, U, V> {
-    public final T first;
-    public final U second;
-    public final V third;
-
-    public Triple(T first, U second, V third) {
-        this.first = first;
-        this.second = second;
-        this.third = third;
-    }
+public record Triple<T, U, V>(T first, U second, V third) {
 }

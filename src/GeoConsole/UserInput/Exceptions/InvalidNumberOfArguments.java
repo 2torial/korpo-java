@@ -2,6 +2,9 @@ package GeoConsole.UserInput.Exceptions;
 
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 
 public class InvalidNumberOfArguments extends Exception {
     int passedArguments;
@@ -22,19 +25,18 @@ public class InvalidNumberOfArguments extends Exception {
     public String getMessage() {
         StringBuilder builder = new StringBuilder();
         if (parameter != null) builder
-            .append("Parameter ")
+            .append(Translator.getLanguage() == Lang.EN ? "Parameter " : "Parametr ")
             .append(parameter)
-            .append(" expects ")
+            .append(Translator.getLanguage() == Lang.EN ? " expects " : " oczekuje ")
             .append(parameter.getNumberOfSubArguments());
         else builder
-            .append("Command ")
+            .append(Translator.getLanguage() == Lang.EN ? "Command " : "Polecenie ")
             .append(command.getName())
-            .append(" expects ")
+            .append(Translator.getLanguage() == Lang.EN ? " expects " : " oczekuje ")
             .append(command.getNumberOfArguments());
         builder
-            .append(" arguments, ")
-            .append(passedArguments)
-            .append(" were given");
+            .append(Translator.getLanguage() == Lang.EN ? " arguments, recieved " : " argumentów, podano ")
+            .append(passedArguments);
         return builder.toString();
     }
 }

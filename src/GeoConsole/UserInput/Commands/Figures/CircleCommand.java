@@ -3,9 +3,19 @@ package GeoConsole.UserInput.Commands.Figures;
 import GeoConsole.Figure.Circle;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Context.ArgumentsHandler;
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 import GeoConsole.UserInput.Exceptions.InvalidParameterException;
 
 public class CircleCommand extends FigureCommand {
+    static {
+        Translator.save(Lang.PL, Identifier.COM_CIRCLE_DESCRIPTION,
+                "\tDeklaruje koło z podaną cechą (promień, pole, obwód)");
+        Translator.save(Lang.EN, Identifier.COM_CIRCLE_DESCRIPTION,
+                "\tDeclares circle by given parameter (radius, area, perimeter)");
+    }
+
     @Override
     public String getName() {
         return "circle";
@@ -13,7 +23,7 @@ public class CircleCommand extends FigureCommand {
 
     @Override
     public String getHelp() {
-        return "\tDeclares circle by given parameter (radius, area, perimeter)";
+        return Translator.read(Identifier.COM_CIRCLE_DESCRIPTION);
     }
 
     @Override
@@ -42,6 +52,5 @@ public class CircleCommand extends FigureCommand {
         handler.handleArguments(arguments);
         Circle circle = new Circle(radius, area, perimeter);
         updateContext(circle);
-        circle.print();
     }
 }

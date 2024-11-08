@@ -1,11 +1,62 @@
 package GeoConsole.UserInput;
 
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 import GeoConsole.UserInput.Exceptions.InvalidPositionException;
 
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class Argument {
+    static {
+        Translator.save(Lang.PL, Identifier.ERR_EMPTY_ARGUMENT_NAME,
+                "Nazwa argumentu nie może być pusta");
+        Translator.save(Lang.EN, Identifier.ERR_EMPTY_ARGUMENT_NAME,
+                "Argument name cannot be empty");
+
+        Translator.save(Lang.PL, Identifier.ERR_ENFORCED_POSITION_POSITIVE,
+                "Wymuszanie pozycji przyjmuje wyłącznie liczby dodatnie");
+        Translator.save(Lang.EN, Identifier.ERR_ENFORCED_POSITION_POSITIVE,
+                "Enforced position must be a positive number");
+
+        Translator.save(Lang.PL, Identifier.ERR_NON_PARAMETER_HANDLER,
+                "Handler jest wspierany wyłącznie przez parametry");
+        Translator.save(Lang.EN, Identifier.ERR_NON_PARAMETER_HANDLER,
+                "Only parameters support handler");
+
+        Translator.save(Lang.PL, Identifier.ERR_NON_PARAMETER_EXPECTED_ARGUMENT,
+                "Wyłącznie parametry wspierają funkcję oczekiwanych argumentów");
+        Translator.save(Lang.EN, Identifier.ERR_NON_PARAMETER_EXPECTED_ARGUMENT,
+                "Only parameters support expected arguments");
+
+        Translator.save(Lang.PL, Identifier.ERR_ROUNDTO_NOT_POSITIVE,
+                "Argument roundTo nie może być ujemny");
+        Translator.save(Lang.EN, Identifier.ERR_ROUNDTO_NOT_POSITIVE,
+                "Argument roundTo must be positive or 0");
+
+        Translator.save(Lang.PL, Identifier.ERR_NULL_HANDLER,
+                "Handler nie może być nullem");
+        Translator.save(Lang.EN, Identifier.ERR_NULL_HANDLER,
+                "Handler cannot be null");
+
+        Translator.save(Lang.PL, Identifier.ERR_EXPECTED_ARGUMENTS_NEGATIVE,
+                "Liczba oczekiwanych argumentów nie może być ujemna");
+        Translator.save(Lang.EN, Identifier.ERR_EXPECTED_ARGUMENTS_NEGATIVE,
+                "Number of expected arguments cannot be negative");
+
+        Translator.save(Lang.PL, Identifier.ERR_DUPLICATE_ARGUMENTS_NEGATIVE,
+                "Liczba dozwolonych duplikatów parametrów nie może być ujemna");
+        Translator.save(Lang.EN, Identifier.ERR_DUPLICATE_ARGUMENTS_NEGATIVE,
+                "Number of allowed duplicate parameters must be positive");
+
+        Translator.save(Lang.PL, Identifier.ERR_NON_PARAMETER_ARGUMENT_DUPLICATION,
+                "Wyłącznie parametry wspierają duplikację");
+        Translator.save(Lang.EN, Identifier.ERR_NON_PARAMETER_ARGUMENT_DUPLICATION,
+                "Only parameters support allowing duplication");
+
+    }
+
     private String name;
     public final String rawValue;
     public final int absolutePosition;
@@ -26,7 +77,7 @@ public class Argument {
 
     public Argument setName(String name) {
         if (name == null || name.isBlank())
-            throw new IllegalArgumentException("Argument name cannot be empty");
+            throw new IllegalArgumentException(Translator.read(Identifier.ERR_EMPTY_ARGUMENT_NAME));
         this.name = name.toLowerCase();
         return this;
     }
@@ -42,7 +93,7 @@ public class Argument {
 
     public Argument enforceRelativePosition(int position) {
         if (position < 0)
-            throw new IllegalArgumentException("Enforced position must be a positive number");
+            throw new IllegalArgumentException(Translator.read(Identifier.ERR_ENFORCED_POSITION_POSITIVE));
         enforcedPosition = position;
         return this;
     }
@@ -56,9 +107,9 @@ public class Argument {
 
     public Argument allowDuplicates(int number) {
         if (!isParameter)
-            throw new IllegalArgumentException("Only parameters support allowing duplication");
+            throw new IllegalArgumentException(Translator.read(Identifier.ERR_NON_PARAMETER_ARGUMENT_DUPLICATION));
         if (number <= 0)
-            throw new IllegalArgumentException("Number of allowed duplicate parameters must be positive");
+            throw new IllegalArgumentException(Translator.read(Identifier.ERR_DUPLICATE_ARGUMENTS_NEGATIVE));
         allowedDuplicates = number;
         return this;
     }
@@ -68,10 +119,10 @@ public class Argument {
 
     public void supplyHandler(int numberOfSubArguments, BiConsumer<Argument[], Integer> handler) {
         if (numberOfSubArguments < 0)
-            throw new IllegalArgumentException("Number of expected arguments cannot be negative");
+            throw new IllegalArgumentException(Translator.read(Identifier.ERR_EXPECTED_ARGUMENTS_NEGATIVE));
         expectedSubArguments = numberOfSubArguments;
         if (handler == null)
-            throw new IllegalArgumentException("Handler cannot be null");
+            throw new IllegalArgumentException(Translator.read(Identifier.ERR_NULL_HANDLER));
         this.handler = handler;
     }
     public void supplyHandler(Consumer<Integer> handler) {
@@ -80,7 +131,7 @@ public class Argument {
 
     public double getNumericValue(int roundTo) {
         if (roundTo < 0)
-            throw new IllegalArgumentException("Argument roundTo must be positive or 0");
+            throw new IllegalArgumentException(Translator.read(Identifier.ERR_ROUNDTO_NOT_POSITIVE));
         double value = Double.parseDouble(rawValue);
         if (roundTo == 0)
             return value;
@@ -96,13 +147,13 @@ public class Argument {
 
     public int getNumberOfSubArguments() {
         if (!isParameter)
-            throw new IllegalArgumentException("Only parameters support expected arguments");
+            throw new IllegalArgumentException(Translator.read(Identifier.ERR_NON_PARAMETER_EXPECTED_ARGUMENT));
         return expectedSubArguments;
     }
 
     public BiConsumer<Argument[], Integer> getHandler() {
         if (!isParameter)
-            throw new IllegalArgumentException("Only parameters support handler");
+            throw new IllegalArgumentException(Translator.read(Identifier.ERR_NON_PARAMETER_HANDLER));
         return handler;
     }
 

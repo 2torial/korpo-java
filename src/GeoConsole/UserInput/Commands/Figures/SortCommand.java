@@ -4,6 +4,9 @@ import GeoConsole.Figure.*;
 import GeoConsole.UserInput.Argument;
 import GeoConsole.UserInput.Command;
 import GeoConsole.UserInput.Context.Context;
+import GeoConsole.UserInput.Context.Translator.Identifier;
+import GeoConsole.UserInput.Context.Translator.Lang;
+import GeoConsole.UserInput.Context.Translator.Translator;
 import GeoConsole.UserInput.Exceptions.InvalidParameterException;
 
 import java.text.SimpleDateFormat;
@@ -13,6 +16,13 @@ import java.util.Comparator;
 import java.util.List;
 
 public class SortCommand extends Command {
+    static {
+        Translator.save(Lang.PL, Identifier.COM_SORT_DESCRIPTION,
+                "\tSortuje wszystkie figury");
+        Translator.save(Lang.EN, Identifier.COM_SORT_DESCRIPTION,
+                "\tSorts all saved figures");
+    }
+
     @Override
     public String getName() {
         return "sort";
@@ -20,7 +30,7 @@ public class SortCommand extends Command {
 
     @Override
     public String getHelp() {
-        return "\tSorts all saved figures";
+        return Translator.read(Identifier.COM_SORT_DESCRIPTION);
     }
 
     @Override
@@ -38,21 +48,27 @@ public class SortCommand extends Command {
     }
 
     private Order sortOrder = Order.ASC;
+    private int roundTo = 2;
     private Comparator<Figure> comparator = Comparator.comparing(Figure::getDateOfCreation);
 
     @Override
     public void supplyParameter(Argument argument) throws InvalidParameterException {
         switch (argument.rawValue) {
             case "a", "area" -> argument.setName("area/perimeter/date")
-                    .supplyHandler(pos -> comparator = Comparator.comparingDouble(Figure::getArea));
+                .supplyHandler(pos -> comparator = Comparator.comparingDouble(Figure::getArea));
             case "p", "peri", "perimeter" -> argument.setName("area/perimeter/date")
-                    .supplyHandler(pos -> comparator = Comparator.comparingDouble(Figure::getPerimeter));
+                .supplyHandler(pos -> comparator = Comparator.comparingDouble(Figure::getPerimeter));
             case "d", "date" -> argument.setName("area/perimeter/date")
-                    .supplyHandler(pos -> comparator = Comparator.comparing(Figure::getDateOfCreation));
+                .supplyHandler(pos -> comparator = Comparator.comparing(Figure::getDateOfCreation));
             case "asc", "ascending" -> argument.setName("ascending/descending")
-                    .supplyHandler(pos -> sortOrder = Order.ASC);
+                .supplyHandler(pos -> sortOrder = Order.ASC);
             case "desc", "descending" -> argument.setName("ascending/descending")
-                    .supplyHandler(pos -> sortOrder = Order.DESC);
+                .supplyHandler(pos -> sortOrder = Order.DESC);
+            case "r", "round" -> argument.setName("round").supplyHandler(1, (args, pos) -> {
+                roundTo = args[0].getIntegerValue();
+                if (roundTo < 0)
+                    throw new IllegalArgumentException("Rounding argument must be a positive number");
+            });
             default -> super.supplyParameter(argument);
         }
     }
@@ -70,8 +86,13 @@ public class SortCommand extends Command {
             System.out.println("No figures");
         else for (var f : figureList) {
             System.out.printf("%d. ", counter ++);
-            f.print();
+            f.print(roundTo);
             System.out.printf("Date of creation: %s\n\n", new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(f.getDateOfCreation()));
         }
+    }
+
+    private enum Order {
+        ASC,
+        DESC
     }
 }
